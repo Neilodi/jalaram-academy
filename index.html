@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jalaram Academy | Blue Gold v187</title>
+    <title>Jalaram Academy | Blue Zenith v189</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore-compat.js"></script>
 
     <style>
         :root {
-            --primary: #0091ea; /* CLASSPLUS BLUE */
-            --bg: #f5f7fa; 
-            --text: #2d3436;
+            --primary: #0091ea; --bg: #f0f2f5; --text: #111b21;
             --danger: #ef4444; --success: #22c55e; --warning: #f59e0b;
         }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; }
-        body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; }
+        body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
 
         /* HEADER */
-        .app-bar { background:var(--primary); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 10px rgba(0, 145, 234, 0.2); }
-        .brand { font-size:18px; font-weight:800; letter-spacing:-0.5px; }
+        .app-bar { background:var(--primary); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); position: sticky; top:0; z-index:100; }
+        .brand { font-size:18px; font-weight:800; display:flex; align-items:center; gap:8px; }
 
         /* SUB NAV */
         .sub-nav { background:white; white-space:nowrap; overflow-x:auto; border-bottom:1px solid #ddd; padding:0 10px; display:none; }
@@ -32,124 +32,268 @@
         .pane { display:none; } .pane.active { display:block; }
 
         /* CARDS & UI */
-        .card { background:white; padding:15px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.05); margin-bottom:10px; border: 1px solid rgba(0,0,0,0.03); }
+        .card { background:white; padding:15px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.1); margin-bottom:10px; border: 1px solid rgba(0,0,0,0.03); }
         .row { display:flex; justify-content:space-between; align-items:center; }
-        .label { font-size:11px; color:#636e72; font-weight:700; margin-bottom:5px; display:block; text-transform:uppercase; }
+        .label { font-size:11px; color:#54656f; font-weight:700; margin-bottom:5px; display:block; text-transform:uppercase; }
 
-        /* INPUTS */
-        input, select { width:100%; padding:12px; border:1px solid #dfe6e9; border-radius:8px; margin-bottom:10px; font-size:14px; background:white; outline:none; }
+        /* INPUTS & BUTTONS */
+        input, select { width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px; font-size:14px; background:white; outline:none; }
         input:focus { border-color:var(--primary); }
-
-        /* BUTTONS */
-        .btn { padding:12px; border:none; border-radius:10px; font-weight:700; cursor:pointer; width:100%; font-size:14px; margin-top:5px; transition: 0.2s; }
-        .btn-main { background:var(--primary); color:white; box-shadow: 0 4px 12px rgba(0, 145, 234, 0.3); }
-        .btn-main:active { transform: scale(0.98); }
+        .btn { padding:12px; border:none; border-radius:8px; font-weight:700; cursor:pointer; width:100%; font-size:14px; margin-top:5px; transition: 0.2s; }
+        .btn-main { background:var(--primary); color:white; }
         .btn-sec { background:#e2e8f0; color:#1e293b; }
         .btn-red { background:#fee2e2; color:var(--danger); }
-        .btn-sm { width:auto; padding:6px 12px; font-size:12px; }
+
+        /* PIE CHART ENGINE (Advanced) */
+        .pie-chart { width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--success) 0% 0%, #eee 0% 100%); display: flex; align-items: center; justify-content: center; position: relative; margin: 10px auto; }
+        .pie-chart::after { content: ""; position: absolute; width: 90px; height: 90px; background: white; border-radius: 50%; }
+        .pie-text { position: absolute; z-index: 1; font-weight: 800; font-size: 22px; }
 
         /* BOTTOM NAV */
-        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:10px; border-top:1px solid #eee; box-shadow: 0 -2px 10px rgba(0,0,0,0.03); }
-        .nav-item { text-align:center; font-size:10px; color:#a4b0be; font-weight:600; width:20%; cursor:pointer; transition: 0.3s; }
+        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:10px; border-top:1px solid #ddd; }
+        .nav-item { text-align:center; font-size:10px; color:#54656f; font-weight:600; width:25%; cursor:pointer; display:flex; flex-direction:column; align-items:center; }
         .nav-item.active { color:var(--primary); }
+        .nav-item .material-icons { font-size: 20px; margin-bottom: 2px; }
 
-        /* MODALS */
-        .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(2px); }
-        .modal { background:white; width:90%; max-width:400px; padding:20px; border-radius:16px; max-height:90vh; overflow-y:auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-        
-        #sim-exit { position: fixed; bottom: 85px; right: 20px; background: var(--danger); color: white; padding: 10px 20px; border-radius: 30px; font-weight: 700; z-index: 9999; display: none; cursor: pointer; }
+        /* MODALS & OVERLAYS */
+        .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter: blur(3px); }
+        .modal { background:white; width:90%; max-width:400px; padding:20px; border-radius:15px; max-height:90vh; overflow-y:auto; }
+        #party-canvas { position: fixed; top:0; left:0; pointer-events:none; z-index:9999; }
     </style>
 </head>
 <body>
 
-    <div id="sim-exit" onclick="exitSim()">EXIT GOD MODE ✕</div>
+    <canvas id="party-canvas"></canvas>
 
-    <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg); z-index:3000; display:flex; align-items:center; justify-content:center;">
+    <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#f0f2f5; z-index:3000; display:flex; align-items:center; justify-content:center;">
         <div class="card" style="width:320px; text-align:center; padding:30px;">
             <div style="font-size:50px;">🎓</div>
-            <h2 style="font-weight:800;">Jalaram Academy</h2>
-            <p style="color:#666; margin-bottom:20px; font-size:13px;">Step to Success</p>
+            <h2 style="font-weight:800; color:var(--primary);">Jalaram Academy</h2>
+            <p style="color:#666; margin-bottom:20px; font-size:12px;">Step to Success | Zenith Cloud</p>
             
             <div id="l-form">
-                <select id="l-role" class="input"><option>Admin</option><option>Teacher</option><option>Student</option></select>
-                <input id="l-id" placeholder="Login ID">
+                <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
+                <input id="l-id" placeholder="Access ID">
                 <input type="password" id="l-pass" placeholder="PIN">
-                <button class="btn btn-main" onclick="login()">Login</button>
+                <button class="btn btn-main" onclick="login()">SECURE LOGIN</button>
             </div>
         </div>
     </div>
 
     <div id="app" style="display:none;">
         <div class="app-bar">
-            <div class="brand">Jalaram Zenith</div>
+            <div class="brand"><span>🎓</span> Jalaram Zenith</div>
             <div id="u-chip" style="font-size:10px; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:20px; font-weight:700;">User</div>
         </div>
+        
         <div class="sub-nav" id="sub-nav"></div>
+
         <div class="main">
             <div id="pane-admin" class="pane">
                 <div id="tab-users" class="active">
-                    <input placeholder="🔍 Search Database..." onkeyup="renderUsers(this.value)">
+                    <div class="card">
+                        <h3>Identity Hub</h3>
+                        <div style="display:flex; gap:8px; margin-top:10px;">
+                            <button class="btn btn-main" style="flex:1; font-size:11px;" onclick="openAddModal('Student')">+ STUDENT</button>
+                            <button class="btn btn-main" style="flex:1; font-size:11px; background:#6c5ce7;" onclick="openAddModal('Teacher')">+ TEACHER</button>
+                        </div>
+                    </div>
+                    <input placeholder="🔍 Search Profiles..." onkeyup="renderUsers(this.value)">
                     <div id="list-s"></div><div id="list-t"></div>
                 </div>
             </div>
-            <div id="pane-home" class="pane active"><div class="card"><h3>Welcome Back!</h3><p>Connecting to Cloud...</p></div></div>
+
+            <div id="pane-batches" class="pane">
+                <div class="card">
+                    <h3>Quantum Scheduler</h3>
+                    <select id="sch-batch"></select>
+                    <div style="display:flex; gap:10px;">
+                        <input type="time" id="sch-time">
+                        <input type="number" id="sch-dur" placeholder="Mins" value="60">
+                    </div>
+                    <input type="text" id="sch-sub" placeholder="Subject Name" oninput="formatSubs(this)">
+                    <button class="btn btn-main" onclick="saveQuantum()">SECURE CLOUD SLOT</button>
+                </div>
+                <div id="master-sch-list"></div>
+            </div>
+
+            <div id="pane-home" class="pane">
+                <div class="card" style="background:linear-gradient(135deg, #0091ea, #00c6ff); color:white; border:none;">
+                    <h3>Academic Zenith</h3>
+                    <div class="row" style="margin-top:15px; text-align:center;">
+                        <div style="flex:1;"><b>MARKS</b><br><span id="my-m" style="font-size:24px;">0</span></div>
+                        <div style="flex:1;"><b>RANK</b><br><span id="my-r" style="font-size:24px;">#--</span></div>
+                    </div>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <span class="label">Attendance Integrity</span>
+                    <div class="pie-chart" id="att-pie"><div class="pie-text" id="att-val">0%</div></div>
+                </div>
+                <div id="student-classes"></div>
+            </div>
+            
+            <div id="pane-profile" class="pane">
+                <div class="card">
+                    <h3>Menu & Simulation</h3>
+                    <button class="btn btn-sec" onclick="startSim('Teacher')">Simulate Teacher</button>
+                    <button class="btn btn-sec" onclick="startSim('Student')" style="margin-bottom:20px;">Simulate Student</button>
+                    <button class="btn btn-red" onclick="location.reload()">Logout</button>
+                </div>
+            </div>
         </div>
+
         <div class="bot-nav" id="bot-nav"></div>
+    </div>
+
+    <div id="add-modal" class="modal-ol" onclick="this.style.display='none'">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h3 id="modal-title">Registry</h3>
+            <input id="m-name" placeholder="Full Name">
+            <input id="m-id" placeholder="Mobile / ID">
+            <input id="m-pass" placeholder="Security PIN">
+            <div id="m-stu-box">
+                <select id="m-batch"></select>
+            </div>
+            <button class="btn btn-main" onclick="commitUser()">COMMIT TO CLOUD</button>
+        </div>
     </div>
 
     <script>
         // --- 1. FIREBASE CONFIG ---
         const firebaseConfig = {
-            // !!! PASTE YOUR KEYS FROM FIREBASE HERE !!!
+            apiKey: "PASTE_HERE",
+            authDomain: "PASTE_HERE",
+            projectId: "PASTE_HERE",
+            storageBucket: "PASTE_HERE",
+            messagingSenderId: "PASTE_HERE",
+            appId: "PASTE_HERE"
         };
-
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // --- 2. THE CORE LOGIC ---
-        let user = null, realUser = null;
-        let state = { students: [], teachers: [] };
+        let currentUser = null, realUser = null;
+        let state = { users:[], batches:[], schedules:[] };
 
-        // Auto-Refresher (Pull from Cloud every 3 seconds)
+        // --- 2. CLOUD SYNC & LISTENERS ---
         function initListeners() {
-            db.collection('users').onSnapshot(snap => {
-                state.students = []; state.teachers = [];
-                snap.forEach(doc => {
-                    let u = doc.data();
-                    if(u.role === 'Student') state.students.push(u);
-                    else if(u.role === 'Teacher') state.teachers.push(u);
-                });
-                if(user) renderUsers('');
+            db.collection('users').onSnapshot(snap => { 
+                state.users = snap.docs.map(d => ({docId:d.id, ...d.data()})); 
+                refreshUI(); 
+            });
+            db.collection('batches').doc('master').onSnapshot(doc => { 
+                state.batches = doc.exists ? doc.data().list : ['Class 10 A']; 
+                refreshUI(); 
+            });
+            db.collection('schedules').onSnapshot(snap => { 
+                state.schedules = snap.docs.map(d => d.data()); 
+                refreshUI(); 
             });
         }
-        initListeners();
 
+        function refreshUI() {
+            if(!currentUser) return;
+            if(currentUser.role === 'Admin') renderAdmin();
+            if(currentUser.role === 'Teacher') renderTeacher();
+            if(currentUser.role === 'Student') renderStudent();
+        }
+
+        // --- 3. AUTH & NAVIGATION ---
         function login() {
-            const id = document.getElementById('l-id').value;
-            const ps = document.getElementById('l-pass').value;
-            if(id === 'admin' && ps === '1234') {
-                user = {name:'Admin', role:'Admin'};
-                document.getElementById('auth').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-                setupNav();
-            } else {
-                alert("Only 'admin' / '1234' works for now. Paste keys to unlock others!");
-            }
+            const id = document.getElementById('l-id').value, ps = document.getElementById('l-pass').value;
+            if(id === 'admin' && ps === '1234') { currentUser = {n:'Admin', role:'Admin'}; finalize(); return; }
+            const f = state.users.find(u => (u.id === id || u.m === id) && u.p === ps);
+            if(f) { currentUser = f; currentUser.role = document.getElementById('l-role').value; finalize(); }
+            else alert("Invalid Access");
+        }
+
+        function finalize() {
+            document.getElementById('auth').style.display='none';
+            document.getElementById('app').style.display='block';
+            document.getElementById('u-chip').innerText = currentUser.n;
+            setupNav(); refreshUI();
         }
 
         function setupNav() {
             const nav = document.getElementById('bot-nav');
-            nav.innerHTML = '<div class="nav-item active" onclick="openPane(\'pane-home\')">Home</div><div class="nav-item" onclick="openPane(\'pane-admin\')">Admin</div>';
+            const items = currentUser.role === 'Admin' ? 
+                [{i:'pane-admin',l:'Admin',ic:'admin_panel_settings'}, {i:'pane-batches',l:'Schedules',ic:'event'}, {i:'pane-profile',l:'Menu',ic:'menu'}] :
+                [{i:'pane-home',l:'Zenith',ic:'auto_awesome'}, {i:'pane-batches',l:'Classes',ic:'school'}, {i:'pane-profile',l:'Menu',ic:'menu'}];
+            nav.innerHTML = items.map(x => `<div class="nav-item" onclick="openPane('${x.i}', this)"><span class="material-icons">${x.ic}</span>${x.l}</div>`).join('');
+            openPane(items[0].i, nav.firstChild);
         }
 
-        function openPane(id) {
-            document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+        function openPane(id, el) {
+            document.querySelectorAll('.pane, .nav-item').forEach(x => x.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            if(el) el.classList.add('active');
         }
 
-        function renderUsers(q) {
-            document.getElementById('list-s').innerHTML = state.students.map(u => `<div class="card"><b>${u.name}</b></div>`).join('');
+        // --- 4. ADMIN & CLOUD WRITE ---
+        function renderAdmin() {
+            document.getElementById('list-s').innerHTML = state.users.filter(x=>x.role==='Student').map(u => `<div class="card row"><b>${u.n}</b><small>${u.batch}</small></div>`).join('');
+            document.getElementById('list-t').innerHTML = state.users.filter(x=>x.role==='Teacher').map(u => `<div class="card row"><b>${u.n}</b><small>Teacher</small></div>`).join('');
         }
+
+        function openAddModal(role) {
+            document.getElementById('add-modal').style.display='flex';
+            document.getElementById('modal-title').innerText = "Register " + role;
+            document.getElementById('m-stu-box').style.display = role==='Student' ? 'block' : 'none';
+            document.getElementById('m-batch').innerHTML = state.batches.map(b=>`<option>${b}</option>`).join('');
+            document.getElementById('add-modal').dataset.role = role;
+        }
+
+        function commitUser() {
+            const role = document.getElementById('add-modal').dataset.role;
+            const u = { n:document.getElementById('m-name').value, id:document.getElementById('m-id').value, p:document.getElementById('m-pass').value, role:role };
+            if(role === 'Student') { u.batch = document.getElementById('m-batch').value; u.att=0; u.marks=0; u.rank=10; }
+            db.collection('users').add(u);
+            document.getElementById('add-modal').style.display='none';
+        }
+
+        // --- 5. QUANTUM BUFFER & SCHEDULER ---
+        function saveQuantum() {
+            const bt = document.getElementById('sch-batch').value, t = document.getElementById('sch-time').value, sub = document.getElementById('sch-sub').value;
+            const dur = parseInt(document.getElementById('sch-dur').value);
+            const start = parseInt(t.split(':')[0])*60 + parseInt(t.split(':')[1]), end = start + dur;
+
+            const clash = state.schedules.find(s => {
+                if(s.batch !== bt) return false;
+                const eStart = parseInt(s.time.split(':')[0])*60 + parseInt(s.time.split(':')[1]), eEnd = eStart + s.dur;
+                return (start < eEnd + 10) && (end + 10 > eStart);
+            });
+
+            if(clash) alert(`⚠️ CLASH! ${clash.sub} scheduled at ${clash.time} by ${clash.teacher}. 10m Buffer Required.`);
+            else { db.collection('schedules').add({ batch:bt, time:t, dur:dur, sub:sub, teacher:currentUser.n }); }
+        }
+
+        function renderTeacher() {
+            document.getElementById('sch-batch').innerHTML = state.batches.map(b=>`<option>${b}</option>`).join('');
+            document.getElementById('master-sch-list').innerHTML = state.schedules.map(s => `<div class="card"><b>${s.sub}</b><br><small>${s.time} | ${s.batch}</small></div>`).join('');
+        }
+
+        // --- 6. STUDENT & PIE CHART ---
+        function renderStudent() {
+            const att = currentUser.att || 85;
+            document.getElementById('att-val').innerText = att + "%";
+            document.getElementById('att-pie').style.background = `conic-gradient(var(--success) 0% ${att}%, #eee ${att}% 100%)`;
+            document.getElementById('my-m').innerText = currentUser.marks || 0;
+            document.getElementById('my-r').innerText = "#" + (currentUser.rank || '--');
+            if(currentUser.rank <= 3) triggerConfetti();
+            document.getElementById('student-classes').innerHTML = state.schedules.filter(x=>x.batch===currentUser.batch).map(c => `<div class="card"><b>${c.sub}</b><br><small>Teacher: ${c.teacher} | ${c.time}</small></div>`).join('');
+        }
+
+        function triggerConfetti() {
+            const c = document.getElementById('party-canvas'); const ctx = c.getContext('2d');
+            c.width = window.innerWidth; c.height = window.innerHeight;
+            let p = Array.from({length:50}, () => ({x:Math.random()*c.width, y:Math.random()*c.height, c:`hsl(${Math.random()*360},70%,50%)`, v:Math.random()*2+1}));
+            function frame() { ctx.clearRect(0,0,c.width,c.height); p.forEach(x => { x.y+=x.v; if(x.y>c.height) x.y=-10; ctx.fillStyle=x.c; ctx.fillRect(x.x,x.y,4,4); }); requestAnimationFrame(frame); }
+            frame();
+        }
+
+        function formatSubs(el) { if(el.value.endsWith(',')) { let p = el.value.split(',').map(x=>x.trim().charAt(0).toUpperCase()+x.trim().slice(1)); el.value = p.join(', ') + ' '; } }
+        function startSim(r) { realUser = JSON.parse(JSON.stringify(currentUser)); currentUser.role = r; currentUser.n = "Sim " + r; finalize(); }
+        
+        initListeners();
     </script>
 </body>
 </html>
