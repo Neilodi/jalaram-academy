@@ -3,103 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jalaram Academy | v191 Life Edition</title>
+    <title>Jalaram Academy | v228 Universal Search</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
     <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore-compat.js"></script>
 
     <style>
         :root {
-            --primary: #0091ea; --bg: #f0f2f5; --text: #111b21;
-            --danger: #ef4444; --success: #22c55e; --warning: #f59e0b;
+            --primary: #0091ea; --bg: #f8fafc; --text: #1e293b;
+            --danger: #ef4444; --success: #22c55e; --ai-color: #7c3aed;
+            --sidebar-w: 280px;
         }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; }
-        body { background:#f0f2f5; color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+        body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
 
-        /* HEADER */
-        .app-bar { background:var(--primary); color:white; padding:15px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.1); position: sticky; top:0; z-index:100; }
-        .brand { font-size:18px; font-weight:800; }
-        
-        /* SUB NAVIGATION (User Friendly Tabs) */
-        .sub-nav { background:white; white-space:nowrap; overflow-x:auto; border-bottom:1px solid #ddd; padding:0 10px; display:none; }
-        .sub-tab { display:inline-block; padding:12px 15px; font-size:13px; font-weight:600; color:#54656f; border-bottom:3px solid transparent; cursor:pointer; }
+        /* HEADER & NOTIFS */
+        .app-bar { background:var(--primary); color:white; padding:12px 20px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 12px rgba(0,0,0,0.1); z-index:100; }
+        .brand { font-size:20px; font-weight:800; display:flex; align-items:center; gap:10px; }
+        .notif-icon { position:relative; cursor:pointer; margin-right:15px; }
+        .notif-badge { position:absolute; top:-5px; right:-5px; background:var(--danger); color:white; font-size:10px; font-weight:bold; height:16px; width:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid var(--primary); display:none; }
+        .notif-dropdown { position:absolute; top:60px; right:10px; width:300px; background:white; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:2000; display:none; overflow:hidden; border:1px solid #eee; }
+        .notif-item { padding:15px; border-bottom:1px solid #f1f5f9; font-size:13px; display:flex; align-items:start; gap:10px; cursor:pointer; background:#f0f9ff; }
+
+        /* LAYOUT */
+        .app-shell { display:flex; flex:1; overflow:hidden; }
+        .sidebar { width:var(--sidebar-w); background:white; border-right:1px solid #e2e8f0; display:flex; flex-direction:column; transition:0.3s; }
+        .main-content { flex:1; overflow-y:auto; padding:20px; padding-bottom:120px; }
+
+        /* NAV */
+        .nav-group { display:none; } .nav-group.active { display:block; }
+        .nav-link { padding:18px 25px; cursor:pointer; font-weight:600; font-size:15px; color:#475569; display:flex; align-items:center; gap:15px; border-left:5px solid transparent; }
+        .nav-link:hover { background:#f0f9ff; }
+        .nav-link.active { background:#e3f2fd; color:var(--primary); border-left-color:var(--primary); }
+
+        /* SUB-NAV */
+        .sub-nav { background:white; white-space:nowrap; overflow-x:auto; border-bottom:1px solid #ddd; padding:0 10px; display:none; height:55px; }
+        .sub-tab { display:inline-block; padding:16px 20px; font-size:14px; font-weight:600; color:#64748b; border-bottom:4px solid transparent; cursor:pointer; }
         .sub-tab.active { color:var(--primary); border-color:var(--primary); }
 
-        /* CONTENT */
-        .main { flex:1; overflow-y:auto; padding:15px; padding-bottom:80px; }
-        .pane { display:none; } .pane.active { display:block; }
-
         /* CARDS */
-        .card { background:white; padding:15px; border-radius:12px; box-shadow:0 1px 3px rgba(0,0,0,0.1); margin-bottom:10px; border: 1px solid rgba(0,0,0,0.03); }
+        .u-card { background:white; padding:20px; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:16px; border:1px solid #e2e8f0; }
         .row { display:flex; justify-content:space-between; align-items:center; }
-        .label { font-size:11px; color:#54656f; font-weight:700; margin-bottom:5px; display:block; text-transform:uppercase; }
 
-        /* INPUTS & BUTTONS */
-        input, select { width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin-bottom:10px; font-size:14px; background:white; outline:none; }
-        input:focus { border-color:var(--primary); }
-        .btn { padding:12px; border:none; border-radius:8px; font-weight:700; cursor:pointer; width:100%; font-size:14px; margin-top:5px; transition: 0.2s; }
-        .btn-main { background:var(--primary); color:white; }
-        .btn-sec { background:#e2e8f0; color:#1e293b; }
-        .btn-red { background:#fee2e2; color:var(--danger); }
+        /* BATCH TABLE (4 COLUMNS) */
+        .batch-header { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:12px; background:#f1f5f9; border-radius:8px; font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:5px; }
+        .batch-row { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:15px 12px; border-bottom:1px solid #eee; font-size:13px; align-items:center; cursor:pointer; }
+        .batch-row:hover { background:#f8fafc; }
+        .dev-count-badge { background:#e0e7ff; color:#4338ca; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px; }
 
-        /* PIE CHART */
-        .pie-chart { width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--success) 0% 0%, #eee 0% 100%); display: flex; align-items: center; justify-content: center; position: relative; margin: 10px auto; }
-        .pie-chart::after { content: ""; position: absolute; width: 90px; height: 90px; background: white; border-radius: 50%; }
-        .pie-text { position: absolute; z-index: 1; font-weight: 800; font-size: 22px; }
+        /* CHAT GRID */
+        .grid-box { display:grid; grid-template-columns: repeat(2, 1fr); gap:15px; }
+        .folder { background:white; padding:25px; border-radius:16px; border:2px solid #e2e8f0; text-align:center; cursor:pointer; position:relative; }
+        .folder:active { background:#e3f2fd; border-color:var(--primary); }
+        .folder-badge { position:absolute; top:10px; right:10px; background:var(--success); color:white; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px; display:none; }
 
-        /* BOTTOM NAVIGATION */
-        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:10px; border-top:1px solid #ddd; }
-        .nav-item { text-align:center; font-size:10px; color:#54656f; font-weight:600; width:25%; cursor:pointer; display:flex; flex-direction:column; align-items:center; }
+        /* AI CHAT */
+        .ai-bubble { background:var(--ai-color); color:white; padding:12px; border-radius:12px 12px 12px 0; margin-bottom:10px; max-width:85%; align-self:flex-start; box-shadow:0 4px 10px rgba(124, 58, 237, 0.2); }
+        .user-bubble { background:white; border:1px solid #ddd; padding:12px; border-radius:12px 12px 0 12px; margin-bottom:10px; max-width:80%; align-self:flex-end; }
+
+        /* LIVE & STORE */
+        .live-card { background:linear-gradient(135deg, #ef4444, #b91c1c); color:white; padding:20px; border-radius:16px; margin-bottom:16px; display:none; animation:pulse 2s infinite; cursor:pointer; }
+        @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(239,68,68,0.4);} 70%{box-shadow:0 0 0 10px rgba(239,68,68,0);} 100%{box-shadow:0 0 0 0 rgba(239,68,68,0);} }
+        .store-item { display:flex; gap:15px; align-items:center; padding:15px; border-bottom:1px solid #f1f5f9; cursor:pointer; }
+        .store-icon { width:50px; height:50px; border-radius:12px; background:#e0f7fa; color:#006064; display:flex; align-items:center; justify-content:center; }
+
+        /* INPUTS */
+        .sub-check-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:5px; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #eee; }
+        input:not([type="checkbox"]), select { width:100%; padding:15px; border:2px solid #cbd5e1; border-radius:12px; margin-bottom:10px; outline:none; font-size:14px; background:#fff; }
+        .btn { padding:12px 20px; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:13px; transition:0.2s; }
+        .btn-main { background:var(--primary); color:white; width:100%; }
+        .btn-sec { background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; }
+        .btn-red { background:#fee2e2; color:#7f1d1d; }
+        .btn-green { background:#dcfce7; color:#14532d; }
+        .btn-ai { background:var(--ai-color); color:white; }
+        .btn-sm { padding:8px 14px; font-size:12px; width:auto; }
+        .teacher-only, .admin-only { display:none; }
+
+        /* OVERLAYS */
+        .media-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:4000; display:none; flex-direction:column; }
+        .media-controls { padding:15px; color:white; display:flex; justify-content:space-between; align-items:center; background:#1e293b; }
+        .media-content { flex:1; display:flex; align-items:center; justify-content:center; color:white; background:#0f172a; }
+        .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter:blur(4px); }
+        .modal { background:white; width:90%; max-width:400px; border-radius:20px; padding:25px; max-height:90vh; overflow-y:auto; }
+
+        /* MOBILE NAV */
+        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:none; justify-content:space-around; padding:12px; border-top:1px solid #ddd; z-index:900; padding-bottom:20px; }
+        .nav-item { text-align:center; font-size:11px; color:#64748b; font-weight:600; flex:1; display:flex; flex-direction:column; align-items:center; position:relative; }
         .nav-item.active { color:var(--primary); }
-        .nav-item .material-icons { font-size: 22px; margin-bottom: 2px; }
-
-        /* MODAL */
-        .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; display:none; justify-content:center; align-items:center; }
-        .modal { background:white; width:90%; max-width:400px; padding:20px; border-radius:15px; }
-        #party-canvas { position: fixed; top:0; left:0; pointer-events:none; z-index:9999; }
+        .nav-item i { font-size:26px; margin-bottom:4px; }
+        .nav-badge { position:absolute; top:-2px; right:20px; background:var(--danger); width:10px; height:10px; border-radius:50%; display:none; border:2px solid white; }
+        @media (max-width: 768px) { .sidebar { display:none; } .bot-nav { display:flex; } }
     </style>
 </head>
 <body>
 
-    <canvas id="party-canvas"></canvas>
-
-    <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#f0f2f5; z-index:3000; display:flex; align-items:center; justify-content:center;">
-        <div class="card" style="width:320px; text-align:center; padding:30px;">
-            <div style="font-size:50px;">🎓</div>
-            <h2 style="font-weight:800; color:var(--primary);">Jalaram Academy</h2>
-            <p style="color:#666; margin-bottom:20px; font-size:12px;">Step to Success</p>
+    <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; align-items:center; justify-content:center;">
+        <div class="u-card" style="width:360px; text-align:center; border:none; box-shadow:none;">
+            <div style="font-size:80px; margin-bottom:10px;">🎓</div>
+            <h2 style="font-weight:800; color:var(--primary); font-size:24px;">Jalaram Academy</h2>
+            <p style="color:#64748b; font-size:15px; margin-bottom:30px;">v228 Universal Search</p>
             <div id="l-form">
                 <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
-                <input id="l-id" placeholder="Login ID (Try 1111 or 9999)">
-                <input type="password" id="l-pass" placeholder="PIN (Try 1234)">
-                <button class="btn btn-main" onclick="login()">Login</button>
+                <input id="l-id" placeholder="ID (admin / STU-1234)">
+                <input type="password" id="l-pass" placeholder="PIN (1234)">
+                <button class="btn btn-main" onclick="login()">SECURE LOGIN</button>
+                <p style="margin-top:20px; font-size:14px; color:var(--primary); font-weight:600; cursor:pointer;" onclick="toggleReg(true)">Create New Account</p>
+            </div>
+            <div id="r-form" style="display:none; text-align:left;">
+                <h3>New Registration</h3>
+                <select id="r-role" onchange="toggleRegFields()"><option>Student</option><option>Teacher</option></select>
+                <label style="font-size:11px;font-weight:700;">FULL NAME</label><input id="r-name">
+                <div id="r-stu-fields">
+                    <label style="font-size:11px;font-weight:700;">STUDENT MOBILE</label><input id="r-sm">
+                    <label style="font-size:11px;font-weight:700;">PARENT MOBILE</label><input id="r-pm">
+                    <label style="font-size:11px;font-weight:700;">BATCH</label><select id="r-batch"><option>Class 10 A</option><option>Class 12</option></select>
+                </div>
+                <div id="r-tch-fields" style="display:none;"><label style="font-size:11px;font-weight:700;">SUBJECTS</label><input id="r-subs" oninput="formatSub(this)"></div>
+                <label style="font-size:11px;font-weight:700;">CREATE PIN</label><input id="r-pass">
+                <button class="btn btn-main" onclick="register()">REGISTER NOW</button>
+                <button class="btn btn-sec" style="width:100%; margin-top:10px;" onclick="toggleReg(false)">Back</button>
             </div>
         </div>
     </div>
 
-    <div id="app" style="display:none;">
+    <div id="app" style="display:none; height:100%; flex-direction:column;">
         <div class="app-bar">
-            <div class="brand">Jalaram Zenith</div>
-            <div id="u-chip" style="font-size:10px; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:20px; font-weight:700;">User</div>
+            <div class="brand"><i class="material-icons" style="margin-right:10px;">school</i> Jalaram Zenith</div>
+            <div style="display:flex; align-items:center;">
+                <div class="notif-icon" onclick="toggleNotif()"><i class="material-icons">notifications</i><div class="notif-badge" id="head-badge">0</div></div>
+                <div class="user-chip" id="u-chip">Guest</div>
+            </div>
         </div>
-        
-        <div class="sub-nav" id="sub-nav"></div>
 
-        <div class="main">
-            <div id="pane-admin" class="pane">
-                <div class="card">
-                    <h3>Identity Hub</h3>
-                    <div style="display:flex; gap:8px; margin-top:10px;">
-                        <button class="btn btn-main" style="flex:1;" onclick="openAddModal('Student')">+ STUDENT</button>
-                        <button class="btn btn-main" style="flex:1; background:#6c5ce7;" onclick="openAddModal('Teacher')">+ TEACHER</button>
+        <div class="notif-dropdown" id="notif-drop"><div style="padding:15px;background:#f1f5f9;font-weight:700;">Notifications</div><div id="notif-list"></div></div>
+
+        <div class="sub-nav" id="sub-nav-admin">
+            <div class="sub-tab active" onclick="admTab('tab-users', this)">Users</div>
+            <div class="sub-tab" onclick="admTab('tab-appr', this)">Approvals</div>
+            <div class="sub-tab" onclick="admTab('tab-spy', this)">Spy Monitor</div>
+        </div>
+
+        <div class="app-shell">
+            <aside class="sidebar">
+                <div id="nav-admin" class="nav-group">
+                    <div class="nav-link active" onclick="nav('pane-admin', 'admin')"><i class="material-icons">admin_panel_settings</i> Identity</div>
+                    <div class="nav-link" onclick="nav('pane-batches', null)"><i class="material-icons">class</i> Batches</div>
+                    <div class="nav-link" onclick="nav('pane-store', null)"><i class="material-icons">store</i> Store</div>
+                    <div class="nav-link" onclick="nav('pane-profile', null)"><i class="material-icons">menu</i> Menu</div>
+                </div>
+                <div id="nav-other" class="nav-group">
+                    <div class="nav-link active" onclick="nav('pane-home', null)"><i class="material-icons">home</i> Home</div>
+                    <div class="nav-link" onclick="nav('pane-buddy', null)" style="color:var(--ai-color);"><i class="material-icons">psychology</i> Study Buddy</div>
+                    <div class="nav-link" onclick="nav('pane-chat', null)"><i class="material-icons">chat</i> Chat</div>
+                    <div class="nav-link" onclick="nav('pane-store', null)"><i class="material-icons">store</i> Store</div>
+                    <div class="nav-link" onclick="nav('pane-profile', null)"><i class="material-icons">menu</i> Menu</div>
+                </div>
+                <div style="margin-top:auto; padding:20px;"><button class="btn btn-red" style="width:100%;" onclick="location.reload()">LOGOUT</button></div>
+            </aside>
+
+            <main class="main-content">
+                
+                <div id="pane-admin" class="pane">
+                    <div id="tab-users">
+                        <div class="u-card row"><h3>Active Database</h3><button class="btn btn-sm btn-sec" onclick="openEditModal(null, 'Active')">+ Add Manual User</button></div>
+                        <input placeholder="🔍 Search Name, ID, or Mobile..." onkeyup="renderUsers(this.value)">
+                        <div id="user-list"></div>
+                    </div>
+                    <div id="tab-appr" style="display:none;"><div class="u-card"><h3>Pending Requests</h3></div><div id="pending-list"></div></div>
+                    <div id="tab-spy" style="display:none;"><div class="u-card" style="background:#fff3cd;"><h3>🕵️ Spy Monitor</h3></div><div class="grid-box" id="spy-grid"></div></div>
+                </div>
+
+                <div id="pane-batches" class="pane">
+                    <div id="view-batch-list"><div class="u-card row"><h3>Batches</h3><button class="btn btn-sm btn-sec admin-only" onclick="createNewBatch()">+ Batch</button></div><div class="grid-box" id="batch-grid"></div></div>
+                    <div id="view-batch-detail" style="display:none;">
+                        <div class="u-card row"><button class="btn btn-sm btn-sec" onclick="closeBatch()">← Back</button><b id="bd-title">Batch</b><button class="btn btn-sm btn-red admin-only" onclick="deleteBatch()">Delete</button></div>
+                        
+                        <div class="teacher-only u-card" style="background:#fef2f2; border:1px solid #fee2e2;">
+                            <div class="row"><div><b style="color:#dc2626;">Live Class</b></div><button class="btn btn-sm btn-red" onclick="sendAlert('Live Class Started!', 'videocam')">GO LIVE 🔴</button></div>
+                            <hr style="border:0; border-top:1px solid #fee2e2; margin:10px 0;">
+                            <b>Schedule Test</b>
+                            <div class="row" style="margin-top:5px; gap:5px;"><input placeholder="Test Topic" id="test-topic" style="margin:0;"><button class="btn btn-sm btn-main" onclick="sendAlert('Test: '+document.getElementById('test-topic').value, 'assignment')">Notify</button></div>
+                        </div>
+
+                        <div class="u-card"><div class="batch-header"><div>Name</div><div>Rank/Att</div><div>Devices</div><div>Last Login</div></div><div id="bd-list"></div></div>
                     </div>
                 </div>
-                <input placeholder="🔍 Search Users..." onkeyup="renderUsers(this.value)">
-                <div id="list-s"></div>
-                <div id="list-t"></div>
-            </div>
+
+                <div id="pane-chat" class="pane"><div class="u-card"><h3>Discussions</h3></div><div class="grid-box" id="chat-grid"></div></div>
+                <div id="view-chat-room" style="display:none; height:100%; flex-direction:column;"><div class="u-card row"><button class="btn btn-sm btn-sec" onclick="closeChat()">← Back</button><b id="room-title">Subject</b></div><div style="flex:1; background:#f1f5f9; border-radius:12px; margin-bottom:15px;"></div><div class="u-card" id="chat-input-area"><div class="row"><input placeholder="Type..." style="margin:0;"><button class="btn btn-main" style="width:auto;"><i class="material-icons">send</i></button></div></div></div>
+
+                <div id="pane-store" class="pane"><div class="u-card"><h3>Store & Demos</h3></div><div class="u-card admin-only" style="border:2px dashed #0091ea; background:#f0f9ff;"><h4 style="color:#0091ea;">Upload</h4><button class="btn btn-sm btn-main" onclick="alert('Uploaded!')">Upload</button></div><div class="u-card" id="store-list"></div></div>
+                <div id="pane-buddy" class="pane"><div class="u-card" style="background:linear-gradient(135deg, #7c3aed, #4f46e5); color:white;"><h3>AI Buddy</h3></div><div id="ai-chat-box" style="height:350px; overflow-y:auto; padding:10px; display:flex; flex-direction:column;"><div class="ai-bubble">Hello! 🤖</div></div><div class="u-card"><div class="row"><input id="ai-input" placeholder="Ask AI..." style="margin:0;"><button class="btn btn-ai" style="width:auto; margin-left:10px;" onclick="sendAiMsg()"><i class="material-icons">send</i></button></div></div></div>
+                <div id="pane-home" class="pane"><div class="u-card"><h3>My Zenith</h3></div></div>
+                <div id="pane-profile" class="pane"><div class="u-card"><h3>Menu</h3></div></div>
+
+            </main>
+        </div>
+        <div class="bot-nav" id="bot-nav"></div>
+    </div>
+
+    <div id="media-overlay" class="media-overlay"><div class="media-controls"><span id="media-title">Media</span><button class="btn btn-sm btn-red" onclick="closeMedia()">CLOSE</button></div><div class="media-content" id="media-content-box"></div></div>
+    
+    <div id="inspect-modal" class="modal-ol" onclick="this.style.display='none'"><div class="modal" onclick="event.stopPropagation()"><div style="text-align:center;margin-bottom:20px;"><h3 id="ins-name">User</h3><small id="ins-role">Role</small></div><div class="u-card"><h4>Device History</h4><div class="store-item" style="border-bottom:1px solid #eee;"><span>Last Login</span><span id="ins-login" style="margin-left:auto;">Today</span></div><div class="store-item" style="border-bottom:1px solid #eee;"><span>Device</span><span id="ins-dev" style="margin-left:auto;">Android 13</span></div><div class="store-item"><span>Count</span><span id="ins-cnt" style="margin-left:auto;">2</span></div></div><button class="btn btn-sec" style="width:100%;" onclick="triggerEdit()">EDIT USER</button></div></div>
+
+    <div id="modal-ol" class="modal-ol" onclick="this.style.display='none'">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h3 id="m-title">Manage User</h3>
+            <input type="hidden" id="m-old-id"><input type="hidden" id="m-type">
+            <select id="m-role" onchange="toggleModalFields()"><option>Student</option><option>Teacher</option></select>
+            <input id="m-id" readonly style="background:#eef2f6;"><input id="m-name" placeholder="Name">
+            <div id="m-stu-fields"><label style="font-size:11px;font-weight:700;">STUDENT MOBILE</label><input id="m-sm"><label style="font-size:11px;font-weight:700;">PARENT MOBILE</label><input id="m-pm"><select id="m-batch"><option>Class 10 A</option><option>Class 12</option></select><div style="margin-top:10px;"><label style="font-size:11px; font-weight:700;">SUBJECT ACCESS</label><div class="sub-check-grid" id="m-sub-checks"></div></div></div>
+            <di            </div>
 
             <div id="pane-batches" class="pane">
                 <div class="card">
@@ -251,3 +367,4 @@
     </script>
 </body>
 </html>
+
