@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Loading...</title>
+    <title>Jalaram Academy</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -22,6 +22,7 @@
         .brand { font-size:20px; font-weight:800; display:flex; align-items:center; gap:10px; }
         .notif-icon { position:relative; cursor:pointer; margin-right:15px; }
         .notif-badge { position:absolute; top:-5px; right:-5px; background:var(--danger); color:white; font-size:10px; font-weight:bold; height:16px; width:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid var(--primary); display:none; }
+        
         .notif-dropdown { position:absolute; top:60px; right:10px; width:300px; background:white; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:2000; display:none; overflow:hidden; border:1px solid #eee; }
         .notif-item { padding:15px; border-bottom:1px solid #f1f5f9; font-size:13px; display:flex; align-items:start; gap:10px; cursor:pointer; background:#f0f9ff; }
 
@@ -41,36 +42,30 @@
         .sub-tab { display:inline-block; padding:16px 20px; font-size:14px; font-weight:600; color:#64748b; border-bottom:4px solid transparent; cursor:pointer; }
         .sub-tab.active { color:var(--primary); border-color:var(--primary); }
 
-        /* CARDS */
+        /* UI ELEMENTS */
         .pane { display:none; } .pane.active { display:block; animation:fadeIn 0.3s; }
         @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
         .u-card { background:white; padding:20px; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:16px; border:1px solid #e2e8f0; }
         .row { display:flex; justify-content:space-between; align-items:center; }
 
-        /* BATCH TABLE */
         .batch-header { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:12px; background:#f1f5f9; border-radius:8px; font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:5px; }
         .batch-row { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:15px 12px; border-bottom:1px solid #eee; font-size:13px; align-items:center; cursor:pointer; }
-        .batch-row:hover { background:#f8fafc; }
         .dev-count-badge { background:#e0e7ff; color:#4338ca; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px; }
 
-        /* GRID & CHAT */
         .grid-box { display:grid; grid-template-columns: repeat(2, 1fr); gap:15px; }
         .folder { background:white; padding:25px; border-radius:16px; border:2px solid #e2e8f0; text-align:center; cursor:pointer; position:relative; }
         .folder:active { background:#e3f2fd; border-color:var(--primary); }
         .folder-badge { position:absolute; top:10px; right:10px; background:var(--success); color:white; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px; display:none; }
 
-        /* COURSE INFO */
         .info-bubble { background:var(--info); color:white; padding:15px; border-radius:12px; margin-bottom:10px; font-size:14px; line-height:1.5; box-shadow:0 4px 10px rgba(124, 58, 237, 0.2); }
         .user-query { background:white; border:1px solid #ddd; padding:10px 15px; border-radius:20px; margin-bottom:10px; font-size:13px; font-weight:600; color:#555; display:inline-block; }
         .chip-container { display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; margin-bottom:10px; }
         .course-chip { background:white; border:1px solid #e2e8f0; padding:8px 16px; border-radius:30px; font-size:12px; font-weight:600; color:#475569; white-space:nowrap; cursor:pointer; transition:0.2s; }
         .course-chip:active { background:#f3e8ff; color:var(--info); border-color:var(--info); }
 
-        /* STORE */
         .store-item { display:flex; gap:15px; align-items:center; padding:15px; border-bottom:1px solid #f1f5f9; cursor:pointer; }
         .store-icon { width:50px; height:50px; border-radius:12px; background:#e0f7fa; color:#006064; display:flex; align-items:center; justify-content:center; }
 
-        /* ACCESS & INPUTS */
         .teacher-only, .admin-only { display:none; }
         .sub-check-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:5px; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #eee; }
         .sub-check-item { display:flex; align-items:center; gap:5px; font-size:12px; }
@@ -83,14 +78,12 @@
         .btn-info { background:var(--info); color:white; }
         .btn-sm { padding:8px 14px; font-size:12px; width:auto; }
 
-        /* MODALS & OVERLAYS */
         .media-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:4000; display:none; flex-direction:column; }
         .media-controls { padding:15px; color:white; display:flex; justify-content:space-between; align-items:center; background:#1e293b; }
         .media-content { flex:1; display:flex; align-items:center; justify-content:center; color:white; background:#0f172a; }
         .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter:blur(4px); }
         .modal { background:white; width:90%; max-width:400px; border-radius:20px; padding:25px; max-height:90vh; overflow-y:auto; }
 
-        /* MOBILE NAV */
         .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:none; justify-content:space-around; padding:12px; border-top:1px solid #ddd; z-index:900; padding-bottom:20px; }
         .nav-item { text-align:center; font-size:11px; color:#64748b; font-weight:600; flex:1; display:flex; flex-direction:column; align-items:center; position:relative; cursor:pointer; }
         .nav-item.active { color:var(--primary); }
@@ -101,37 +94,62 @@
 </head>
 <body>
 
-    <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; align-items:center; justify-content:center;">
-        <div class="u-card" style="width:360px; text-align:center; border:none; box-shadow:none;">
+    <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; align-items:center; justify-content:center; flex-direction:column; overflow-y:auto;">
+        
+        <div id="l-card" class="u-card" style="width:360px; text-align:center; border:none; box-shadow:none;">
             <div style="font-size:80px; margin-bottom:10px;">🎓</div>
-            <h2 id="login-brand-text" style="font-weight:800; color:var(--primary); font-size:24px;">App Name</h2>
+            <h2 style="font-weight:800; color:var(--primary); font-size:24px;">Jalaram Academy</h2>
+            <p style="color:#64748b; margin-bottom:20px;">Welcome Back</p>
+            
             <div id="l-form">
                 <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
                 <input id="l-id" placeholder="ID (e.g. STU-00001)">
                 <input type="password" id="l-pass" placeholder="PIN (1234)">
                 <button class="btn btn-main" onclick="login()">SECURE LOGIN</button>
-                <p style="margin-top:20px; font-size:14px; color:var(--primary); font-weight:600; cursor:pointer;" onclick="toggleReg(true)">Create New Account</p>
-            </div>
-            <div id="r-form" style="display:none; text-align:left;">
-                <h3>New Registration</h3>
-                <select id="r-role" onchange="toggleRegFields()"><option>Student</option><option>Teacher</option></select>
-                <label style="font-size:11px;font-weight:700;">FULL NAME</label><input id="r-name">
-                <div id="r-stu-fields">
-                    <label style="font-size:11px;font-weight:700;">STUDENT MOBILE</label><input id="r-sm">
-                    <label style="font-size:11px;font-weight:700;">PARENT MOBILE</label><input id="r-pm">
-                    <label style="font-size:11px;font-weight:700;">BATCH</label><select id="r-batch"></select>
+                
+                <div style="margin-top:20px; border-top:1px solid #eee; padding-top:20px;">
+                    <p style="font-size:14px; color:var(--primary); font-weight:600; cursor:pointer; margin-bottom:15px;" onclick="toggleReg(true)">Create New Account</p>
+                    <button class="btn btn-sec" style="width:100%; border:1px solid #ddd;" onclick="showPublicCourses()">View Available Courses</button>
                 </div>
-                <div id="r-tch-fields" style="display:none;"><label style="font-size:11px;font-weight:700;">SUBJECTS</label><input id="r-subs" oninput="formatSub(this)"></div>
-                <label style="font-size:11px;font-weight:700;">CREATE PIN</label><input id="r-pass">
-                <button class="btn btn-main" onclick="register()">REGISTER NOW</button>
-                <button class="btn btn-sec" style="width:100%; margin-top:10px;" onclick="toggleReg(false)">Back</button>
             </div>
         </div>
+
+        <div id="r-card" class="u-card" style="width:360px; text-align:left; border:none; box-shadow:none; display:none;">
+            <h3 style="color:var(--primary);">New Registration</h3>
+            <select id="r-role" onchange="toggleRegFields()"><option>Student</option><option>Teacher</option></select>
+            <label style="font-size:11px;font-weight:700;">FULL NAME</label><input id="r-name">
+            
+            <div id="r-stu-fields">
+                <label style="font-size:11px;font-weight:700;">STUDENT MOBILE</label><input id="r-sm">
+                <label style="font-size:11px;font-weight:700;">PARENT MOBILE</label><input id="r-pm">
+                <label style="font-size:11px;font-weight:700;">BATCH</label><select id="r-batch"></select>
+            </div>
+            
+            <div id="r-tch-fields" style="display:none;">
+                <label style="font-size:11px;font-weight:700;">SUBJECTS</label><input id="r-subs" oninput="formatSub(this)">
+            </div>
+            
+            <label style="font-size:11px;font-weight:700;">CREATE PIN</label><input id="r-pass">
+            
+            <button class="btn btn-main" onclick="register()">REGISTER NOW</button>
+            <button class="btn btn-sec" style="width:100%; margin-top:10px;" onclick="toggleReg(false)">Back to Login</button>
+        </div>
+
+        <div id="public-courses" class="u-card" style="width:360px; display:none; max-height:80vh; overflow-y:auto;">
+            <h3>Available Courses</h3>
+            <p style="font-size:12px; color:#666; margin-bottom:15px;">Login to access full content.</p>
+            <div class="store-item"><div><b>Maths (Class 10)</b><br><small>Algebra, Geometry, Stats</small></div></div>
+            <div class="store-item"><div><b>Science (Class 10)</b><br><small>Physics, Chem, Bio</small></div></div>
+            <div class="store-item"><div><b>English</b><br><small>Grammar & Literature</small></div></div>
+            <div class="store-item"><div><b>History & Civics</b><br><small>Indian History</small></div></div>
+            <button class="btn btn-sec" style="width:100%; margin-top:15px;" onclick="closePublicCourses()">Close</button>
+        </div>
+
     </div>
 
     <div id="app" style="display:none; height:100%; flex-direction:column;">
         <div class="app-bar">
-            <div class="brand"><i class="material-icons" style="margin-right:10px;">school</i> <span id="nav-brand-text">App Name</span></div>
+            <div class="brand"><i class="material-icons" style="margin-right:10px;">school</i> Jalaram Academy</div>
             <div style="display:flex; align-items:center;">
                 <div class="notif-icon" onclick="toggleNotif()"><i class="material-icons">notifications</i><div class="notif-badge" id="head-badge">0</div></div>
                 <div class="user-chip" id="u-chip">Guest</div>
@@ -182,14 +200,9 @@
                         <div class="u-card row"><button class="btn btn-sm btn-sec" onclick="closeBatch()">← Back</button><b id="bd-title">Batch</b><button class="btn btn-sm btn-red admin-only" onclick="deleteBatch()">Delete</button></div>
                         <div class="teacher-only u-card" style="background:#fef2f2; border:1px solid #fee2e2;">
                             <div class="row"><div><b style="color:#dc2626;">Live Class</b></div><button class="btn btn-sm btn-red" onclick="sendBatchAlert('Live Class Started!', 'videocam')">GO LIVE 🔴</button></div>
-                            <hr style="border:0; border-top:1px solid #fee2e2; margin:10px 0;">
-                            <b>Quantum Scheduler</b>
                             <div class="row" style="margin-top:5px; gap:5px;"><input type="time" style="width:100px;margin:0;"><input placeholder="Topic" id="sch-topic" style="margin:0;"><button class="btn btn-sm btn-main" onclick="sendBatchAlert('Scheduled: '+document.getElementById('sch-topic').value, 'event')">Book</button></div>
                         </div>
-                        <div class="u-card">
-                            <div class="batch-header"><div>Name</div><div>Rank/Att</div><div>Device Model</div><div style="text-align:center;">Count</div></div>
-                            <div id="bd-list"></div>
-                        </div>
+                        <div class="u-card"><div class="batch-header"><div>Name</div><div>Rank/Att</div><div>Device Model</div><div style="text-align:center;">Count</div></div><div id="bd-list"></div></div>
                     </div>
                 </div>
 
@@ -204,28 +217,17 @@
                 </div>
 
                 <div id="pane-info" class="pane">
-                    <div class="u-card" style="background:linear-gradient(135deg, #7c3aed, #4f46e5); color:white;"><h3>Subject Syllabus</h3><p>Select a course to view details.</p></div>
-                    <div class="chip-container">
-                        <div class="course-chip" onclick="getCourseInfo('Maths')">📐 Maths</div><div class="course-chip" onclick="getCourseInfo('Science')">🔬 Science</div><div class="course-chip" onclick="getCourseInfo('English')">📖 English</div><div class="course-chip" onclick="getCourseInfo('History')">📜 History</div>
-                    </div>
-                    <div id="info-display-box" style="height:350px; overflow-y:auto; padding:10px;">
-                        <div style="text-align:center; color:#999; margin-top:50px;"><i class="material-icons" style="font-size:40px; margin-bottom:10px;">search</i><br>Search or click a subject.</div>
-                    </div>
-                    <div class="u-card"><div class="row"><input id="info-input" placeholder="Enter Subject Name..." style="margin:0;"><button class="btn btn-info" style="width:auto; margin-left:10px;" onclick="getCourseInfo(document.getElementById('info-input').value)"><i class="material-icons">search</i></button></div></div>
+                    <div class="u-card" style="background:linear-gradient(135deg, #7c3aed, #4f46e5); color:white;"><h3>Subject Syllabus</h3></div>
+                    <div class="chip-container"><div class="course-chip" onclick="getCourseInfo('Maths')">📐 Maths</div><div class="course-chip" onclick="getCourseInfo('Science')">🔬 Science</div><div class="course-chip" onclick="getCourseInfo('English')">📖 English</div></div>
+                    <div id="info-display-box" style="height:350px; overflow-y:auto; padding:10px;"><div style="text-align:center; color:#999; margin-top:50px;"><i class="material-icons" style="font-size:40px;">search</i><br>Search course</div></div>
+                    <div class="u-card"><div class="row"><input id="info-input" placeholder="Subject..." style="margin:0;"><button class="btn btn-info" style="width:auto; margin-left:10px;" onclick="getCourseInfo(document.getElementById('info-input').value)"><i class="material-icons">search</i></button></div></div>
                 </div>
                 
                 <div id="pane-profile" class="pane">
                     <div class="u-card"><h3>Menu</h3></div>
-                    <div class="u-card">
-                        <h4>My Profile</h4>
-                        <label style="font-size:11px; font-weight:700;">NAME</label><input id="prof-name">
-                        <label style="font-size:11px; font-weight:700;">LOGIN PIN</label><input id="prof-pass">
-                        <label style="font-size:11px; font-weight:700;">MOBILE (Locked)</label><input id="prof-mob" readonly style="background:#f1f5f9;">
-                        <button class="btn btn-main" style="margin-bottom:10px;" onclick="updateMyProfile()">Update Profile</button>
-                        <button class="btn btn-sec" style="width:100%; border:1px solid var(--primary); color:var(--primary);" onclick="enablePush()">🔔 Enable Push Notifications</button>
-                    </div>
+                    <div class="u-card"><h4>My Profile</h4><label style="font-size:11px;font-weight:700;">NAME</label><input id="prof-name"><label style="font-size:11px;font-weight:700;">PIN</label><input id="prof-pass"><button class="btn btn-main" onclick="updateMyProfile()">Update</button><br><br><button class="btn btn-sec" style="width:100%; border:1px solid var(--primary); color:var(--primary);" onclick="enablePush()">🔔 Enable Notifications</button></div>
                 </div>
-                <div id="pane-home" class="pane"><div class="u-card"><h3 id="home-brand-text">My Academy</h3></div></div>
+                <div id="pane-home" class="pane"><div class="u-card"><h3>My Jalaram Academy</h3></div></div>
 
             </main>
         </div>
@@ -249,28 +251,22 @@
             <select id="m-role" onchange="toggleModalFields()"><option>Student</option><option>Teacher</option><option>Admin</option></select>
             <input id="m-id" readonly style="background:#eef2f6;"><input id="m-name" placeholder="Name">
             <div id="m-stu-fields">
-                <label style="font-size:11px; font-weight:700;">STUDENT MOBILE</label><input id="m-sm">
-                <label style="font-size:11px; font-weight:700;">PARENT MOBILE</label><input id="m-pm">
-                <label style="font-size:11px; font-weight:700;">BATCH</label><select id="m-batch"></select>
-                <div style="margin-top:10px;"><label style="font-size:11px; font-weight:700;">SUBJECT ACCESS</label><div class="sub-check-grid" id="m-sub-checks"></div></div>
+                <input id="m-sm" placeholder="Student Mobile"><input id="m-pm" placeholder="Parent Mobile"><select id="m-batch"></select>
+                <div style="margin-top:10px;"><label style="font-size:11px;font-weight:700;">SUBJECT ACCESS</label><div class="sub-check-grid" id="m-sub-checks"></div></div>
             </div>
-            <div id="m-tch-fields" style="display:none;"><label style="font-size:11px; font-weight:700;">SUBJECTS</label><input id="m-subs" oninput="formatSub(this)"></div>
+            <div id="m-tch-fields" style="display:none;"><input id="m-subs" placeholder="Subjects" oninput="formatSub(this)"></div>
             <label style="font-size:11px; font-weight:700; color:var(--primary); margin-top:10px; display:block;">LOGIN PIN (RESET)</label><input id="m-pass" placeholder="Enter new PIN">
             <div class="row" style="margin-top:15px; gap:10px;"><button class="btn btn-main" style="flex:1;" onclick="saveUser()">SAVE</button><button class="btn btn-red" onclick="deleteUser()"><i class="material-icons">delete</i></button></div>
         </div>
     </div>
 
     <script>
-        // --- 1. APP BRANDING (CHANGE NAME HERE) ---
-        const APP_NAME = "Jalaram Academy"; 
-
-        // --- 2. DATA ---
+        // DATA & INIT
         let globalSubjects = ['Maths', 'Science', 'English', 'History'];
         const courseDetails = {
-            'Maths': "<b>Mathematics</b><br>Algebra, Geometry, Trigonometry, Statistics. ICSE Board Prep.",
-            'Science': "<b>Science</b><br>Physics (Light, Electricity), Chemistry (Periodic Table), Biology.",
-            'English': "<b>English</b><br>Prose, Poetry, Grammar & Essay Writing.",
-            'History': "<b>History</b><br>Indian Freedom Struggle, World Wars, Civics.",
+            'Maths': "<b>Mathematics</b><br>Algebra, Geometry, Trigonometry, Statistics.",
+            'Science': "<b>Science</b><br>Physics, Chemistry, Biology.",
+            'English': "<b>English</b><br>Grammar & Literature.",
             'Default': "<b>Course Info</b><br>Select a subject to view syllabus."
         };
         let batchList = ['Class 10 A', 'Class 12'];
@@ -279,23 +275,14 @@
         let notifications = [];
         let user = null;
         let unreadChat = {'Maths':2};
-        let counters = { Student: 0, Teacher: 0, Admin: 0 };
+        // Load Counters safely
+        let counters = JSON.parse(localStorage.getItem('ja_counters')) || { Student: 0, Teacher: 0, Admin: 0 };
 
-        // --- 3. INIT & LOAD ---
-        window.onload = function() {
-            // Apply Branding First
-            document.title = APP_NAME;
-            document.getElementById('login-brand-text').innerText = APP_NAME;
-            document.getElementById('nav-brand-text').innerText = APP_NAME;
-            document.getElementById('home-brand-text').innerText = "My " + APP_NAME;
-            
-            // Load Data
-            if(localStorage.getItem('ja_active')) activeUsers = JSON.parse(localStorage.getItem('ja_active'));
-            if(localStorage.getItem('ja_pending')) pendingUsers = JSON.parse(localStorage.getItem('ja_pending'));
-            if(localStorage.getItem('ja_batches')) batchList = JSON.parse(localStorage.getItem('ja_batches'));
-            if(localStorage.getItem('ja_notifs')) notifications = JSON.parse(localStorage.getItem('ja_notifs'));
-            if(localStorage.getItem('ja_counters')) counters = JSON.parse(localStorage.getItem('ja_counters'));
-        }
+        // INITIAL LOAD (SYNCHRONOUS TO FIX BUTTON LAG)
+        if(localStorage.getItem('ja_active')) activeUsers = JSON.parse(localStorage.getItem('ja_active'));
+        if(localStorage.getItem('ja_pending')) pendingUsers = JSON.parse(localStorage.getItem('ja_pending'));
+        if(localStorage.getItem('ja_batches')) batchList = JSON.parse(localStorage.getItem('ja_batches'));
+        if(localStorage.getItem('ja_notifs')) notifications = JSON.parse(localStorage.getItem('ja_notifs'));
 
         function sync() {
             localStorage.setItem('ja_active', JSON.stringify(activeUsers));
@@ -305,35 +292,75 @@
             localStorage.setItem('ja_counters', JSON.stringify(counters));
         }
 
-        // --- 4. COURSE GUIDE ---
-        function getCourseInfo(subject) {
-            let box = document.getElementById('info-display-box');
-            if(!subject) return;
-            let key = Object.keys(courseDetails).find(k => k.toLowerCase() === subject.toLowerCase());
-            let info = key ? courseDetails[key] : courseDetails['Default'];
-            box.innerHTML = `<div class="user-query">Subject: ${subject}</div><div class="info-bubble">${info}</div>`;
-            document.getElementById('info-input').value = '';
+        // --- AUTH & REGISTRATION LOGIC (FIXED) ---
+        function toggleReg(show) {
+            document.getElementById('l-card').style.display = show ? 'none' : 'block';
+            document.getElementById('r-card').style.display = show ? 'block' : 'none';
+            if(show) {
+                // Populate Batches dynamically when opening registration
+                let opts = batchList.map(b => `<option>${b}</option>`).join('');
+                document.getElementById('r-batch').innerHTML = opts;
+                toggleRegFields(); // Ensure correct fields are shown
+            }
         }
 
-        // --- 5. NOTIFICATIONS ---
-        function enablePush() {
-            if (!("Notification" in window)) { alert("Browser does not support notifications"); return; }
-            Notification.requestPermission().then(permission => { if (permission === "granted") alert("✅ Notifications Enabled!"); else alert("Permission Denied."); });
-        }
-        function sendAlert(msg, title, icon) {
-            notifications.unshift({msg:msg, icon:icon, time:'Just now'});
-            updateBadges(); sync();
-            if (Notification.permission === "granted") { new Notification(title, { body: msg }); } 
-            else { alert("Internal Alert: " + msg); }
-        }
-        function sendBatchAlert(msg, icon) {
-            let batchName = document.getElementById('bd-title').innerText;
-            sendAlert(`${msg} (${batchName})`, APP_NAME, icon);
+        function showPublicCourses() {
+            document.getElementById('l-card').style.display = 'none';
+            document.getElementById('public-courses').style.display = 'block';
         }
 
-        // --- 6. CORE LOGIC ---
-        function generateID(role) { counters[role]++; let prefix = role==='Student'?'STU':(role==='Teacher'?'TCH':'ADM'); let num = String(counters[role]).padStart(5, '0'); return `${prefix}-${num}`; }
-        function login() { const id=document.getElementById('l-id').value; if(id==='admin'){user={n:'Admin', role:'Admin'}; initApp();} else { let u = activeUsers.find(x => x.m === id); if(u && u.p === document.getElementById('l-pass').value) { user=u; initApp(); } else alert("Invalid ID"); } }
+        function closePublicCourses() {
+            document.getElementById('public-courses').style.display = 'none';
+            document.getElementById('l-card').style.display = 'block';
+        }
+
+        function toggleRegFields() {
+            let r = document.getElementById('r-role').value;
+            document.getElementById('r-stu-fields').style.display = r === 'Student' ? 'block' : 'none';
+            document.getElementById('r-tch-fields').style.display = r === 'Teacher' ? 'block' : 'none';
+        }
+
+        function generateID(role) {
+            counters[role]++;
+            let prefix = role === 'Student' ? 'STU' : (role === 'Teacher' ? 'TCH' : 'ADM');
+            let num = String(counters[role]).padStart(5, '0');
+            return `${prefix}-${num}`;
+        }
+
+        function register() {
+            let name = document.getElementById('r-name').value;
+            let pass = document.getElementById('r-pass').value;
+            let role = document.getElementById('r-role').value;
+            
+            if(!name || !pass) { alert("Please fill Name and PIN"); return; }
+            
+            let newId = generateID(role);
+            
+            let newUser = {
+                n: name, 
+                m: newId, 
+                p: pass, 
+                role: role, 
+                status: 'Pending',
+                allowedSubs: globalSubjects
+            };
+
+            if(role === 'Student') {
+                newUser.sm = document.getElementById('r-sm').value;
+                newUser.pm = document.getElementById('r-pm').value;
+                newUser.batch = document.getElementById('r-batch').value;
+            } else {
+                newUser.subs = document.getElementById('r-subs').value;
+            }
+
+            pendingUsers.push(newUser);
+            sync();
+            
+            alert(`Registration Successful!\nYour ID is: ${newId}\n(Wait for Admin Approval)`);
+            toggleReg(false); // Go back to login
+        }
+
+        function login() { const id=document.getElementById('l-id').value; if(id==='admin'){user={n:'Admin', role:'Admin'}; initApp();} else { let u = activeUsers.find(x => x.m === id); if(u && u.p === document.getElementById('l-pass').value) { user=u; initApp(); } else alert("Invalid ID or PIN"); } }
         
         function initApp() {
             document.getElementById('auth').style.display='none'; document.getElementById('app').style.display='flex'; document.getElementById('u-chip').innerText = user.n;
@@ -345,9 +372,31 @@
             setupNav(); updateBadges(); renderBatches();
         }
 
-        // --- 7. UTILITIES ---
-        function loadProfile() { document.getElementById('prof-name').value = user.n; document.getElementById('prof-pass').value = user.p; document.getElementById('prof-mob').value = user.sm || user.m; }
-        function updateMyProfile() { user.n = document.getElementById('prof-name').value; user.p = document.getElementById('prof-pass').value; let idx = activeUsers.findIndex(u => u.m === user.m); if(idx !== -1) { activeUsers[idx] = user; sync(); alert("Profile Updated!"); } }
+        // --- APP FEATURES ---
+        function loadProfile() { document.getElementById('prof-name').value = user.n; document.getElementById('prof-pass').value = user.p; }
+        function updateMyProfile() { user.n = document.getElementById('prof-name').value; user.p = document.getElementById('prof-pass').value; let idx = activeUsers.findIndex(u => u.m === user.m); if(idx !== -1) { activeUsers[idx] = user; sync(); alert("Updated!"); } }
+        
+        function getCourseInfo(subject) {
+            let box = document.getElementById('info-display-box');
+            if(!subject) return;
+            let key = Object.keys(courseDetails).find(k => k.toLowerCase() === subject.toLowerCase());
+            let info = key ? courseDetails[key] : courseDetails['Default'];
+            box.innerHTML = `<div class="user-query">Subject: ${subject}</div><div class="info-bubble">${info}</div>`;
+            document.getElementById('info-input').value = '';
+        }
+
+        function enablePush() {
+            if (!("Notification" in window)) { alert("Browser does not support notifications"); return; }
+            Notification.requestPermission().then(permission => { if (permission === "granted") alert("✅ Notifications Enabled!"); else alert("Permission Denied."); });
+        }
+        function sendAlert(msg, title, icon) {
+            notifications.unshift({msg:msg, icon:icon, time:'Just now'});
+            updateBadges(); sync();
+            if (Notification.permission === "granted") { new Notification(title, { body: msg }); } 
+            else { alert("Internal Alert: " + msg); }
+        }
+        function sendBatchAlert(msg, icon) { let batchName = document.getElementById('bd-title').innerText; sendAlert(`${msg} (${batchName})`, 'Jalaram Academy', icon); }
+
         function renderUsers(q) { 
             let term = q ? q.toLowerCase() : "";
             let list = activeUsers.filter(u => u.role!=='Admin');
@@ -366,10 +415,4 @@
         function toggleModalFields() { let r=document.getElementById('m-role').value; document.getElementById('m-stu-fields').style.display=r==='Student'?'block':'none'; document.getElementById('m-tch-fields').style.display=r==='Teacher'?'block':'none'; if(!document.getElementById('m-old-id').value) document.getElementById('m-id').value = generateID(r); }
         function saveUser() {
             let oldId=document.getElementById('m-old-id').value, type=document.getElementById('m-type').value, role=document.getElementById('m-role').value;
-            let allowed = []; document.querySelectorAll('#m-sub-checks input:checked').forEach(cb => allowed.push(cb.value));
-            let u={n:document.getElementById('m-name').value, m:document.getElementById('m-id').value, p:document.getElementById('m-pass').value, role:role, sm:document.getElementById('m-sm').value, pm:document.getElementById('m-pm').value, batch:document.getElementById('m-batch').value, subs:document.getElementById('m-subs').value, allowedSubs:allowed}; 
-            if(oldId){if(type==='Active'){let i=activeUsers.findIndex(x=>x.m===oldId);activeUsers[i]={...activeUsers[i],...u};}else{let i=pendingUsers.findIndex(x=>x.m===oldId);pendingUsers[i]={...pendingUsers[i],...u};}} 
-            else{u.status='Active';activeUsers.push(u); sync();} 
-            document.getElementById('modal-ol').style.display='none'; renderUsers(""); sync();
-        }
-        function toggleNotif() { let d=document.getElementById('notif-drop');
+            let allowed = []; document.querySelectorAll('#m
