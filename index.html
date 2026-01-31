@@ -12,10 +12,17 @@
         :root { 
             --primary: #4f46e5; --bg: #f8fafc; --text: #0f172a; 
             --gold: #f59e0b; --silver: #94a3b8; --bronze: #b45309;
-            --chat-me: #4f46e5; --chat-them: #e2e8f0; --info: #7c3aed;
+            --chat-me: #4f46e5; --chat-them: #e2e8f0;
         }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; }
         body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+
+        /* --- AUTH SCREEN STYLES --- */
+        #auth { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+        .auth-card { width:340px; text-align:center; padding:20px; }
+        .auth-logo { font-size:60px; margin-bottom:10px; }
+        .auth-title { color:var(--primary); font-weight:800; font-size:24px; margin-bottom:20px; }
+        .auth-btn-group { margin-top:20px; display:flex; flex-direction:column; gap:10px; border-top:1px solid #eee; padding-top:20px; }
 
         /* --- EMOTIONAL HEADER --- */
         .emo-header { background:linear-gradient(135deg, #4f46e5, #818cf8); padding:20px; color:white; border-radius:0 0 25px 25px; box-shadow:0 4px 20px rgba(79, 70, 229, 0.2); flex-shrink:0; }
@@ -48,7 +55,7 @@
         .btn:active { transform:scale(0.98); }
         .btn-sm { width:auto; padding:6px 12px; }
         .btn-main { background:var(--primary); color:white; }
-        .btn-sec { background:#f1f5f9; color:#475569; }
+        .btn-sec { background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; }
         .btn-red { background:#fee2e2; color:#7f1d1d; }
         input, select { width:100%; padding:14px; border:2px solid #e2e8f0; border-radius:12px; margin-bottom:10px; outline:none; background:white; }
         
@@ -68,7 +75,7 @@
         .store-icon { width:40px; height:40px; background:#e0f7fa; color:#006064; border-radius:8px; display:flex; align-items:center; justify-content:center; }
 
         /* --- AI & MODALS --- */
-        .ai-loading { text-align:center; padding:20px; font-style:italic; color:var(--info); animation:pulse 1.5s infinite; }
+        .ai-loading { text-align:center; padding:20px; font-style:italic; color:#7c3aed; animation:pulse 1.5s infinite; }
         @keyframes pulse { 0%{opacity:0.6;} 50%{opacity:1;} 100%{opacity:0.6;} }
         .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:3000; display:none; justify-content:center; align-items:center; backdrop-filter:blur(3px); }
         .modal { background:white; width:90%; max-width:380px; border-radius:20px; padding:25px; max-height:90vh; overflow-y:auto; }
@@ -84,17 +91,20 @@
 </head>
 <body>
 
-    <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; align-items:center; justify-content:center; flex-direction:column;">
-        <div style="font-size:60px; margin-bottom:10px;">🎓</div>
-        <h2 style="color:var(--primary); margin-bottom:10px;">Jalaram Academy</h2>
-        <div class="u-card" style="width:340px; text-align:center;">
+    <div id="auth">
+        <div class="auth-card">
+            <div class="auth-logo">🎓</div>
+            <div class="auth-title">Jalaram Academy</div>
+            
             <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
             <input id="l-id" placeholder="ID (e.g. STU-001)">
             <input type="password" id="l-pass" placeholder="PIN (1234)">
-            <button class="btn btn-main" onclick="login()">Start Learning</button>
-            <div style="margin-top:15px; display:flex; gap:10px;">
-                <button class="btn btn-sec" onclick="openReg()">Register</button>
-                <button class="btn btn-sec" onclick="openPublic()">Courses</button>
+            
+            <button class="btn btn-main" onclick="login()">Login</button>
+            
+            <div class="auth-btn-group">
+                <button class="btn btn-sec" onclick="openReg()">New Student? Register</button>
+                <button class="btn btn-sec" onclick="openPublic()">View Courses</button>
             </div>
         </div>
     </div>
@@ -107,6 +117,265 @@
                 <div id="u-chip" style="font-size:11px; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:15px;">Guest</div>
             </div>
             <div class="emo-greet" id="greet-text">Good Morning!</div>
+            <div class="emo-sub" id="greet-sub">Let's achieve something great.</div>
+            <div class="mood-row" id="mood-bar">
+                <div class="mood-chip" onclick="setMood('Happy')">😄 Happy</div>
+                <div class="mood-chip" onclick="setMood('Focused')">🧠 Focused</div>
+                <div class="mood-chip" onclick="setMood('Tired')">😴 Tired</div>
+            </div>
+        </div>
+
+        <div class="sim-banner" id="sim-bar" onclick="location.reload()">⚠️ SIMULATION MODE - TAP TO EXIT</div>
+
+        <div class="app-shell">
+            <aside class="sidebar" id="side-nav"></aside>
+            <main class="main-content">
+
+                <div id="pane-home" class="pane">
+                    <div class="u-card">
+                        <h3>🏆 Top Performers</h3>
+                        <p style="font-size:12px; color:#64748b; margin-bottom:20px;">Based on Class 10 Weekly Test</p>
+                        <div class="podium">
+                            <div class="pod-bar rank-2"><div class="crown">🥈</div><small>Rohan</small>92%</div>
+                            <div class="pod-bar rank-1"><div class="crown">👑</div><small>Anjali</small>98%</div>
+                            <div class="pod-bar rank-3"><div class="crown">🥉</div><small>Dev</small>89%</div>
+                        </div>
+                        <div id="lb-list"></div>
+                    </div>
+                </div>
+
+                <div id="pane-batches" class="pane">
+                    <div class="u-card row"><h3>Classes</h3><button class="btn btn-sm btn-sec admin-only" onclick="addBatch()">+ Batch</button></div>
+                    <div id="batch-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"></div>
+                    
+                    <div id="batch-view" style="display:none; margin-top:20px;">
+                        <div class="u-card">
+                            <div class="row"><b id="bv-title">Class</b><button class="btn btn-sm btn-sec" onclick="closeBatch()">Close</button></div>
+                            
+                            <div class="teacher-only" style="margin-top:10px; padding:10px; background:#f0f9ff; border:1px solid #bfdbfe; border-radius:10px;">
+                                <div style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:5px;">⚡ QUANTUM NOTIFIER</div>
+                                <div class="row">
+                                    <input placeholder="Topic (e.g. Physics Test)" id="q-topic" style="margin:0; width:60%;">
+                                    <select id="q-buf" style="margin:0; width:35%;"><option value="0">No Buffer</option><option value="10">Buffer: 10m</option></select>
+                                </div>
+                                <button class="btn btn-main" style="margin-top:5px;" onclick="triggerQuantum()">Generate & Notify</button>
+                            </div>
+
+                            <div class="row" style="margin-top:15px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                                <b>Students</b>
+                                <div class="teacher-only" style="display:flex; gap:5px;">
+                                    <button class="btn btn-sm btn-sec" onclick="renderStuList('att')">Att.</button>
+                                    <button class="btn btn-sm btn-sec" onclick="renderStuList('marks')">Marks</button>
+                                </div>
+                            </div>
+                            <div id="bv-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="pane-store" class="pane">
+                    <div class="u-card row"><h3>Store & Demos</h3><button class="btn btn-sm btn-sec admin-only" onclick="addMaterial()">+ Material</button></div>
+                    <div class="u-card" style="background:#f0fdf4;"><h4>Free Demos</h4><div id="demo-list"></div></div>
+                    <div class="u-card"><h4>Premium Content</h4><div id="store-list"></div></div>
+                </div>
+
+                <div id="pane-chat" class="pane"><div class="u-card"><h3>Messages</h3></div><div id="chat-list"></div></div>
+
+                <div id="pane-admin" class="pane">
+                    <div class="u-card row"><h3>Database</h3><button class="btn btn-sm btn-sec" onclick="openUserModal()">+ User</button></div>
+                    <input placeholder="Search users..." onkeyup="renderUsers(this.value)">
+                    <div id="user-list"></div>
+                </div>
+
+                <div id="pane-profile" class="pane">
+                    <div class="u-card">
+                        <h4>Profile</h4>
+                        <label style="font-size:11px; font-weight:bold;">USER ID</label><input id="prof-id" readonly style="background:#eee;">
+                        <label style="font-size:11px; font-weight:bold;">NAME</label><input id="prof-name">
+                        <button class="btn btn-main" onclick="alert('Saved')">Save Changes</button>
+                        <button class="btn btn-sec" style="margin-top:10px;" onclick="enablePush()">🔔 Enable Notifications</button>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <div class="bot-nav" id="bot-nav"></div>
+    </div>
+
+    <div id="chat-room" class="chat-window">
+        <div class="u-card row" style="border-radius:0; border-bottom:1px solid #eee; padding:15px; margin:0;"><i class="material-icons" onclick="document.getElementById('chat-room').style.display='none'">arrow_back</i><b id="chat-title">Chat</b><div></div></div>
+        <div class="chat-body" id="chat-msgs"></div>
+        <div style="padding:10px; border-top:1px solid #eee; display:flex; gap:10px;"><input placeholder="Type..." style="margin:0;"><button class="btn btn-main" style="width:auto;">Send</button></div>
+    </div>
+
+    <div id="reg-modal" class="modal-ol" onclick="this.style.display='none'">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h3>Join Academy</h3>
+            <input id="r-name" placeholder="Name">
+            <select id="r-role"><option>Student</option><option>Teacher</option></select>
+            <input id="r-pass" placeholder="Create PIN">
+            <button class="btn btn-main" onclick="doReg()">Register</button>
+        </div>
+    </div>
+
+    <div id="public-modal" class="modal-ol" onclick="this.style.display='none'">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h3>Public Syllabus</h3>
+            <p style="font-size:12px; color:#666; margin-bottom:10px;">Click to generate AI description.</p>
+            <div class="store-item" onclick="aiDesc('Maths')"><b>Maths</b><br><small>Click for Details</small></div>
+            <div class="store-item" onclick="aiDesc('Science')"><b>Science</b><br><small>Click for Details</small></div>
+            <div id="ai-out" style="margin-top:15px; background:#f8fafc; padding:10px; border-radius:10px; font-size:13px;"></div>
+        </div>
+    </div>
+
+    <div id="inspect-modal" class="modal-ol" onclick="this.style.display='none'">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h3 id="ins-name">User</h3>
+            <p id="ins-id" style="color:gray; font-size:12px; margin-bottom:15px;">ID</p>
+            <button class="btn btn-sec">Edit Details</button>
+            <button class="btn btn-main" style="margin-top:10px; background:#f97316;" onclick="startSim()">👁️ Simulate View</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. SAFE DATA LOADING ---
+        let defaultUsers = [
+            {n:'Admin', m:'ADM-001', p:'1234', role:'Admin'},
+            {n:'Rohan', m:'STU-001', p:'1234', role:'Student', batch:'Class 10 A', marks:92},
+            {n:'Anjali', m:'STU-002', p:'1234', role:'Student', batch:'Class 10 A', marks:98},
+            {n:'Dev', m:'STU-003', p:'1234', role:'Student', batch:'Class 10 A', marks:89},
+            {n:'Amit', m:'TCH-001', p:'1234', role:'Teacher', batch:'Class 10 A'}
+        ];
+        let users = defaultUsers;
+        let batches = ['Class 10 A', 'Class 12'];
+        let store = [{t:'Algebra Intro', s:'Maths', k:'Video', type:'Demo'}];
+        let currentUser = null;
+
+        // Try load, if fail, reset
+        try {
+            if(localStorage.getItem('ja_users_v2')) users = JSON.parse(localStorage.getItem('ja_users_v2'));
+            if(localStorage.getItem('ja_batches_v2')) batches = JSON.parse(localStorage.getItem('ja_batches_v2'));
+            if(localStorage.getItem('ja_store_v2')) store = JSON.parse(localStorage.getItem('ja_store_v2'));
+        } catch(e) {
+            console.log("Resetting data");
+            users = defaultUsers;
+        }
+
+        function sync() {
+            localStorage.setItem('ja_users_v2', JSON.stringify(users));
+            localStorage.setItem('ja_batches_v2', JSON.stringify(batches));
+            localStorage.setItem('ja_store_v2', JSON.stringify(store));
+        }
+
+        // --- 2. CRITICAL UI FUNCTIONS (Defined First) ---
+        function openReg() { document.getElementById('reg-modal').style.display='flex'; }
+        function openPublic() { document.getElementById('public-modal').style.display='flex'; }
+        
+        function login() {
+            let id = document.getElementById('l-id').value;
+            let u = users.find(x => x.m === id);
+            if(u) { currentUser = u; initApp(); } else { alert("Invalid ID"); }
+        }
+
+        function doReg() {
+            let n = document.getElementById('r-name').value;
+            let r = document.getElementById('r-role').value;
+            let id = (r==='Student'?'STU':'TCH') + '-' + Math.floor(Math.random()*1000);
+            users.push({n:n, m:id, p:'1234', role:r, batch:'Class 10 A', marks:0});
+            sync();
+            alert(`✅ Registered!\nYour ID: ${id}`);
+            document.getElementById('reg-modal').style.display='none';
+        }
+
+        // --- 3. APP LOGIC ---
+        function initApp() {
+            document.getElementById('auth').style.display = 'none';
+            document.getElementById('app').style.display = 'flex';
+            document.getElementById('u-chip').innerText = currentUser.n;
+            setGreeting();
+            
+            // Build Nav based on Role
+            let menu = [];
+            if(currentUser.role === 'Admin') menu = [{t:'pane-admin',l:'Admin',i:'admin_panel_settings'}, {t:'pane-batches',l:'Batches',i:'class'}, {t:'pane-store',l:'Store',i:'store'}, {t:'pane-profile',l:'Menu',i:'menu'}];
+            else if(currentUser.role === 'Teacher') menu = [{t:'pane-batches',l:'Classes',i:'class'}, {t:'pane-chat',l:'Chat',i:'chat'}, {t:'pane-profile',l:'Menu',i:'menu'}];
+            else menu = [{t:'pane-home',l:'Home',i:'home'}, {t:'pane-chat',l:'Chat',i:'chat'}, {t:'pane-store',l:'Store',i:'store'}, {t:'pane-profile',l:'Menu',i:'menu'}];
+
+            let html = menu.map(x => `<div class="nav-item" onclick="nav('${x.t}')"><i class="material-icons">${x.i}</i>${x.l}</div>`).join('');
+            document.getElementById('bot-nav').innerHTML = html;
+            document.getElementById('side-nav').innerHTML = html.replace(/nav-item/g, 'nav-link');
+
+            // Set Visibility classes
+            document.querySelectorAll('.admin-only').forEach(e=>e.style.display=currentUser.role==='Admin'?'block':'none');
+            document.querySelectorAll('.teacher-only').forEach(e=>e.style.display=(currentUser.role==='Teacher'||currentUser.role==='Admin')?'block':'none');
+            document.getElementById('mood-bar').style.display = currentUser.role==='Student'?'flex':'none';
+
+            nav(menu[0].t);
+        }
+
+        function nav(id) {
+            document.querySelectorAll('.pane').forEach(e => e.style.display='none');
+            document.getElementById(id).style.display='block';
+            
+            if(id === 'pane-home') renderLeaderboard();
+            if(id === 'pane-admin') renderUsers('');
+            if(id === 'pane-batches') renderBatches();
+            if(id === 'pane-chat') renderChatList();
+            if(id === 'pane-store') renderStore();
+            if(id === 'pane-profile') {
+                document.getElementById('prof-name').value = currentUser.n;
+                document.getElementById('prof-id').value = currentUser.m;
+            }
+        }
+
+        // --- FEATURES ---
+        function setGreeting() {
+            let h = new Date().getHours();
+            document.getElementById('greet-text').innerText = `${h<12?'Good Morning':(h<18?'Good Afternoon':'Good Evening')}, ${currentUser.n}!`;
+        }
+        function setMood(m) { document.getElementById('greet-sub').innerText = `Feeling ${m}? Let's do this! 💪`; }
+
+        function renderLeaderboard() {
+            let stu = users.filter(u => u.role === 'Student').sort((a,b) => (b.marks||0) - (a.marks||0));
+            // Ensure podium names exist
+            if(stu[0]) document.querySelector('.rank-1 small').innerText = stu[0].n;
+            if(stu[1]) document.querySelector('.rank-2 small').innerText = stu[1].n;
+            if(stu[2]) document.querySelector('.rank-3 small').innerText = stu[2].n;
+            
+            document.getElementById('lb-list').innerHTML = stu.slice(3).map((u, i) => `
+                <div class="lb-row"><div style="display:flex; align-items:center;"><span style="width:30px; font-weight:bold; color:gray;">#${i+4}</span><b>${u.n}</b></div><div><span style="color:var(--primary); font-weight:bold;">${u.marks||0}%</span><span class="lb-grade">${u.marks>90?'A+':'A'}</span></div></div>
+            `).join('');
+        }
+
+        function renderChatList() {
+            let list = currentUser.role==='Student' ? users.filter(u=>u.role==='Teacher') : users.filter(u=>u.role==='Student');
+            document.getElementById('chat-list').innerHTML = list.map(u => `
+                <div class="chat-list-item" onclick="openChat('${u.n}')"><div class="chat-avatar">${u.n[0]}</div><div style="flex:1;"><b>${u.n}</b><br><small style="color:gray;">Tap to message</small></div><i class="material-icons" style="color:#ddd;">chevron_right</i></div>
+            `).join('');
+        }
+        function openChat(n){ document.getElementById('chat-room').style.display='flex'; document.getElementById('chat-title').innerText=n; document.getElementById('chat-msgs').innerHTML=`<div class="msg msg-them">Hello!</div><div class="msg msg-me">Hi ${n}, how are you?</div>`; }
+
+        function renderBatches() { document.getElementById('batch-grid').innerHTML = batches.map(b => `<div class="u-card" style="text-align:center; cursor:pointer;" onclick="openBatch('${b}')"><b>${b}</b></div>`).join(''); }
+        function openBatch(b) { document.getElementById('view-batch-list').style.display='none'; document.getElementById('batch-view').style.display='block'; document.getElementById('bv-title').innerText=b; renderStuList('view'); }
+        function closeBatch() { document.getElementById('batch-view').style.display='none'; document.getElementById('view-batch-list').style.display='block'; }
+        function addBatch() { let b = prompt("Batch Name:"); if(b){ batches.push(b); sync(); renderBatches(); } }
+
+        function renderStuList(mode) {
+            let b = document.getElementById('bv-title').innerText;
+            let list = users.filter(u => u.batch === b && u.role === 'Student');
+            document.getElementById('bv-list').innerHTML = list.map(u => {
+                let action = mode==='att' ? `<button class="btn-sm btn-sec" style="color:green;">P</button><button class="btn-sm btn-sec" style="color:red;">A</button>` : (mode==='marks' ? `<input style="width:50px; margin:0; padding:5px;" placeholder="${u.marks}">` : `<small>${u.m}</small>`);
+                return `<div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee;"><b>${u.n}</b><div>${action}</div></div>`;
+            }).join('');
+        }
+
+        // --- QUANTUM, STORE, AI ---
+        function enablePush() { if(!("Notification" in window))return alert("Not Supported"); Notification.requestPermission().then(p=>alert(p==="granted"?"✅ Enabled":"Denied")); }
+        function triggerQuantum() {
+            let t = document.getElementById('q-topic').value, b = document.getElementById('q-buf').value;
+            let msg = `Quantum Test: ${t} (Buffer: ${b}m)`;
+            alert(msg);
+            if(Notification.permission==="granted") new Notification("Jalaram Academy", {body:
+.            <div class="emo-greet" id="greet-text">Good Morning!</div>
             <div class="emo-sub" id="greet-sub">Let's achieve something great.</div>
             <div class="mood-row" id="mood-bar">
                 <div class="mood-chip" onclick="setMood('Happy')">😄 Happy</div>
@@ -401,3 +670,4 @@
     </script>
 </body>
 </html>
+
