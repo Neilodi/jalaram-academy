@@ -36,38 +36,40 @@
         .nav-link:hover { background:#f0f9ff; }
         .nav-link.active { background:#e3f2fd; color:var(--primary); border-left-color:var(--primary); }
 
-        /* SUB-NAV */
+        /* SUB-NAV (FIXED VISIBILITY) */
         .sub-nav { background:white; white-space:nowrap; overflow-x:auto; border-bottom:1px solid #ddd; padding:0 10px; display:none; height:55px; }
         .sub-tab { display:inline-block; padding:16px 20px; font-size:14px; font-weight:600; color:#64748b; border-bottom:4px solid transparent; cursor:pointer; }
         .sub-tab.active { color:var(--primary); border-color:var(--primary); }
 
-        /* CARDS */
+        /* UI ELEMENTS */
         .pane { display:none; } .pane.active { display:block; animation:fadeIn 0.3s; }
         @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
         .u-card { background:white; padding:20px; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:16px; border:1px solid #e2e8f0; }
         .row { display:flex; justify-content:space-between; align-items:center; }
 
-        /* BATCHES & LISTS */
+        /* BATCHES */
         .batch-header { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:12px; background:#f1f5f9; border-radius:8px; font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:5px; }
         .batch-row { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:15px 12px; border-bottom:1px solid #eee; font-size:13px; align-items:center; cursor:pointer; }
         .dev-count-badge { background:#e0e7ff; color:#4338ca; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px; }
 
-        /* GRID & CHAT */
+        /* GRID */
         .grid-box { display:grid; grid-template-columns: repeat(2, 1fr); gap:15px; }
         .folder { background:white; padding:25px; border-radius:16px; border:2px solid #e2e8f0; text-align:center; cursor:pointer; position:relative; }
         .folder:active { background:#e3f2fd; border-color:var(--primary); }
         .folder-badge { position:absolute; top:10px; right:10px; background:var(--success); color:white; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px; display:none; }
 
-        /* INFO & STORE */
-        .info-bubble { background:var(--info); color:white; padding:15px; border-radius:12px; margin-bottom:10px; font-size:14px; line-height:1.5; box-shadow:0 4px 10px rgba(124, 58, 237, 0.2); }
-        .user-query { background:white; border:1px solid #ddd; padding:10px 15px; border-radius:20px; margin-bottom:10px; font-size:13px; font-weight:600; color:#555; display:inline-block; }
+        /* AI & STORE */
+        .ai-loading { font-style:italic; color:var(--info); animation:pulse 1.5s infinite; text-align:center; margin-top:20px; }
+        @keyframes pulse { 0%{opacity:0.5;} 50%{opacity:1;} 100%{opacity:0.5;} }
+        .ai-result-card { background:linear-gradient(135deg, #f3e8ff, #ffffff); border:1px solid #d8b4fe; padding:20px; border-radius:16px; margin-top:10px; box-shadow:0 4px 15px rgba(124, 58, 237, 0.1); }
+        .ai-title { color:var(--info); font-weight:800; font-size:16px; margin-bottom:5px; display:flex; align-items:center; gap:8px; }
+        .ai-body { font-size:14px; line-height:1.6; color:#334155; }
         .chip-container { display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; margin-bottom:10px; }
         .course-chip { background:white; border:1px solid #e2e8f0; padding:8px 16px; border-radius:30px; font-size:12px; font-weight:600; color:#475569; white-space:nowrap; cursor:pointer; transition:0.2s; }
         .course-chip:active { background:#f3e8ff; color:var(--info); border-color:var(--info); }
         .store-item { display:flex; gap:15px; align-items:center; padding:15px; border-bottom:1px solid #f1f5f9; cursor:pointer; }
         .store-icon { width:50px; height:50px; border-radius:12px; background:#e0f7fa; color:#006064; display:flex; align-items:center; justify-content:center; }
 
-        /* INPUTS & VISIBILITY */
         .teacher-only, .admin-only { display:none; }
         .sub-check-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:5px; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #eee; }
         .sub-check-item { display:flex; align-items:center; gap:5px; font-size:12px; }
@@ -80,14 +82,12 @@
         .btn-info { background:var(--info); color:white; }
         .btn-sm { padding:8px 14px; font-size:12px; width:auto; }
 
-        /* MODALS */
         .media-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:4000; display:none; flex-direction:column; }
         .media-controls { padding:15px; color:white; display:flex; justify-content:space-between; align-items:center; background:#1e293b; }
         .media-content { flex:1; display:flex; align-items:center; justify-content:center; color:white; background:#0f172a; }
         .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; display:none; justify-content:center; align-items:center; backdrop-filter:blur(4px); }
         .modal { background:white; width:90%; max-width:400px; border-radius:20px; padding:25px; max-height:90vh; overflow-y:auto; }
 
-        /* MOBILE NAV */
         .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:none; justify-content:space-around; padding:12px; border-top:1px solid #ddd; z-index:900; padding-bottom:20px; }
         .nav-item { text-align:center; font-size:11px; color:#64748b; font-weight:600; flex:1; display:flex; flex-direction:column; align-items:center; position:relative; cursor:pointer; }
         .nav-item.active { color:var(--primary); }
@@ -99,56 +99,38 @@
 <body>
 
     <div id="auth" style="position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; align-items:center; justify-content:center; flex-direction:column; overflow-y:auto;">
-        
         <div id="l-card" class="u-card" style="width:360px; text-align:center; border:none; box-shadow:none;">
             <div style="font-size:80px; margin-bottom:10px;">🎓</div>
-            <h2 id="login-brand" style="font-weight:800; color:var(--primary); font-size:24px;">Jalaram Academy</h2>
+            <h2 style="font-weight:800; color:var(--primary); font-size:24px;">Jalaram Academy</h2>
             <p style="color:#64748b; margin-bottom:20px;">Welcome Back</p>
-            
             <div id="l-form">
                 <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
                 <input id="l-id" placeholder="ID (e.g. STU-00001)">
                 <input type="password" id="l-pass" placeholder="PIN (1234)">
                 <button class="btn btn-main" onclick="login()">SECURE LOGIN</button>
-                
                 <div style="margin-top:20px; border-top:1px solid #eee; padding-top:20px;">
                     <button class="btn btn-sec" style="width:100%; margin-bottom:10px; border:1px solid #ddd;" onclick="toggleReg(true)">Create New Account</button>
                     <button class="btn btn-sec" style="width:100%; border:1px solid #ddd;" onclick="showPublicCourses()">View Available Courses</button>
                 </div>
             </div>
         </div>
-
         <div id="r-card" class="u-card" style="width:360px; text-align:left; border:none; box-shadow:none; display:none;">
             <h3 style="color:var(--primary);">New Registration</h3>
             <select id="r-role" onchange="toggleRegFields()"><option>Student</option><option>Teacher</option></select>
             <label style="font-size:11px;font-weight:700;">FULL NAME</label><input id="r-name">
-            
-            <div id="r-stu-fields">
-                <label style="font-size:11px;font-weight:700;">STUDENT MOBILE</label><input id="r-sm">
-                <label style="font-size:11px;font-weight:700;">PARENT MOBILE</label><input id="r-pm">
-                <label style="font-size:11px;font-weight:700;">BATCH</label><select id="r-batch"></select>
-            </div>
-            
-            <div id="r-tch-fields" style="display:none;">
-                <label style="font-size:11px;font-weight:700;">SUBJECTS</label><input id="r-subs" oninput="formatSub(this)">
-            </div>
-            
+            <div id="r-stu-fields"><label style="font-size:11px;font-weight:700;">STUDENT MOBILE</label><input id="r-sm"><label style="font-size:11px;font-weight:700;">PARENT MOBILE</label><input id="r-pm"><label style="font-size:11px;font-weight:700;">BATCH</label><select id="r-batch"></select></div>
+            <div id="r-tch-fields" style="display:none;"><label style="font-size:11px;font-weight:700;">SUBJECTS</label><input id="r-subs" oninput="formatSub(this)"></div>
             <label style="font-size:11px;font-weight:700;">CREATE PIN</label><input id="r-pass">
-            
             <button class="btn btn-main" onclick="register()">REGISTER NOW</button>
             <button class="btn btn-sec" style="width:100%; margin-top:10px;" onclick="toggleReg(false)">Back to Login</button>
         </div>
-
         <div id="public-courses" class="u-card" style="width:360px; display:none; max-height:80vh; overflow-y:auto;">
             <h3>Available Courses</h3>
-            <p style="font-size:12px; color:#666; margin-bottom:15px;">Login to access full content.</p>
             <div class="store-item"><div class="store-icon"><i class="material-icons">calculate</i></div><div><b>Maths (Class 10)</b><br><small>Algebra, Geometry, Stats</small></div></div>
             <div class="store-item"><div class="store-icon"><i class="material-icons">science</i></div><div><b>Science (Class 10)</b><br><small>Physics, Chem, Bio</small></div></div>
             <div class="store-item"><div class="store-icon"><i class="material-icons">menu_book</i></div><div><b>English</b><br><small>Grammar & Literature</small></div></div>
-            <div class="store-item"><div class="store-icon"><i class="material-icons">history_edu</i></div><div><b>History & Civics</b><br><small>Indian History</small></div></div>
             <button class="btn btn-sec" style="width:100%; margin-top:15px;" onclick="closePublicCourses()">Close</button>
         </div>
-
     </div>
 
     <div id="app" style="display:none; height:100%; flex-direction:column;">
@@ -178,7 +160,7 @@
                 </div>
                 <div id="nav-other" class="nav-group">
                     <div class="nav-link active" onclick="nav('pane-home', null)"><i class="material-icons">home</i> Home</div>
-                    <div class="nav-link" onclick="nav('pane-info', null)" style="color:var(--info);"><i class="material-icons">menu_book</i> Course Guide</div>
+                    <div class="nav-link" onclick="nav('pane-info', null)" style="color:var(--info);"><i class="material-icons">auto_awesome</i> AI Syllabus</div>
                     <div class="nav-link" onclick="nav('pane-chat', null)"><i class="material-icons">chat</i> Chat</div>
                     <div class="nav-link" onclick="nav('pane-store', null)"><i class="material-icons">store</i> Store</div>
                     <div class="nav-link" onclick="nav('pane-profile', null)"><i class="material-icons">menu</i> Menu</div>
@@ -187,10 +169,11 @@
             </aside>
 
             <main class="main-content">
+                
                 <div id="pane-admin" class="pane">
-                    <div id="tab-users"><div class="u-card row"><h3>Active Database</h3><button class="btn btn-sm btn-sec" onclick="openEditModal(null, 'Active')">+ Add Manual User</button></div><input placeholder="🔍 Search Name, ID, Phone or PIN..." onkeyup="renderUsers(this.value)"><div id="user-list"></div></div>
+                    <div id="tab-users"><div class="u-card row"><h3>Active Database</h3><button class="btn btn-sm btn-sec" onclick="openEditModal(null, 'Active')">+ Add Manual User</button></div><input placeholder="🔍 Search..." onkeyup="renderUsers(this.value)"><div id="user-list"></div></div>
                     <div id="tab-appr" style="display:none;"><div class="u-card"><h3>Pending Requests</h3></div><div id="pending-list"></div></div>
-                    <div id="tab-spy" style="display:none;"><div class="u-card" style="background:#fff3cd;"><h3>🕵️ Spy Monitor</h3></div><div class="grid-box" id="spy-grid"></div></div>
+                    <div id="tab-spy" style="display:none;"><div class="u-card" style="background:#fff3cd;"><h3>🕵️ Spy Monitor (Read-Only)</h3></div><div class="grid-box" id="spy-grid"></div></div>
                 </div>
 
                 <div id="pane-batches" class="pane">
@@ -201,7 +184,7 @@
                             <div class="row"><div><b style="color:#dc2626;">Live Class</b></div><button class="btn btn-sm btn-red" onclick="sendBatchAlert('Live Class Started!', 'videocam')">GO LIVE 🔴</button></div>
                             <div class="row" style="margin-top:5px; gap:5px;"><input type="time" style="width:100px;margin:0;"><input placeholder="Topic" id="sch-topic" style="margin:0;"><button class="btn btn-sm btn-main" onclick="sendBatchAlert('Scheduled: '+document.getElementById('sch-topic').value, 'event')">Book</button></div>
                         </div>
-                        <div class="u-card"><div class="batch-header"><div>Name</div><div>Rank/Att</div><div>Device Model</div><div style="text-align:center;">Count</div></div><div id="bd-list"></div></div>
+                        <div class="u-card"><div class="batch-header"><div>Name</div><div>Rank/Att</div><div>Device</div><div style="text-align:center;">Count</div></div><div id="bd-list"></div></div>
                     </div>
                 </div>
 
@@ -216,10 +199,10 @@
                 </div>
 
                 <div id="pane-info" class="pane">
-                    <div class="u-card" style="background:linear-gradient(135deg, #7c3aed, #4f46e5); color:white;"><h3>Subject Syllabus</h3></div>
-                    <div class="chip-container"><div class="course-chip" onclick="getCourseInfo('Maths')">📐 Maths</div><div class="course-chip" onclick="getCourseInfo('Science')">🔬 Science</div><div class="course-chip" onclick="getCourseInfo('English')">📖 English</div></div>
-                    <div id="info-display-box" style="height:350px; overflow-y:auto; padding:10px;"><div style="text-align:center; color:#999; margin-top:50px;"><i class="material-icons" style="font-size:40px;">search</i><br>Search course</div></div>
-                    <div class="u-card"><div class="row"><input id="info-input" placeholder="Subject..." style="margin:0;"><button class="btn btn-info" style="width:auto; margin-left:10px;" onclick="getCourseInfo(document.getElementById('info-input').value)"><i class="material-icons">search</i></button></div></div>
+                    <div class="u-card" style="background:linear-gradient(135deg, #7c3aed, #4f46e5); color:white;"><h3><i class="material-icons" style="vertical-align:middle;margin-right:5px;">auto_awesome</i> AI Syllabus Generator</h3><p>Click a subject to generate its unique course description.</p></div>
+                    <div class="chip-container"><div class="course-chip" onclick="getCourseInfo('Maths')">📐 Maths</div><div class="course-chip" onclick="getCourseInfo('Science')">🔬 Science</div><div class="course-chip" onclick="getCourseInfo('English')">📖 English</div><div class="course-chip" onclick="getCourseInfo('Robotics')">🤖 Robotics</div></div>
+                    <div id="info-display-box" style="height:350px; overflow-y:auto; padding:10px;"><div style="text-align:center; color:#999; margin-top:50px;"><i class="material-icons" style="font-size:40px; margin-bottom:10px;">psychology</i><br>AI is ready.</div></div>
+                    <div class="u-card"><div class="row"><input id="info-input" placeholder="Enter Any Subject..." style="margin:0;"><button class="btn btn-info" style="width:auto; margin-left:10px;" onclick="getCourseInfo(document.getElementById('info-input').value)"><i class="material-icons">send</i></button></div></div>
                 </div>
                 
                 <div id="pane-profile" class="pane"><div class="u-card"><h3>Menu</h3></div><div class="u-card"><h4>My Profile</h4><label style="font-size:11px;font-weight:700;">NAME</label><input id="prof-name"><label style="font-size:11px;font-weight:700;">PIN</label><input id="prof-pass"><button class="btn btn-main" onclick="updateMyProfile()">Update</button><br><br><button class="btn btn-sec" style="width:100%; border:1px solid var(--primary); color:var(--primary);" onclick="enablePush()">🔔 Enable Notifications</button></div></div>
@@ -234,9 +217,8 @@
     <div id="modal-ol" class="modal-ol" onclick="this.style.display='none'"><div class="modal" onclick="event.stopPropagation()"><h3 id="m-title">Manage User</h3><input type="hidden" id="m-old-id"><input type="hidden" id="m-type"><select id="m-role" onchange="toggleModalFields()"><option>Student</option><option>Teacher</option><option>Admin</option></select><input id="m-id" readonly style="background:#eef2f6;"><input id="m-name" placeholder="Name"><div id="m-stu-fields"><input id="m-sm" placeholder="Student Mobile"><input id="m-pm" placeholder="Parent Mobile"><select id="m-batch"></select><div style="margin-top:10px;"><label style="font-size:11px;font-weight:700;">SUBJECT ACCESS</label><div class="sub-check-grid" id="m-sub-checks"></div></div></div><div id="m-tch-fields" style="display:none;"><input id="m-subs" placeholder="Subjects" oninput="formatSub(this)"></div><label style="font-size:11px; font-weight:700; color:var(--primary); margin-top:10px; display:block;">LOGIN PIN (RESET)</label><input id="m-pass" placeholder="Enter new PIN"><div class="row" style="margin-top:15px; gap:10px;"><button class="btn btn-main" style="flex:1;" onclick="saveUser()">SAVE</button><button class="btn btn-red" onclick="deleteUser()"><i class="material-icons">delete</i></button></div></div></div>
 
     <script>
-        // --- DATA DEFAULTS ---
+        // INIT
         let globalSubjects = ['Maths', 'Science', 'English', 'History'];
-        const courseDetails = {'Maths': "<b>Mathematics</b><br>Algebra, Geometry, Trigonometry.", 'Science': "<b>Science</b><br>Physics, Chemistry, Biology.", 'English': "<b>English</b><br>Grammar & Literature.", 'Default': "<b>Course Info</b><br>Select a subject."};
         let batchList = ['Class 10 A', 'Class 12'];
         let activeUsers = [{n:'Admin', m:'admin', p:'1234', role:'Admin', status:'Active'}];
         let pendingUsers = [];
@@ -245,16 +227,13 @@
         let unreadChat = {'Maths':2};
         let counters = { Student: 0, Teacher: 0, Admin: 0 };
 
-        // --- SAFE INITIALIZATION (CRASH PROOF) ---
         try {
             if(localStorage.getItem('ja_active')) activeUsers = JSON.parse(localStorage.getItem('ja_active'));
             if(localStorage.getItem('ja_pending')) pendingUsers = JSON.parse(localStorage.getItem('ja_pending'));
             if(localStorage.getItem('ja_batches')) batchList = JSON.parse(localStorage.getItem('ja_batches'));
             if(localStorage.getItem('ja_notifs')) notifications = JSON.parse(localStorage.getItem('ja_notifs'));
             if(localStorage.getItem('ja_counters')) counters = JSON.parse(localStorage.getItem('ja_counters'));
-        } catch(e) {
-            console.error("Data load error, using defaults");
-        }
+        } catch(e) {}
 
         function sync() {
             localStorage.setItem('ja_active', JSON.stringify(activeUsers));
@@ -264,109 +243,100 @@
             localStorage.setItem('ja_counters', JSON.stringify(counters));
         }
 
-        // --- AUTH LOGIC (FIXED) ---
-        function toggleReg(show) {
-            document.getElementById('l-card').style.display = show ? 'none' : 'block';
-            document.getElementById('r-card').style.display = show ? 'block' : 'none';
-            if(show) {
-                // Populate batch dropdown safely
-                document.getElementById('r-batch').innerHTML = (batchList || []).map(b => `<option>${b}</option>`).join('');
-                toggleRegFields();
-            }
-        }
-
-        function showPublicCourses() {
-            document.getElementById('l-card').style.display = 'none';
-            document.getElementById('public-courses').style.display = 'block';
-        }
-
-        function closePublicCourses() {
-            document.getElementById('public-courses').style.display = 'none';
-            document.getElementById('l-card').style.display = 'block';
-        }
-
-        function toggleRegFields() {
-            let r = document.getElementById('r-role').value;
-            document.getElementById('r-stu-fields').style.display = r === 'Student' ? 'block' : 'none';
-            document.getElementById('r-tch-fields').style.display = r === 'Teacher' ? 'block' : 'none';
-        }
-
-        function generateID(role) {
-            counters[role]++;
-            let prefix = role === 'Student' ? 'STU' : (role === 'Teacher' ? 'TCH' : 'ADM');
-            let num = String(counters[role]).padStart(5, '0');
-            return `${prefix}-${num}`;
-        }
-
+        // AUTH & NAV
+        function toggleReg(s){ document.getElementById('l-card').style.display=s?'none':'block'; document.getElementById('r-card').style.display=s?'block':'none'; if(s){document.getElementById('r-batch').innerHTML=batchList.map(b=>`<option>${b}</option>`).join(''); toggleRegFields();} }
+        function showPublicCourses(){ document.getElementById('l-card').style.display='none'; document.getElementById('public-courses').style.display='block'; }
+        function closePublicCourses(){ document.getElementById('public-courses').style.display='none'; document.getElementById('l-card').style.display='block'; }
+        function toggleRegFields(){ let r=document.getElementById('r-role').value; document.getElementById('r-stu-fields').style.display=r==='Student'?'block':'none'; document.getElementById('r-tch-fields').style.display=r==='Teacher'?'block':'none'; }
+        
+        function generateID(role){ counters[role]++; let p=role==='Student'?'STU':(role==='Teacher'?'TCH':'ADM'); return `${p}-${String(counters[role]).padStart(5,'0')}`; }
+        
         function register() {
-            let name = document.getElementById('r-name').value;
-            let pass = document.getElementById('r-pass').value;
-            let role = document.getElementById('r-role').value;
-            
-            if(!name || !pass) { alert("Please fill Name and PIN"); return; }
-            
-            let newId = generateID(role);
-            let newUser = { n: name, m: newId, p: pass, role: role, status: 'Pending', allowedSubs: globalSubjects };
-
-            if(role === 'Student') {
-                newUser.sm = document.getElementById('r-sm').value;
-                newUser.pm = document.getElementById('r-pm').value;
-                newUser.batch = document.getElementById('r-batch').value;
-            } else {
-                newUser.subs = document.getElementById('r-subs').value;
-            }
-
-            pendingUsers.push(newUser);
-            sync();
-            alert(`Registration Successful! ID: ${newId}\n(Wait for Admin Approval)`);
-            toggleReg(false);
+            let n=document.getElementById('r-name').value, p=document.getElementById('r-pass').value, r=document.getElementById('r-role').value;
+            if(!n || !p){alert("Missing info"); return;}
+            let id=generateID(r), u={n:n, m:id, p:p, role:r, status:'Pending', allowedSubs:globalSubjects};
+            if(r==='Student'){u.sm=document.getElementById('r-sm').value; u.pm=document.getElementById('r-pm').value; u.batch=document.getElementById('r-batch').value;}
+            else{u.subs=document.getElementById('r-subs').value;}
+            pendingUsers.push(u); sync(); alert(`Success! ID: ${id}`); toggleReg(false);
         }
 
-        function login() { const id=document.getElementById('l-id').value; if(id==='admin'){user={n:'Admin', role:'Admin'}; initApp();} else { let u = activeUsers.find(x => x.m === id); if(u && u.p === document.getElementById('l-pass').value) { user=u; initApp(); } else alert("Invalid ID or PIN"); } }
+        function login(){ const id=document.getElementById('l-id').value; if(id==='admin'){user={n:'Admin', role:'Admin'}; initApp();} else {let u=activeUsers.find(x=>x.m===id); if(u && u.p===document.getElementById('l-pass').value){user=u; initApp();} else alert("Invalid Login");} }
         
         function initApp() {
             document.getElementById('auth').style.display='none'; document.getElementById('app').style.display='flex'; document.getElementById('u-chip').innerText = user.n;
             document.querySelectorAll('.nav-group').forEach(x=>x.classList.remove('active'));
             document.querySelectorAll('.admin-only, .teacher-only').forEach(x=>x.style.display='none');
-            if(user.role==='Admin'){document.getElementById('nav-admin').classList.add('active'); document.querySelectorAll('.admin-only, .teacher-only').forEach(x=>x.style.display='block'); nav('pane-admin','admin');}
-            else if(user.role==='Teacher'){document.getElementById('nav-teacher').classList.add('active'); document.querySelectorAll('.teacher-only').forEach(x=>x.style.display='block'); nav('pane-batches',null);}
-            else {document.getElementById('nav-other').classList.add('active'); nav('pane-home',null); loadProfile(); }
+            // RESET ADMIN NAV DISPLAY
+            document.getElementById('sub-nav-admin').style.display = 'none';
+
+            if(user.role==='Admin'){
+                document.getElementById('nav-admin').classList.add('active'); 
+                document.querySelectorAll('.admin-only, .teacher-only').forEach(x=>x.style.display='block');
+                nav('pane-admin','admin'); // Trigger nav logic to show sub-nav
+            } else if(user.role==='Teacher'){
+                document.getElementById('nav-teacher').classList.add('active'); 
+                document.querySelectorAll('.teacher-only').forEach(x=>x.style.display='block'); 
+                nav('pane-batches',null);
+            } else {
+                document.getElementById('nav-other').classList.add('active'); 
+                nav('pane-home',null); loadProfile(); 
+            }
             setupNav(); updateBadges(); renderBatches();
         }
 
-        // --- FEATURES ---
-        function loadProfile() { document.getElementById('prof-name').value = user.n; document.getElementById('prof-pass').value = user.p; document.getElementById('prof-mob').value = user.sm || user.m; }
-        function updateMyProfile() { user.n = document.getElementById('prof-name').value; user.p = document.getElementById('prof-pass').value; let idx = activeUsers.findIndex(u => u.m === user.m); if(idx !== -1) { activeUsers[idx] = user; sync(); alert("Updated!"); } }
-        function getCourseInfo(subject) { let box = document.getElementById('info-display-box'); if(!subject) return; let key = Object.keys(courseDetails).find(k => k.toLowerCase() === subject.toLowerCase()); let info = key ? courseDetails[key] : courseDetails['Default']; box.innerHTML = `<div class="user-query">Subject: ${subject}</div><div class="info-bubble">${info}</div>`; document.getElementById('info-input').value = ''; }
-        function enablePush() { if (!("Notification" in window)) { alert("Not supported"); return; } Notification.requestPermission().then(p => { if (p === "granted") alert("✅ Enabled!"); }); }
-        function sendAlert(msg, title, icon) { notifications.unshift({msg:msg, icon:icon, time:'Just now'}); updateBadges(); sync(); if (Notification.permission === "granted") { new Notification(title, { body: msg }); } else { alert(msg); } }
-        function sendBatchAlert(msg, icon) { let batchName = document.getElementById('bd-title').innerText; sendAlert(`${msg} (${batchName})`, 'Jalaram Academy', icon); }
-        function renderUsers(q) { let term = q ? q.toLowerCase() : ""; let list = activeUsers.filter(u => u.role!=='Admin'); if(term) { list = list.filter(u => u.n.toLowerCase().includes(term) || u.m.toLowerCase().includes(term) || (u.sm && u.sm.includes(term)) || (u.pm && u.pm.includes(term)) || (u.p && u.p.includes(term))); } document.getElementById('user-list').innerHTML = list.map(u => `<div class="u-card row" onclick="inspect('${u.m}')"><div><b>${u.n}</b><br><small>${u.m} | PIN: ${u.p}</small></div><button class="btn btn-sm btn-sec" onclick="event.stopPropagation(); openEditModal('${u.m}','Active')">Edit</button></div>`).join(''); document.getElementById('pending-list').innerHTML = pendingUsers.map(u => `<div class="u-card row" style="border-left:4px solid orange;"><div><b>${u.n}</b><br><small>${u.m}</small></div><div style="gap:5px; display:flex;"><button class="btn btn-sm btn-sec" onclick="openEditModal('${u.m}','Pending')">Edit</button><button class="btn btn-sm btn-green" onclick="approve('${u.m}')">✓</button></div></div>`).join(''); }
-        function openEditModal(id, type) { document.getElementById('modal-ol').style.display='flex'; document.getElementById('m-title').innerText=id?"Edit":"Add Manual"; document.getElementById('m-old-id').value=id||''; document.getElementById('m-type').value=type; let u = id ? (type==='Active'?activeUsers.find(x=>x.m===id):pendingUsers.find(x=>x.m===id)) : null; let subHtml = globalSubjects.map(s => `<label class="sub-check-item"><input type="checkbox" value="${s}" ${(u && u.allowedSubs && u.allowedSubs.includes(s)) || !u ? 'checked' : ''}> ${s}</label>`).join(''); document.getElementById('m-sub-checks').innerHTML = subHtml; if(u) { document.getElementById('m-id').value=u.m; document.getElementById('m-name').value=u.n; document.getElementById('m-role').value=u.role; document.getElementById('m-pass').value=u.p; toggleModalFields(); if(u.role==='Student'){document.getElementById('m-sm').value=u.sm;document.getElementById('m-pm').value=u.pm;document.getElementById('m-batch').value=u.batch;} else {document.getElementById('m-subs').value=u.subs;} } else { document.getElementById('m-role').value='Student'; document.getElementById('m-id').value=generateID('Student'); document.getElementById('m-name').value=''; document.getElementById('m-pass').value=''; toggleModalFields(); } }
-        function toggleModalFields() { let r=document.getElementById('m-role').value; document.getElementById('m-stu-fields').style.display=r==='Student'?'block':'none'; document.getElementById('m-tch-fields').style.display=r==='Teacher'?'block':'none'; if(!document.getElementById('m-old-id').value) document.getElementById('m-id').value = generateID(r); }
-        function saveUser() { let oldId=document.getElementById('m-old-id').value, type=document.getElementById('m-type').value, role=document.getElementById('m-role').value; let allowed = []; document.querySelectorAll('#m-sub-checks input:checked').forEach(cb => allowed.push(cb.value)); let u={n:document.getElementById('m-name').value, m:document.getElementById('m-id').value, p:document.getElementById('m-pass').value, role:role, sm:document.getElementById('m-sm').value, pm:document.getElementById('m-pm').value, batch:document.getElementById('m-batch').value, subs:document.getElementById('m-subs').value, allowedSubs:allowed}; if(oldId){if(type==='Active'){let i=activeUsers.findIndex(x=>x.m===oldId);activeUsers[i]={...activeUsers[i],...u};}else{let i=pendingUsers.findIndex(x=>x.m===oldId);pendingUsers[i]={...pendingUsers[i],...u};}} else{u.status='Active';activeUsers.push(u); sync();} document.getElementById('modal-ol').style.display='none'; renderUsers(""); sync(); }
-        function toggleNotif() { let d=document.getElementById('notif-drop'); d.style.display=d.style.display==='block'?'none':'block'; if(d.style.display==='block') renderNotifs(); }
-        function renderNotifs() { document.getElementById('notif-list').innerHTML = notifications.length ? notifications.map(n=>`<div class="notif-item"><i class="material-icons" style="color:var(--primary)">${n.icon}</i><div><b>${n.msg}</b><br><small>${n.time}</small></div></div>`).join('') : '<div style="padding:20px;text-align:center;color:#999;">No Alerts</div>'; document.getElementById('head-badge').style.display='none'; }
-        function updateBadges() { let c=notifications.length; if(c>0){let b=document.getElementById('head-badge'); b.style.display='flex'; b.innerText=c;} let u=Object.values(unreadChat).reduce((a,b)=>a+b,0); if(document.querySelector('.nav-badge') && u>0) document.querySelector('.nav-badge').style.display='block'; }
-        function renderBatches() { document.getElementById('batch-grid').innerHTML = (batchList||[]).map(b => `<div class="folder" onclick="openBatch('${b}')"><i class="material-icons">school</i><b>${b}</b></div>`).join(''); let opts = (batchList||[]).map(b => `<option>${b}</option>`).join(''); document.getElementById('m-batch').innerHTML = opts; }
-        function createNewBatch() { let n = prompt("Enter Batch Name:"); if(n) { batchList.push(n); renderBatches(); sync(); } }
-        function deleteBatch() { let b = document.getElementById('bd-title').innerText; if(confirm("Delete " + b + "?")) { batchList = batchList.filter(x => x !== b); closeBatch(); renderBatches(); sync(); } }
-        function openBatch(b) { document.getElementById('view-batch-list').style.display='none'; document.getElementById('view-batch-detail').style.display='block'; document.getElementById('bd-title').innerText=b; let s = activeUsers.filter(u => u.batch === b); document.getElementById('bd-list').innerHTML = s.length ? s.map(x => `<div class="batch-row" onclick="inspect('${x.m}')"><div><b>${x.n}</b><br><small>${x.m}</small></div><div style="font-size:12px;">#${x.rank||'-'} <br> <b style="color:var(--success);">${x.att||0}%</b></div><div style="font-size:12px;">${x.devHist||'None'}</div><div style="text-align:center;"><span class="dev-count-badge">${x.devCount||0}</span></div></div>`).join('') : '<p style="text-align:center;">No Students</p>'; }
-        function closeBatch() { document.getElementById('view-batch-list').style.display='block'; document.getElementById('view-batch-detail').style.display='none'; }
-        function renderStore() { let v = user.role==='Admin'?globalSubjects:(user.allowedSubs||globalSubjects); let d=[{t:'Intro Class',s:'Maths',k:'Video'},{t:'Basic Physics',s:'Science',k:'Video'}]; document.getElementById('demo-list').innerHTML=d.map(i=>`<div class="store-item" onclick="openMedia('${i.k}','${i.t}')"><div class="store-icon" style="background:#dcfce7;color:#166534"><i class="material-icons">play_circle</i></div><div><b>${i.t}</b><br><small>Demo • ${i.s}</small></div></div>`).join(''); let it=[{t:'Full Algebra',s:'Maths',k:'Video'},{t:'Formula Sheet',s:'Maths',k:'PDF'}]; document.getElementById('store-list').innerHTML=it.filter(i=>v.includes(i.s)).map(i=>`<div class="store-item" onclick="openMedia('${i.k}','${i.t}')"><div class="store-icon" style="${i.k==='PDF'?'background:#fee2e2;color:#b91c1c':''}"><i class="material-icons">${i.k==='Video'?'play_circle':'picture_as_pdf'}</i></div><div><b>${i.t}</b><br><small>${i.k} • ${i.s}</small></div></div>`).join(''); }
-        function openMedia(t, title) { document.getElementById('media-overlay').style.display='flex'; document.getElementById('media-title').innerText=title; document.getElementById('media-content-box').innerHTML = t==='Video' ? '<i class="material-icons" style="font-size:80px;">play_circle_outline</i>' : '<div style="background:#eee; width:90%; height:80%; padding:20px; overflow:auto; border-radius:10px;"><div style="background:white; height:100%; padding:20px; color:black;"><h3>PDF Viewer</h3><p>Content for '+title+'</p></div></div>'; }
-        function closeMedia() { document.getElementById('media-overlay').style.display='none'; }
-        function renderChatGrid(elId, spy) { let v = user.role==='Admin'?globalSubjects:(user.allowedSubs||globalSubjects); document.getElementById(elId).innerHTML = v.map(s => { let b = (unreadChat[s]>0 && !spy) ? `<div class="folder-badge" style="display:block;">${unreadChat[s]} New</div>` : ''; return `<div class="folder" onclick="openRoom('${s}', ${spy})"><i class="material-icons">folder</i><b>${s}</b>${b}</div>`; }).join(''); }
-        function openRoom(s, spy) { document.getElementById(spy?'tab-spy':'view-chat-grid').style.display='none'; document.getElementById('view-chat-room').style.display='flex'; document.getElementById('room-title').innerText=spy?"🕵️ "+s:s; document.getElementById('chat-input-area').style.display=spy?'none':'block'; if(!spy && unreadChat[s]>0){unreadChat[s]=0; updateBadges();} }
-        function closeChat() { document.getElementById('view-chat-room').style.display='none'; if(document.getElementById('tab-spy').style.display==='block') document.getElementById('tab-spy').style.display='block'; else document.getElementById('view-chat-grid').style.display='block'; }
-        function inspect(mid) { let u = activeUsers.find(x => x.m === mid); document.getElementById('inspect-modal').style.display='flex'; document.getElementById('ins-name').innerText = u.n; document.getElementById('ins-role').innerText = u.role; document.getElementById('ins-dev').innerText = u.devHist || 'None'; document.getElementById('ins-cnt').innerText = u.devCount || 0; document.getElementById('inspect-modal').dataset.mid = mid; }
-        function triggerEdit() { let mid = document.getElementById('inspect-modal').dataset.mid; document.getElementById('inspect-modal').style.display='none'; openEditModal(mid, 'Active'); }
-        function approve(id) { let i=pendingUsers.findIndex(x=>x.m===id); activeUsers.push({...pendingUsers[i], status:'Active'}); pendingUsers.splice(i,1); renderUsers(""); sync(); }
-        function deleteUser() { activeUsers=activeUsers.filter(x=>x.m!==document.getElementById('m-old-id').value); document.getElementById('modal-ol').style.display='none'; renderUsers(""); sync(); }
-        function setupNav() { const bot=document.getElementById('bot-nav'); let items=user.role==='Admin'?[{i:'pane-admin',l:'Admin',ic:'admin_panel_settings'},{i:'pane-batches',l:'Batches',ic:'class'},{i:'pane-store',l:'Store',ic:'store'},{i:'pane-profile',l:'Menu',ic:'menu'}]:[{i:'pane-home',l:'Home',ic:'home'},{i:'pane-info',l:'Info',ic:'menu_book'},{i:'pane-chat',l:'Chat',ic:'chat',b:true},{i:'pane-store',l:'Store',ic:'store'},{i:'pane-profile',l:'Menu',ic:'menu'}]; bot.innerHTML=items.map(x=>`<div class="nav-item" onclick="nav('${x.i}','${x.s||''}')"><i class="material-icons">${x.ic}</i>${x.l} ${x.b?'<div class="nav-badge"></div>':''}</div>`).join(''); }
-        function nav(id,sub) { document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); if(sub==='admin') admTab('tab-users', document.querySelector('.sub-tab')); if(id==='pane-chat') renderChatGrid('chat-grid',false); if(id==='pane-store') renderStore(); if(id==='pane-admin'){renderChatGrid('spy-grid',true); renderUsers("");} if(id==='pane-batches') renderBatches(); }
-        function admTab(tid,el) { document.querySelectorAll('.sub-tab').forEach(x=>x.classList.remove('active')); if(el)el.classList.add('active'); ['tab-users','tab-appr','tab-spy'].forEach(t=>document.getElementById(t).style.display=t===tid?'block':'none'); if(tid==='tab-users') renderUsers(""); }
-        function formatSub(e) { e.value = e.value.replace(/\b\w/g, l => l.toUpperCase()); }
+        function nav(id, sub) { 
+            document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active')); 
+            document.getElementById(id).classList.add('active');
+            
+            // ADMIN SUB-NAV LOGIC
+            if(user.role === 'Admin') {
+                document.getElementById('sub-nav-admin').style.display = (id === 'pane-admin') ? 'flex' : 'none';
+                if(id === 'pane-admin') { renderChatGrid('spy-grid', true); renderUsers(''); }
+            }
+
+            if(id==='pane-chat') renderChatGrid('chat-grid',false); 
+            if(id==='pane-store') renderStore(); 
+            if(id==='pane-batches') renderBatches(); 
+        }
+
+        // --- CORE FUNCS ---
+        function admTab(tid,el){ document.querySelectorAll('.sub-tab').forEach(x=>x.classList.remove('active')); if(el)el.classList.add('active'); ['tab-users','tab-appr','tab-spy'].forEach(t=>document.getElementById(t).style.display=t===tid?'block':'none'); if(tid==='tab-users') renderUsers(''); }
+        function renderUsers(q){ let t=q.toLowerCase(), l=activeUsers.filter(u=>u.role!=='Admin'); if(t) l=l.filter(u=>u.n.toLowerCase().includes(t)||u.m.toLowerCase().includes(t)); document.getElementById('user-list').innerHTML=l.map(u=>`<div class="u-card row" onclick="inspect('${u.m}')"><div><b>${u.n}</b><br><small>${u.m}</small></div><button class="btn btn-sm btn-sec" onclick="event.stopPropagation(); openEditModal('${u.m}','Active')">Edit</button></div>`).join(''); document.getElementById('pending-list').innerHTML=pendingUsers.map(u=>`<div class="u-card row" style="border-left:4px solid orange;"><div><b>${u.n}</b><br><small>${u.m}</small></div><div><button class="btn btn-sm btn-sec" onclick="openEditModal('${u.m}','Pending')">Edit</button><button class="btn btn-sm btn-green" onclick="approve('${u.m}')">✓</button></div></div>`).join(''); }
+        function approve(id){ let i=pendingUsers.findIndex(x=>x.m===id); activeUsers.push({...pendingUsers[i], status:'Active'}); pendingUsers.splice(i,1); renderUsers(''); sync(); }
+        
+        // --- AI ---
+        function getCourseInfo(s){ 
+            let b=document.getElementById('info-display-box'); b.innerHTML=`<div class="ai-loading">✨ AI generating syllabus for <b>${s}</b>...</div>`;
+            setTimeout(()=>{
+                let d=""; 
+                if(s.includes('Math')) d="Algebra, Geometry, Calculus basics. Problem solving focus.";
+                else if(s.includes('Sci')) d="Physics, Chemistry, Biology lab concepts.";
+                else if(s.includes('Eng')) d="Literature, Grammar, Creative Writing.";
+                else if(s.includes('Robot')) d="Arduino, Sensors, C++ Basics.";
+                else d=`Comprehensive module for ${s}.`;
+                b.innerHTML=`<div class="user-query">${s}</div><div class="ai-result-card"><div class="ai-title"><i class="material-icons">auto_awesome</i> AI Syllabus</div><div class="ai-body">${d}</div></div>`;
+            },1500);
+        }
+
+        // --- UTILS ---
+        function loadProfile(){document.getElementById('prof-name').value=user.n; document.getElementById('prof-pass').value=user.p; document.getElementById('prof-mob').value=user.sm||user.m;}
+        function updateMyProfile(){user.n=document.getElementById('prof-name').value; user.p=document.getElementById('prof-pass').value; let i=activeUsers.findIndex(u=>u.m===user.m); if(i!==-1){activeUsers[i]=user; sync(); alert("Updated!");}}
+        function sendBatchAlert(m,i){sendAlert(`${m} (${document.getElementById('bd-title').innerText})`,'Jalaram Academy',i);}
+        function sendAlert(m,t,i){notifications.unshift({msg:m,icon:i,time:'Now'}); updateBadges(); sync(); if(Notification.permission==='granted')new Notification(t,{body:m}); else alert(m);}
+        function renderBatches(){document.getElementById('batch-grid').innerHTML=batchList.map(b=>`<div class="folder" onclick="openBatch('${b}')"><i class="material-icons">school</i><b>${b}</b></div>`).join('');}
+        function openBatch(b){document.getElementById('view-batch-list').style.display='none'; document.getElementById('view-batch-detail').style.display='block'; document.getElementById('bd-title').innerText=b; document.getElementById('bd-list').innerHTML=activeUsers.filter(u=>u.batch===b).map(u=>`<div class="batch-row" onclick="inspect('${u.m}')"><div><b>${u.n}</b></div><div style="text-align:center;">#${u.rank||'-'}</div><div>${u.devHist||'None'}</div><div style="text-align:center;">${u.devCount||0}</div></div>`).join('');}
+        function closeBatch(){document.getElementById('view-batch-list').style.display='block'; document.getElementById('view-batch-detail').style.display='none';}
+        function renderChatGrid(el,s){document.getElementById(el).innerHTML=globalSubjects.map(x=>`<div class="folder" onclick="openRoom('${x}',${s})"><i class="material-icons">folder</i><b>${x}</b></div>`).join('');}
+        function openRoom(s,spy){document.getElementById(spy?'tab-spy':'view-chat-grid').style.display='none'; document.getElementById('view-chat-room').style.display='flex'; document.getElementById('room-title').innerText=spy?"🕵️ "+s:s; document.getElementById('chat-input-area').style.display=spy?'none':'block';}
+        function closeChat(){document.getElementById('view-chat-room').style.display='none'; if(document.getElementById('tab-spy').style.display==='block')document.getElementById('tab-spy').style.display='block'; else document.getElementById('view-chat-grid').style.display='block';}
+        function inspect(id){let u=activeUsers.find(x=>x.m===id); document.getElementById('inspect-modal').style.display='flex'; document.getElementById('ins-name').innerText=u.n; document.getElementById('ins-role').innerText=u.role; document.getElementById('inspect-modal').dataset.mid=id;}
+        function triggerEdit(){document.getElementById('inspect-modal').style.display='none'; openEditModal(document.getElementById('inspect-modal').dataset.mid, 'Active');}
+        function openEditModal(id,t){document.getElementById('modal-ol').style.display='flex'; document.getElementById('m-title').innerText=id?"Edit":"Add"; document.getElementById('m-old-id').value=id||''; document.getElementById('m-type').value=t; let u=id?(t==='Active'?activeUsers:pendingUsers).find(x=>x.m===id):null; if(u){document.getElementById('m-id').value=u.m; document.getElementById('m-name').value=u.n; document.getElementById('m-role').value=u.role; document.getElementById('m-pass').value=u.p; toggleModalFields();} else {document.getElementById('m-id').value=generateID('Student'); document.getElementById('m-name').value=''; document.getElementById('m-pass').value=''; toggleModalFields();}}
+        function deleteUser(){let id=document.getElementById('m-old-id').value; activeUsers=activeUsers.filter(x=>x.m!==id); document.getElementById('modal-ol').style.display='none'; renderUsers(''); sync();}
+        function setupNav(){document.getElementById('bot-nav').innerHTML=(user.role==='Admin'?[{i:'pane-admin',l:'Admin',c:'admin_panel_settings'},{i:'pane-batches',l:'Batches',c:'class'},{i:'pane-store',l:'Store',c:'store'},{i:'pane-profile',l:'Menu',c:'menu'}]:[{i:'pane-home',l:'Home',c:'home'},{i:'pane-info',l:'AI Info',c:'auto_awesome'},{i:'pane-chat',l:'Chat',c:'chat'},{i:'pane-store',l:'Store',c:'store'},{i:'pane-profile',l:'Menu',c:'menu'}]).map(x=>`<div class="nav-item" onclick="nav('${x.i}','${x.l==='Admin'?'admin':''}')"><i class="material-icons">${x.c}</i>${x.l}</div>`).join('');}
+        function updateBadges(){let c=notifications.length; if(c>0){let b=document.getElementById('head-badge'); b.style.display='flex'; b.innerText=c;}}
+        function renderStore(){let d=[{t:'Intro Class',s:'Maths',k:'Video'},{t:'Basic Physics',s:'Science',k:'Video'}]; document.getElementById('demo-list').innerHTML=d.map(i=>`<div class="store-item" onclick="openMedia('${i.k}','${i.t}')"><div class="store-icon" style="background:#dcfce7;color:#166534"><i class="material-icons">play_circle</i></div><div><b>${i.t}</b><br><small>Demo</small></div></div>`).join(''); let it=[{t:'Algebra',s:'Maths',k:'Video'},{t:'Formulas',s:'Maths',k:'PDF'}]; document.getElementById('store-list').innerHTML=it.map(i=>`<div class="store-item" onclick="openMedia('${i.k}','${i.t}')"><div class="store-icon"><i class="material-icons">${i.k==='Video'?'play_circle':'description'}</i></div><div><b>${i.t}</b><br><small>${i.k}</small></div></div>`).join('');}
+        function formatSub(e){e.value=e.value.replace(/\b\w/g,l=>l.toUpperCase());}
     </script>
 </body>
 </html>
