@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jalaram Academy | v228 Universal Search</title>
+    <title>Jalaram Academy | v230 Stable</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore-compat.js"></script>
 
     <style>
         :root {
@@ -19,11 +17,13 @@
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; }
         body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
 
-        /* HEADER & NOTIFS */
+        /* HEADER */
         .app-bar { background:var(--primary); color:white; padding:12px 20px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 12px rgba(0,0,0,0.1); z-index:100; }
         .brand { font-size:20px; font-weight:800; display:flex; align-items:center; gap:10px; }
         .notif-icon { position:relative; cursor:pointer; margin-right:15px; }
         .notif-badge { position:absolute; top:-5px; right:-5px; background:var(--danger); color:white; font-size:10px; font-weight:bold; height:16px; width:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:2px solid var(--primary); display:none; }
+        
+        /* DROPDOWN */
         .notif-dropdown { position:absolute; top:60px; right:10px; width:300px; background:white; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,0.2); z-index:2000; display:none; overflow:hidden; border:1px solid #eee; }
         .notif-item { padding:15px; border-bottom:1px solid #f1f5f9; font-size:13px; display:flex; align-items:start; gap:10px; cursor:pointer; background:#f0f9ff; }
 
@@ -43,34 +43,37 @@
         .sub-tab { display:inline-block; padding:16px 20px; font-size:14px; font-weight:600; color:#64748b; border-bottom:4px solid transparent; cursor:pointer; }
         .sub-tab.active { color:var(--primary); border-color:var(--primary); }
 
+        /* PANES (TAB SWITCHING LOGIC) */
+        .pane { display:none; } 
+        .pane.active { display:block; animation:fadeIn 0.3s; }
+        @keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
         /* CARDS */
         .u-card { background:white; padding:20px; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:16px; border:1px solid #e2e8f0; }
         .row { display:flex; justify-content:space-between; align-items:center; }
 
-        /* BATCH TABLE (4 COLUMNS) */
+        /* BATCH GRID (4 COLUMNS) */
         .batch-header { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:12px; background:#f1f5f9; border-radius:8px; font-size:11px; font-weight:800; color:#64748b; text-transform:uppercase; margin-bottom:5px; }
         .batch-row { display:grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr; padding:15px 12px; border-bottom:1px solid #eee; font-size:13px; align-items:center; cursor:pointer; }
         .batch-row:hover { background:#f8fafc; }
         .dev-count-badge { background:#e0e7ff; color:#4338ca; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px; }
 
-        /* CHAT GRID */
+        /* GRID & STORE */
         .grid-box { display:grid; grid-template-columns: repeat(2, 1fr); gap:15px; }
         .folder { background:white; padding:25px; border-radius:16px; border:2px solid #e2e8f0; text-align:center; cursor:pointer; position:relative; }
         .folder:active { background:#e3f2fd; border-color:var(--primary); }
         .folder-badge { position:absolute; top:10px; right:10px; background:var(--success); color:white; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px; display:none; }
-
-        /* AI CHAT */
-        .ai-bubble { background:var(--ai-color); color:white; padding:12px; border-radius:12px 12px 12px 0; margin-bottom:10px; max-width:85%; align-self:flex-start; box-shadow:0 4px 10px rgba(124, 58, 237, 0.2); }
-        .user-bubble { background:white; border:1px solid #ddd; padding:12px; border-radius:12px 12px 0 12px; margin-bottom:10px; max-width:80%; align-self:flex-end; }
-
-        /* LIVE & STORE */
-        .live-card { background:linear-gradient(135deg, #ef4444, #b91c1c); color:white; padding:20px; border-radius:16px; margin-bottom:16px; display:none; animation:pulse 2s infinite; cursor:pointer; }
-        @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(239,68,68,0.4);} 70%{box-shadow:0 0 0 10px rgba(239,68,68,0);} 100%{box-shadow:0 0 0 0 rgba(239,68,68,0);} }
         .store-item { display:flex; gap:15px; align-items:center; padding:15px; border-bottom:1px solid #f1f5f9; cursor:pointer; }
         .store-icon { width:50px; height:50px; border-radius:12px; background:#e0f7fa; color:#006064; display:flex; align-items:center; justify-content:center; }
 
-        /* INPUTS */
+        /* AI CHAT */
+        .ai-bubble { background:var(--ai-color); color:white; padding:12px; border-radius:12px 12px 12px 0; margin-bottom:10px; max-width:85%; align-self:flex-start; box-shadow:0 4px 10px rgba(124, 58, 237, 0.2); font-size:14px; line-height:1.4; }
+        .user-bubble { background:white; border:1px solid #ddd; padding:12px; border-radius:12px 12px 0 12px; margin-bottom:10px; max-width:80%; align-self:flex-end; font-size:14px; }
+
+        /* UI ELEMENTS */
+        .teacher-only, .admin-only { display:none; }
         .sub-check-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:5px; background:#f8fafc; padding:10px; border-radius:8px; border:1px solid #eee; }
+        .sub-check-item { display:flex; align-items:center; gap:5px; font-size:12px; }
         input:not([type="checkbox"]), select { width:100%; padding:15px; border:2px solid #cbd5e1; border-radius:12px; margin-bottom:10px; outline:none; font-size:14px; background:#fff; }
         .btn { padding:12px 20px; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:13px; transition:0.2s; }
         .btn-main { background:var(--primary); color:white; width:100%; }
@@ -79,7 +82,6 @@
         .btn-green { background:#dcfce7; color:#14532d; }
         .btn-ai { background:var(--ai-color); color:white; }
         .btn-sm { padding:8px 14px; font-size:12px; width:auto; }
-        .teacher-only, .admin-only { display:none; }
 
         /* OVERLAYS */
         .media-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:4000; display:none; flex-direction:column; }
@@ -90,7 +92,7 @@
 
         /* MOBILE NAV */
         .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:none; justify-content:space-around; padding:12px; border-top:1px solid #ddd; z-index:900; padding-bottom:20px; }
-        .nav-item { text-align:center; font-size:11px; color:#64748b; font-weight:600; flex:1; display:flex; flex-direction:column; align-items:center; position:relative; }
+        .nav-item { text-align:center; font-size:11px; color:#64748b; font-weight:600; flex:1; display:flex; flex-direction:column; align-items:center; position:relative; cursor:pointer; }
         .nav-item.active { color:var(--primary); }
         .nav-item i { font-size:26px; margin-bottom:4px; }
         .nav-badge { position:absolute; top:-2px; right:20px; background:var(--danger); width:10px; height:10px; border-radius:50%; display:none; border:2px solid white; }
@@ -103,7 +105,7 @@
         <div class="u-card" style="width:360px; text-align:center; border:none; box-shadow:none;">
             <div style="font-size:80px; margin-bottom:10px;">🎓</div>
             <h2 style="font-weight:800; color:var(--primary); font-size:24px;">Jalaram Academy</h2>
-            <p style="color:#64748b; font-size:15px; margin-bottom:30px;">v228 Universal Search</p>
+            <p style="color:#64748b; font-size:15px; margin-bottom:30px;">v230 Bug-Free</p>
             <div id="l-form">
                 <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
                 <input id="l-id" placeholder="ID (admin / STU-1234)">
@@ -111,6 +113,7 @@
                 <button class="btn btn-main" onclick="login()">SECURE LOGIN</button>
                 <p style="margin-top:20px; font-size:14px; color:var(--primary); font-weight:600; cursor:pointer;" onclick="toggleReg(true)">Create New Account</p>
             </div>
+            
             <div id="r-form" style="display:none; text-align:left;">
                 <h3>New Registration</h3>
                 <select id="r-role" onchange="toggleRegFields()"><option>Student</option><option>Teacher</option></select>
@@ -168,7 +171,7 @@
                 <div id="pane-admin" class="pane">
                     <div id="tab-users">
                         <div class="u-card row"><h3>Active Database</h3><button class="btn btn-sm btn-sec" onclick="openEditModal(null, 'Active')">+ Add Manual User</button></div>
-                        <input placeholder="🔍 Search Name, ID, or Mobile..." onkeyup="renderUsers(this.value)">
+                        <input placeholder="🔍 Inspect..." onkeyup="renderUsers(this.value)">
                         <div id="user-list"></div>
                     </div>
                     <div id="tab-appr" style="display:none;"><div class="u-card"><h3>Pending Requests</h3></div><div id="pending-list"></div></div>
@@ -179,23 +182,31 @@
                     <div id="view-batch-list"><div class="u-card row"><h3>Batches</h3><button class="btn btn-sm btn-sec admin-only" onclick="createNewBatch()">+ Batch</button></div><div class="grid-box" id="batch-grid"></div></div>
                     <div id="view-batch-detail" style="display:none;">
                         <div class="u-card row"><button class="btn btn-sm btn-sec" onclick="closeBatch()">← Back</button><b id="bd-title">Batch</b><button class="btn btn-sm btn-red admin-only" onclick="deleteBatch()">Delete</button></div>
-                        
                         <div class="teacher-only u-card" style="background:#fef2f2; border:1px solid #fee2e2;">
                             <div class="row"><div><b style="color:#dc2626;">Live Class</b></div><button class="btn btn-sm btn-red" onclick="sendAlert('Live Class Started!', 'videocam')">GO LIVE 🔴</button></div>
                             <hr style="border:0; border-top:1px solid #fee2e2; margin:10px 0;">
                             <b>Schedule Test</b>
-                            <div class="row" style="margin-top:5px; gap:5px;"><input placeholder="Test Topic" id="test-topic" style="margin:0;"><button class="btn btn-sm btn-main" onclick="sendAlert('Test: '+document.getElementById('test-topic').value, 'assignment')">Notify</button></div>
+                            <div class="row" style="margin-top:5px; gap:5px;"><input placeholder="Test Topic" id="test-topic" style="margin:0;"><button class="btn btn-sm btn-main" onclick="sendAlert('Test Scheduled: '+document.getElementById('test-topic').value, 'assignment')">Notify</button></div>
                         </div>
-
-                        <div class="u-card"><div class="batch-header"><div>Name</div><div>Rank/Att</div><div>Devices</div><div>Last Login</div></div><div id="bd-list"></div></div>
+                        <div class="u-card">
+                            <div class="batch-header"><div>Name</div><div>Rank/Att</div><div>Device Use</div><div style="text-align:center;">Count</div></div>
+                            <div id="bd-list"></div>
+                        </div>
                     </div>
                 </div>
 
                 <div id="pane-chat" class="pane"><div class="u-card"><h3>Discussions</h3></div><div class="grid-box" id="chat-grid"></div></div>
                 <div id="view-chat-room" style="display:none; height:100%; flex-direction:column;"><div class="u-card row"><button class="btn btn-sm btn-sec" onclick="closeChat()">← Back</button><b id="room-title">Subject</b></div><div style="flex:1; background:#f1f5f9; border-radius:12px; margin-bottom:15px;"></div><div class="u-card" id="chat-input-area"><div class="row"><input placeholder="Type..." style="margin:0;"><button class="btn btn-main" style="width:auto;"><i class="material-icons">send</i></button></div></div></div>
 
-                <div id="pane-store" class="pane"><div class="u-card"><h3>Store & Demos</h3></div><div class="u-card admin-only" style="border:2px dashed #0091ea; background:#f0f9ff;"><h4 style="color:#0091ea;">Upload</h4><button class="btn btn-sm btn-main" onclick="alert('Uploaded!')">Upload</button></div><div class="u-card" id="store-list"></div></div>
-                <div id="pane-buddy" class="pane"><div class="u-card" style="background:linear-gradient(135deg, #7c3aed, #4f46e5); color:white;"><h3>AI Buddy</h3></div><div id="ai-chat-box" style="height:350px; overflow-y:auto; padding:10px; display:flex; flex-direction:column;"><div class="ai-bubble">Hello! 🤖</div></div><div class="u-card"><div class="row"><input id="ai-input" placeholder="Ask AI..." style="margin:0;"><button class="btn btn-ai" style="width:auto; margin-left:10px;" onclick="sendAiMsg()"><i class="material-icons">send</i></button></div></div></div>
+                <div id="pane-store" class="pane">
+                    <div class="u-card"><h3>Store & Demos</h3></div>
+                    <div class="u-card admin-only" style="border:2px dashed #0091ea; background:#f0f9ff;"><h4 style="color:#0091ea;">Upload</h4><button class="btn btn-sm btn-main" onclick="alert('File Uploaded!')">Upload</button></div>
+                    <div class="u-card" style="background:#f0fdf4; border:1px solid #dcfce7;"><h4 style="color:#166534; margin-bottom:10px;">Free Demo Classes</h4><div id="demo-list"></div></div>
+                    <div class="u-card"><h4>Premium Materials</h4><div id="store-list"></div></div>
+                </div>
+                
+                <div id="pane-buddy" class="pane"><div class="u-card" style="background:linear-gradient(135deg, #7c3aed, #4f46e5); color:white;"><h3>Study Buddy AI</h3></div><div id="ai-chat-box" style="height:350px; overflow-y:auto; padding:10px; display:flex; flex-direction:column;"><div class="ai-bubble">Hi! Need help with studies? 🤖</div></div><div class="u-card"><div class="row"><input id="ai-input" placeholder="Ask AI..." style="margin:0;"><button class="btn btn-ai" style="width:auto; margin-left:10px;" onclick="sendAiMsg()"><i class="material-icons">send</i></button></div></div></div>
+                
                 <div id="pane-home" class="pane"><div class="u-card"><h3>My Zenith</h3></div></div>
                 <div id="pane-profile" class="pane"><div class="u-card"><h3>Menu</h3></div></div>
 
@@ -206,7 +217,13 @@
 
     <div id="media-overlay" class="media-overlay"><div class="media-controls"><span id="media-title">Media</span><button class="btn btn-sm btn-red" onclick="closeMedia()">CLOSE</button></div><div class="media-content" id="media-content-box"></div></div>
     
-    <div id="inspect-modal" class="modal-ol" onclick="this.style.display='none'"><div class="modal" onclick="event.stopPropagation()"><div style="text-align:center;margin-bottom:20px;"><h3 id="ins-name">User</h3><small id="ins-role">Role</small></div><div class="u-card"><h4>Device History</h4><div class="store-item" style="border-bottom:1px solid #eee;"><span>Last Login</span><span id="ins-login" style="margin-left:auto;">Today</span></div><div class="store-item" style="border-bottom:1px solid #eee;"><span>Device</span><span id="ins-dev" style="margin-left:auto;">Android 13</span></div><div class="store-item"><span>Count</span><span id="ins-cnt" style="margin-left:auto;">2</span></div></div><button class="btn btn-sec" style="width:100%;" onclick="triggerEdit()">EDIT USER</button></div></div>
+    <div id="inspect-modal" class="modal-ol" onclick="this.style.display='none'">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div style="text-align:center; margin-bottom:20px;"><h3 id="ins-name" style="margin:0;">User</h3><small id="ins-role">Role</small></div>
+            <div class="u-card"><h4>Full History</h4><div class="store-item" style="border-bottom:1px solid #eee;"><span>Last Login</span><span id="ins-login" style="margin-left:auto;">Today</span></div><div class="store-item" style="border-bottom:1px solid #eee;"><span>Model</span><span id="ins-dev" style="margin-left:auto;">Android 13</span></div><div class="store-item"><span>Total Devices</span><span id="ins-cnt" style="margin-left:auto;">2</span></div></div>
+            <button class="btn btn-sec" style="width:100%;" onclick="triggerEdit()">EDIT USER</button>
+        </div>
+    </div>
 
     <div id="modal-ol" class="modal-ol" onclick="this.style.display='none'">
         <div class="modal" onclick="event.stopPropagation()">
@@ -214,157 +231,200 @@
             <input type="hidden" id="m-old-id"><input type="hidden" id="m-type">
             <select id="m-role" onchange="toggleModalFields()"><option>Student</option><option>Teacher</option></select>
             <input id="m-id" readonly style="background:#eef2f6;"><input id="m-name" placeholder="Name">
-            <div id="m-stu-fields"><label style="font-size:11px;font-weight:700;">STUDENT MOBILE</label><input id="m-sm"><label style="font-size:11px;font-weight:700;">PARENT MOBILE</label><input id="m-pm"><select id="m-batch"><option>Class 10 A</option><option>Class 12</option></select><div style="margin-top:10px;"><label style="font-size:11px; font-weight:700;">SUBJECT ACCESS</label><div class="sub-check-grid" id="m-sub-checks"></div></div></div>
-            <di            </div>
-
-            <div id="pane-batches" class="pane">
-                <div class="card">
-                    <h3>Quantum Scheduler</h3>
-                    <select id="sch-batch"></select>
-                    <div style="display:flex; gap:10px;">
-                        <input type="time" id="sch-time">
-                        <input type="number" id="sch-dur" placeholder="Mins" value="60">
-                    </div>
-                    <input type="text" id="sch-sub" placeholder="Subject Name (auto-capitalize)" oninput="formatSubs(this)">
-                    <button class="btn btn-main" onclick="saveQuantum()">SECURE SLOT</button>
-                </div>
-                <div id="master-sch-list"></div>
+            <div id="m-stu-fields">
+                <label style="font-size:11px; font-weight:700;">STUDENT MOBILE</label><input id="m-sm">
+                <label style="font-size:11px; font-weight:700;">PARENT MOBILE</label><input id="m-pm">
+                <label style="font-size:11px; font-weight:700;">BATCH</label><select id="m-batch"></select>
+                <div style="margin-top:10px;"><label style="font-size:11px; font-weight:700;">SUBJECT ACCESS</label><div class="sub-check-grid" id="m-sub-checks"></div></div>
             </div>
-
-            <div id="pane-home" class="pane">
-                <div class="card" style="background:var(--primary); color:white;">
-                    <h3>Student Progress</h3>
-                    <div class="row" style="margin-top:10px;">
-                        <div>MARKS: <span id="my-m">0</span></div>
-                        <div>RANK: <span id="my-r">#--</span></div>
-                    </div>
-                </div>
-                <div class="card" style="text-align:center;">
-                    <div class="pie-chart" id="att-pie"><div class="pie-text" id="att-val">0%</div></div>
-                    <p style="font-weight:700;">Attendance</p>
-                </div>
-                <div id="student-classes"></div>
-            </div>
-
-            <div id="pane-profile" class="pane">
-                <div class="card">
-                    <h3>Menu</h3>
-                    <button class="btn btn-sec" onclick="startSim('Teacher')">Simulate Teacher</button>
-                    <button class="btn btn-sec" onclick="startSim('Student')">Simulate Student</button>
-                    <button class="btn btn-red" style="margin-top:20px;" onclick="location.reload()">Logout</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="bot-nav" id="bot-nav"></div>
-    </div>
-
-    <div id="add-modal" class="modal-ol" onclick="this.style.display='none'">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h3 id="modal-title">Registry</h3>
-            <input id="m-name" placeholder="Full Name">
-            <input id="m-mob" placeholder="Mobile / ID">
-            <input id="m-pass" placeholder="PIN">
-            <div id="m-stu-box"><select id="m-batch"><option>Class 10 A</option><option>Class 12</option></select></div>
-            <button class="btn btn-main" onclick="commitUser()">SAVE TO CLOUD</button>
+            <div id="m-tch-fields" style="display:none;"><label style="font-size:11px; font-weight:700;">SUBJECTS</label><input id="m-subs" oninput="formatSub(this)"></div>
+            <div class="row" style="margin-top:15px; gap:10px;"><button class="btn btn-main" style="flex:1;" onclick="saveUser()">SAVE</button><button class="btn btn-red" onclick="deleteUser()"><i class="material-icons">delete</i></button></div>
         </div>
     </div>
 
     <script>
-        // --- FIREBASE CONFIG (Paste your keys here) ---
-        const firebaseConfig = { apiKey: "PASTE_HERE", authDomain: "PASTE_HERE", projectId: "PASTE_HERE" };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        // --- DATA & STORAGE ---
+        let globalSubjects = ['Maths', 'Science', 'English', 'History'];
+        let batchList = ['Class 10 A', 'Class 12'];
+        let activeUsers = [{n:'Admin', m:'admin', p:'1234', role:'Admin', status:'Active'}];
+        let pendingUsers = [];
+        let notifications = [];
+        let user = null;
+        let unreadChat = {'Maths':2};
 
-        // DUMMY DATA FOR OFFLINE/BYPASS
-        let dummy = {
-            '1111': {n:'Rahul', role:'Student', batch:'Class 10 A', att:90, marks:95, rank:1, p:'1234'},
-            '9999': {n:'Mr. Sharma', role:'Teacher', p:'1234'}
-        };
+        // Load Persistent Data
+        if(localStorage.getItem('ja_active')) activeUsers = JSON.parse(localStorage.getItem('ja_active'));
+        if(localStorage.getItem('ja_pending')) pendingUsers = JSON.parse(localStorage.getItem('ja_pending'));
+        if(localStorage.getItem('ja_batches')) batchList = JSON.parse(localStorage.getItem('ja_batches'));
+        if(localStorage.getItem('ja_notifs')) notifications = JSON.parse(localStorage.getItem('ja_notifs'));
 
-        let currentUser = null;
-        let state = { users: [], schedules: [], batches: ['Class 10 A', 'Class 12'] };
-
-        function initListeners() {
-            db.collection('users').onSnapshot(snap => { state.users = snap.docs.map(d => d.data()); refreshUI(); });
-            db.collection('schedules').onSnapshot(snap => { state.schedules = snap.docs.map(d => d.data()); refreshUI(); });
-        }
-        initListeners();
-
-        function login() {
-            const id = document.getElementById('l-id').value, ps = document.getElementById('l-pass').value;
-            if(id === 'admin' && ps === '1234') { currentUser = {n:'Admin', role:'Admin'}; finalize(); return; }
-            if(dummy[id] && dummy[id].p === ps) { currentUser = dummy[id]; finalize(); return; }
-            const f = state.users.find(u => u.m === id && u.p === ps);
-            if(f) { currentUser = f; finalize(); } else { alert("Login Failed"); }
+        function sync() {
+            localStorage.setItem('ja_active', JSON.stringify(activeUsers));
+            localStorage.setItem('ja_pending', JSON.stringify(pendingUsers));
+            localStorage.setItem('ja_batches', JSON.stringify(batchList));
+            localStorage.setItem('ja_notifs', JSON.stringify(notifications));
         }
 
-        function finalize() {
-            document.getElementById('auth').style.display='none';
-            document.getElementById('app').style.display='block';
-            document.getElementById('u-chip').innerText = currentUser.n;
-            setupNav(); refreshUI();
-        }
-
-        function setupNav() {
-            const nav = document.getElementById('bot-nav');
-            const items = [
-                {i:'pane-home',l:'Home',ic:'home'},
-                {i:'pane-admin',l:'Admin',ic:'badge'},
-                {i:'pane-batches',l:'Classes',ic:'school'},
-                {i:'pane-profile',l:'Menu',ic:'menu'}
-            ];
-            nav.innerHTML = items.map(x => `<div class="nav-item" onclick="openPane('${x.i}', this)"><span class="material-icons">${x.ic}</span>${x.l}</div>`).join('');
-            openPane('pane-home', nav.firstChild);
-        }
-
-        function openPane(id, el) {
-            document.querySelectorAll('.pane, .nav-item').forEach(x => x.classList.remove('active'));
-            document.getElementById(id).classList.add('active'); if(el) el.classList.add('active');
-        }
-
-        function renderUsers() {
-            document.getElementById('list-s').innerHTML = state.users.filter(x=>x.role==='Student').map(u => `<div class="card"><b>${u.n}</b> - ${u.batch}</div>`).join('');
-            document.getElementById('list-t').innerHTML = state.users.filter(x=>x.role==='Teacher').map(u => `<div class="card"><b>${u.n}</b> - Faculty</div>`).join('');
-        }
-
-        function saveQuantum() {
-            const bt = document.getElementById('sch-batch').value, t = document.getElementById('sch-time').value, sub = document.getElementById('sch-sub').value;
-            const dur = parseInt(document.getElementById('sch-dur').value);
-            const start = parseInt(t.split(':')[0])*60 + parseInt(t.split(':')[1]), end = start + dur;
-
-            const clash = state.schedules.find(s => {
-                if(s.batch !== bt) return false;
-                const eStart = parseInt(s.time.split(':')[0])*60 + parseInt(s.time.split(':')[1]), eEnd = eStart + s.dur;
-                return (start < eEnd + 10) && (end + 10 > eStart);
-            });
-
-            if(clash) alert(`⚠️ CLASH! ${clash.sub} by ${clash.teacher} at ${clash.time}. 10m Buffer required.`);
-            else { db.collection('schedules').add({ batch:bt, time:t, dur:dur, sub:sub, teacher:currentUser.n }); }
-        }
-
-        function refreshUI() {
-            if(!currentUser) return;
-            if(currentUser.role === 'Student') {
-                const att = currentUser.att || 0;
-                document.getElementById('att-val').innerText = att + "%";
-                document.getElementById('att-pie').style.background = `conic-gradient(var(--success) 0% ${att}%, #eee ${att}% 100%)`;
-                document.getElementById('my-m').innerText = currentUser.marks || 0;
-                document.getElementById('my-r').innerText = "#" + (currentUser.rank || '--');
-                if(currentUser.rank <= 3) triggerConfetti();
-                document.getElementById('student-classes').innerHTML = state.schedules.filter(x=>x.batch===currentUser.batch).map(c => `<div class="card"><b>${c.sub}</b><br><small>${c.time}</small></div>`).join('');
+        // --- CORE ---
+        function generateID(role) { return (role==='Student'?'STU':'TCH')+'-'+Math.floor(1000+Math.random()*9000); }
+        function login() { const id=document.getElementById('l-id').value; if(id==='admin'){user={n:'Admin', role:'Admin'}; initApp();} else { let u = activeUsers.find(x => x.m === id); if(u && u.p === document.getElementById('l-pass').value) { user=u; initApp(); } else alert("Invalid ID"); } }
+        
+        function initApp() {
+            document.getElementById('auth').style.display='none'; document.getElementById('app').style.display='flex'; document.getElementById('u-chip').innerText = user.n;
+            document.querySelectorAll('.nav-group').forEach(x=>x.classList.remove('active'));
+            document.querySelectorAll('.admin-only, .teacher-only').forEach(x=>x.style.display='none');
+            
+            if(user.role==='Admin'){
+                document.getElementById('nav-admin').classList.add('active'); 
+                document.querySelectorAll('.admin-only, .teacher-only').forEach(x=>x.style.display='block');
+                nav('pane-admin','admin');
+            } else if(user.role==='Teacher'){
+                document.getElementById('nav-teacher').classList.add('active'); 
+                document.querySelectorAll('.teacher-only').forEach(x=>x.style.display='block');
+                nav('pane-batches',null);
+            } else {
+                document.getElementById('nav-other').classList.add('active'); 
+                nav('pane-home',null);
             }
-            if(currentUser.role === 'Admin') renderUsers();
-            document.getElementById('sch-batch').innerHTML = state.batches.map(b=>`<option>${b}</option>`).join('');
-            document.getElementById('master-sch-list').innerHTML = state.schedules.map(s => `<div class="card"><b>${s.sub}</b> - ${s.batch} at ${s.time}</div>`).join('');
+            setupNav(); updateBadges(); renderBatches();
         }
 
-        function formatSubs(el) { if(el.value.endsWith(',')) { let p = el.value.split(',').map(x=>x.trim().charAt(0).toUpperCase()+x.trim().slice(1)); el.value = p.join(', ') + ' '; } }
-        function openAddModal(r) { document.getElementById('add-modal').style.display='flex'; document.getElementById('modal-title').innerText = "+ " + r; document.getElementById('add-modal').dataset.role = r; }
-        function commitUser() { const role = document.getElementById('add-modal').dataset.role; const u = { n:document.getElementById('m-name').value, m:document.getElementById('m-mob').value, p:document.getElementById('m-pass').value, role:role }; if(role==='Student') u.batch = document.getElementById('m-batch').value; db.collection('users').add(u); document.getElementById('add-modal').style.display='none'; }
-        function triggerConfetti() { const c = document.getElementById('party-canvas'); const ctx = c.getContext('2d'); c.width = window.innerWidth; c.height = window.innerHeight; let p = Array.from({length:50}, () => ({x:Math.random()*c.width, y:Math.random()*c.height, c:`hsl(${Math.random()*360},70%,50%)`, v:Math.random()*2+1})); function frame() { ctx.clearRect(0,0,c.width,c.height); p.forEach(x => { x.y+=x.v; if(x.y>c.height) x.y=-10; ctx.fillStyle=x.c; ctx.fillRect(x.x,x.y,4,4); }); requestAnimationFrame(frame); } frame(); }
-        function startSim(r) { currentUser = {n:"Sim "+r, role:r, batch:'Class 10 A', att:85, marks:90, rank:1}; finalize(); }
+        // --- NAVIGATION (BUG FIXED) ---
+        function setupNav() { 
+            const bot=document.getElementById('bot-nav'); 
+            let items=user.role==='Admin'?[{i:'pane-admin',l:'Admin',ic:'admin_panel_settings'},{i:'pane-batches',l:'Batches',ic:'class'},{i:'pane-store',l:'Store',ic:'store'},{i:'pane-profile',l:'Menu',ic:'menu'}]:[{i:'pane-home',l:'Home',ic:'home'},{i:'pane-buddy',l:'Buddy',ic:'psychology'},{i:'pane-chat',l:'Chat',ic:'chat',b:true},{i:'pane-store',l:'Store',ic:'store'},{i:'pane-profile',l:'Menu',ic:'menu'}]; 
+            bot.innerHTML=items.map(x=>`<div class="nav-item" onclick="nav('${x.i}','${x.s||''}')"><i class="material-icons">${x.ic}</i>${x.l} ${x.b?'<div class="nav-badge"></div>':''}</div>`).join(''); 
+        }
+        
+        function nav(id,sub) { 
+            document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active')); 
+            document.getElementById(id).classList.add('active'); 
+            if(sub==='admin') admTab('tab-users', document.querySelector('.sub-tab')); 
+            if(id==='pane-chat') renderChatGrid('chat-grid',false); 
+            if(id==='pane-store') renderStore(); 
+            if(id==='pane-admin'){renderChatGrid('spy-grid',true); renderUsers();} 
+            if(id==='pane-batches') renderBatches(); 
+        }
+
+        function admTab(tid,el) { document.querySelectorAll('.sub-tab').forEach(x=>x.classList.remove('active')); if(el)el.classList.add('active'); ['tab-users','tab-appr','tab-spy'].forEach(t=>document.getElementById(t).style.display=t===tid?'block':'none'); if(tid==='tab-users') renderUsers(); }
+
+        // --- AI BUDDY ---
+        function sendAiMsg() {
+            let input = document.getElementById('ai-input');
+            let txt = input.value;
+            if(!txt) return;
+            let box = document.getElementById('ai-chat-box');
+            box.innerHTML += `<div class="user-bubble">${txt}</div>`;
+            input.value = '';
+            
+            let tId = 'think-'+Date.now();
+            box.innerHTML += `<div id="${tId}" class="ai-bubble">Thinking...</div>`;
+            box.scrollTop = box.scrollHeight;
+
+            setTimeout(() => {
+                document.getElementById(tId).remove();
+                let resp = "I can help with Maths, Science & Exams. Ask me!";
+                if(txt.toLowerCase().includes('math')) resp = "Maths: The area of a circle is πr².";
+                if(txt.toLowerCase().includes('science')) resp = "Science: Gravity accelerates at 9.8 m/s².";
+                box.innerHTML += `<div class="ai-bubble">${resp}</div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 1000);
+        }
+
+        // --- NOTIFICATIONS & BADGES (CRASH FIX) ---
+        function sendAlert(msg, icon) { notifications.unshift({msg:msg, icon:icon, time:'Just now'}); alert("Sent: "+msg); updateBadges(); sync(); }
+        function toggleNotif() { let d=document.getElementById('notif-drop'); d.style.display=d.style.display==='block'?'none':'block'; if(d.style.display==='block') renderNotifs(); }
+        function renderNotifs() { document.getElementById('notif-list').innerHTML = notifications.length ? notifications.map(n=>`<div class="notif-item"><i class="material-icons" style="color:var(--primary)">${n.icon}</i><div><b>${n.msg}</b><br><small>${n.time}</small></div></div>`).join('') : '<div style="padding:20px;text-align:center;color:#999;">No Alerts</div>'; document.getElementById('head-badge').style.display='none'; }
+        
+        function updateBadges() { 
+            let c=notifications.length; 
+            let b=document.getElementById('head-badge'); 
+            if(c>0){b.style.display='flex'; b.innerText=c;} else {b.style.display='none';}
+            
+            let u=Object.values(unreadChat).reduce((a,b)=>a+b,0); 
+            // SAFETY CHECK FOR ADMIN
+            let navBadge = document.querySelector('.nav-badge');
+            if(navBadge && u>0) navBadge.style.display='block';
+        }
+
+        // --- BATCH MANAGER ---
+        function renderBatches() {
+            document.getElementById('batch-grid').innerHTML = batchList.map(b => `<div class="folder" onclick="openBatch('${b}')"><i class="material-icons">school</i><b>${b}</b></div>`).join('');
+            let opts = batchList.map(b => `<option>${b}</option>`).join('');
+            document.getElementById('r-batch').innerHTML = opts; document.getElementById('m-batch').innerHTML = opts;
+        }
+        function createNewBatch() { let n = prompt("Enter Batch Name:"); if(n) { batchList.push(n); renderBatches(); sync(); } }
+        function deleteBatch() { let b = document.getElementById('bd-title').innerText; if(confirm("Delete " + b + "?")) { batchList = batchList.filter(x => x !== b); closeBatch(); renderBatches(); sync(); } }
+        function openBatch(b) {
+            document.getElementById('view-batch-list').style.display='none'; document.getElementById('view-batch-detail').style.display='block'; document.getElementById('bd-title').innerText=b;
+            let s = activeUsers.filter(u => u.batch === b);
+            document.getElementById('bd-list').innerHTML = s.length ? s.map(x => `
+                <div class="batch-row" onclick="inspect('${x.m}')">
+                    <div><b>${x.n}</b><br><small>${x.m}</small></div>
+                    <div style="font-size:12px;">#${x.rank||'-'} <br> <b style="color:var(--success);">${x.att||0}%</b></div>
+                    <div style="font-size:12px;">${x.devHist||'None'}</div>
+                    <div style="text-align:center;"><span class="dev-count-badge">${x.devCount||0}</span></div>
+                </div>
+            `).join('') : '<p style="text-align:center;">No Students</p>';
+        }
+        function closeBatch() { document.getElementById('view-batch-list').style.display='block'; document.getElementById('view-batch-detail').style.display='none'; }
+
+        // --- STORE & CHAT ---
+        function renderStore() {
+            let visible = user.role==='Admin' ? globalSubjects : (user.allowedSubs||globalSubjects);
+            let demos = [{t:'Intro Class',s:'Maths',k:'Video'}, {t:'Basic Physics',s:'Science',k:'Video'}];
+            document.getElementById('demo-list').innerHTML = demos.map(i=>`<div class="store-item" onclick="openMedia('${i.k}', '${i.t}')"><div class="store-icon" style="background:#dcfce7;color:#166534"><i class="material-icons">play_circle</i></div><div><b>${i.t}</b><br><small>Demo • ${i.s}</small></div></div>`).join('');
+            let items = [{t:'Full Algebra',s:'Maths',k:'Video'}, {t:'Formula Sheet',s:'Maths',k:'PDF'}];
+            document.getElementById('store-list').innerHTML = items.filter(i=>visible.includes(i.s)).map(i=>`<div class="store-item" onclick="openMedia('${i.k}', '${i.t}')"><div class="store-icon" style="${i.k==='PDF'?'background:#fee2e2;color:#b91c1c':''}"><i class="material-icons">${i.k==='Video'?'play_circle':'picture_as_pdf'}</i></div><div><b>${i.t}</b><br><small>${i.k} • ${i.s}</small></div></div>`).join('') || '<p style="padding:20px;">No materials.</p>';
+        }
+        function openMedia(t, title) {
+            document.getElementById('media-overlay').style.display='flex'; document.getElementById('media-title').innerText=title;
+            document.getElementById('media-content-box').innerHTML = t==='Video' ? '<i class="material-icons" style="font-size:80px;">play_circle_outline</i>' : '<div style="background:#eee; width:90%; height:80%; padding:20px; overflow:auto; border-radius:10px;"><div style="background:white; height:100%; padding:20px; color:black;"><h3>PDF Viewer</h3><p>Content for '+title+'</p></div></div>';
+        }
+        function closeMedia() { document.getElementById('media-overlay').style.display='none'; }
+        function renderChatGrid(elId, spy) { 
+            let visible = user.role==='Admin'?globalSubjects:(user.allowedSubs||globalSubjects); 
+            document.getElementById(elId).innerHTML = visible.map(s => {
+                let badge = (unreadChat[s]>0 && !spy) ? `<div class="folder-badge" style="display:block;">${unreadChat[s]} New</div>` : '';
+                return `<div class="folder" onclick="openRoom('${s}', ${spy})"><i class="material-icons">folder</i><b>${s}</b>${badge}</div>`;
+            }).join(''); 
+        }
+        function openRoom(s, spy) { document.getElementById(spy?'tab-spy':'view-chat-grid').style.display='none'; document.getElementById('view-chat-room').style.display='flex'; document.getElementById('room-title').innerText=spy?"🕵️ "+s:s; document.getElementById('chat-input-area').style.display=spy?'none':'block'; if(!spy && unreadChat[s]>0){unreadChat[s]=0; updateBadges();} }
+        function closeChat() { document.getElementById('view-chat-room').style.display='none'; if(document.getElementById('tab-spy').style.display==='block') document.getElementById('tab-spy').style.display='block'; else document.getElementById('view-chat-grid').style.display='block'; }
+
+        // --- MANAGEMENT ---
+        function renderUsers(q) { document.getElementById('user-list').innerHTML=activeUsers.filter(u=>u.role!=='Admin').map(u=>`<div class="u-card row" onclick="inspect('${u.m}')"><div><b>${u.n}</b><br><small>${u.m}</small></div><button class="btn btn-sm btn-sec" onclick="event.stopPropagation(); openEditModal('${u.m}','Active')">Edit</button></div>`).join(''); document.getElementById('pending-list').innerHTML=pendingUsers.map(u=>`<div class="u-card row" style="border-left:4px solid orange;"><div><b>${u.n}</b><br><small>${u.m}</small></div><div style="gap:5px; display:flex;"><button class="btn btn-sm btn-sec" onclick="openEditModal('${u.m}','Pending')">Edit</button><button class="btn btn-sm btn-green" onclick="approve('${u.m}')">✓</button></div></div>`).join(''); }
+        function inspect(mid) { let u = activeUsers.find(x => x.m === mid); document.getElementById('inspect-modal').style.display='flex'; document.getElementById('ins-name').innerText = u.n; document.getElementById('ins-role').innerText = u.role; document.getElementById('ins-dev').innerText = u.devHist || 'None'; document.getElementById('ins-cnt').innerText = u.devCount || 0; document.getElementById('inspect-modal').dataset.mid = mid; }
+        function triggerEdit() { let mid = document.getElementById('inspect-modal').dataset.mid; document.getElementById('inspect-modal').style.display='none'; openEditModal(mid, 'Active'); }
+        function openEditModal(id, type) { 
+            document.getElementById('modal-ol').style.display='flex'; document.getElementById('m-title').innerText=id?"Edit":"Add Manual"; document.getElementById('m-old-id').value=id||''; document.getElementById('m-type').value=type;
+            let u = id ? (type==='Active'?activeUsers.find(x=>x.m===id):pendingUsers.find(x=>x.m===id)) : null;
+            let subHtml = globalSubjects.map(s => `<label class="sub-check-item"><input type="checkbox" value="${s}" ${(u && u.allowedSubs && u.allowedSubs.includes(s)) || !u ? 'checked' : ''}> ${s}</label>`).join('');
+            document.getElementById('m-sub-checks').innerHTML = subHtml;
+            if(u) { document.getElementById('m-id').value=u.m; document.getElementById('m-name').value=u.n; document.getElementById('m-role').value=u.role; toggleModalFields(); if(u.role==='Student'){document.getElementById('m-sm').value=u.sm;document.getElementById('m-pm').value=u.pm;document.getElementById('m-batch').value=u.batch;} else {document.getElementById('m-subs').value=u.subs;} }
+            else { document.getElementById('m-id').value=generateID('Student'); document.getElementById('m-name').value=''; toggleModalFields(); }
+        }
+        function saveUser() {
+            let oldId=document.getElementById('m-old-id').value, type=document.getElementById('m-type').value, role=document.getElementById('m-role').value;
+            let allowed = []; document.querySelectorAll('#m-sub-checks input:checked').forEach(cb => allowed.push(cb.value));
+            let u={n:document.getElementById('m-name').value, m:document.getElementById('m-id').value, role:role, sm:document.getElementById('m-sm').value, pm:document.getElementById('m-pm').value, batch:document.getElementById('m-batch').value, subs:document.getElementById('m-subs').value, allowedSubs:allowed}; 
+            if(oldId){if(type==='Active'){let i=activeUsers.findIndex(x=>x.m===oldId);activeUsers[i]={...activeUsers[i],...u};}else{let i=pendingUsers.findIndex(x=>x.m===oldId);pendingUsers[i]={...pendingUsers[i],...u};}} 
+            else{u.status='Active';activeUsers.push(u);} 
+            document.getElementById('modal-ol').style.display='none'; renderUsers(); sync();
+        }
+        function approve(id) { let i=pendingUsers.findIndex(x=>x.m===id); activeUsers.push({...pendingUsers[i], status:'Active'}); pendingUsers.splice(i,1); renderUsers(); sync(); }
+        function deleteUser() { activeUsers=activeUsers.filter(x=>x.m!==document.getElementById('m-old-id').value); document.getElementById('modal-ol').style.display='none'; renderUsers(); sync(); }
+        function toggleRegFields() { let r=document.getElementById('r-role').value; document.getElementById('r-stu-fields').style.display=r==='Student'?'block':'none'; document.getElementById('r-tch-fields').style.display=r==='Teacher'?'block':'none'; }
+        function toggleModalFields() { let r=document.getElementById('m-role').value; document.getElementById('m-stu-fields').style.display=r==='Student'?'block':'none'; document.getElementById('m-tch-fields').style.display=r==='Teacher'?'block':'none'; }
+        function toggleReg(s) { document.getElementById('l-form').style.display=s?'none':'block'; document.getElementById('r-form').style.display=s?'block':'none'; if(s){renderBatches();toggleRegFields();} }
+        function register() { 
+            let name=document.getElementById('r-name').value, pass=document.getElementById('r-pass').value;
+            if(!name || !pass) { alert("Please fill Name and PIN"); return; }
+            let newId=generateID(document.getElementById('r-role').value); 
+            pendingUsers.push({n:name, m:newId, p:pass, role:document.getElementById('r-role').value, sm:document.getElementById('r-sm').value, pm:document.getElementById('r-pm').value, allowedSubs:globalSubjects, status:'Pending'}); 
+            alert('Registered! ID: '+newId); toggleReg(false); sync(); 
+        }
+        function formatSub(e) { e.value = e.value.replace(/\b\w/g, l => l.toUpperCase()); }
     </script>
 </body>
 </html>
-
