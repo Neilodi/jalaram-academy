@@ -3,671 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jalaram Academy</title>
+    <title>Jalaram Academy v251</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
-        :root { 
-            --primary: #4f46e5; --bg: #f8fafc; --text: #0f172a; 
-            --gold: #f59e0b; --silver: #94a3b8; --bronze: #b45309;
-            --chat-me: #4f46e5; --chat-them: #e2e8f0;
-        }
+        :root { --primary: #4f46e5; --bg: #f8fafc; --text: #0f172a; --chat-me: #4f46e5; --chat-them: #e2e8f0; }
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; }
         body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
 
-        /* --- AUTH SCREEN STYLES --- */
-        #auth { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; align-items:center; justify-content:center; flex-direction:column; }
-        .auth-card { width:340px; text-align:center; padding:20px; }
-        .auth-logo { font-size:60px; margin-bottom:10px; }
-        .auth-title { color:var(--primary); font-weight:800; font-size:24px; margin-bottom:20px; }
-        .auth-btn-group { margin-top:20px; display:flex; flex-direction:column; gap:10px; border-top:1px solid #eee; padding-top:20px; }
+        /* AUTH */
+        #auth-layer { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+        .auth-card { width:320px; text-align:center; }
 
-        /* --- EMOTIONAL HEADER --- */
+        /* APP HEADER (EMOTIONAL) */
         .emo-header { background:linear-gradient(135deg, #4f46e5, #818cf8); padding:20px; color:white; border-radius:0 0 25px 25px; box-shadow:0 4px 20px rgba(79, 70, 229, 0.2); flex-shrink:0; }
-        .emo-top { display:flex; justify-content:space-between; align-items:center; }
-        .emo-greet { font-size:22px; font-weight:800; margin-top:10px; }
-        .emo-sub { opacity:0.9; font-size:13px; }
-        .mood-row { display:flex; gap:10px; margin-top:15px; overflow-x:auto; padding-bottom:5px; }
-        .mood-chip { background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:20px; font-size:12px; backdrop-filter:blur(4px); cursor:pointer; white-space:nowrap; border:1px solid rgba(255,255,255,0.1); }
-        .mood-chip:active { background:white; color:var(--primary); }
+        .mood-row { display:flex; gap:10px; margin-top:15px; overflow-x:auto; }
+        .mood-chip { background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:20px; font-size:12px; border:1px solid rgba(255,255,255,0.1); cursor:pointer; white-space:nowrap; }
 
-        /* --- LAYOUT --- */
+        /* LAYOUT */
         .app-shell { display:flex; flex:1; overflow:hidden; }
-        .sidebar { width:260px; background:white; border-right:1px solid #cbd5e1; display:flex; flex-direction:column; }
         .main-content { flex:1; overflow-y:auto; padding:20px; padding-bottom:100px; }
 
-        /* --- LEADERBOARD --- */
-        .podium { display:flex; align-items:flex-end; justify-content:center; gap:10px; margin-bottom:20px; height:140px; }
-        .pod-bar { width:70px; border-radius:10px 10px 0 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:10px; color:white; font-weight:bold; position:relative; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
-        .rank-1 { height:100%; background:linear-gradient(to top, #f59e0b, #fbbf24); z-index:2; transform:scale(1.1); }
-        .rank-2 { height:80%; background:linear-gradient(to top, #94a3b8, #cbd5e1); }
-        .rank-3 { height:60%; background:linear-gradient(to top, #b45309, #d97706); }
-        .crown { position:absolute; top:-25px; font-size:24px; }
-        .lb-row { display:flex; justify-content:space-between; padding:12px; background:white; margin-bottom:8px; border-radius:12px; align-items:center; box-shadow:0 2px 5px rgba(0,0,0,0.03); }
-        .lb-grade { background:#dcfce7; color:#166534; padding:2px 8px; border-radius:6px; font-size:11px; font-weight:bold; margin-left:10px; }
-
-        /* --- GENERAL UI --- */
+        /* UI ELEMENTS */
         .u-card { background:white; padding:15px; border-radius:16px; box-shadow:0 4px 10px rgba(0,0,0,0.03); margin-bottom:15px; border:1px solid #e2e8f0; }
         .row { display:flex; justify-content:space-between; align-items:center; }
-        .btn { padding:12px; border:none; border-radius:10px; font-weight:700; cursor:pointer; width:100%; font-size:13px; transition:0.2s; }
-        .btn:active { transform:scale(0.98); }
-        .btn-sm { width:auto; padding:6px 12px; }
+        .btn { padding:12px; border:none; border-radius:10px; font-weight:700; cursor:pointer; width:100%; font-size:13px; margin-bottom:10px; }
+        .btn-sm { width:auto; padding:6px 12px; margin:0; }
         .btn-main { background:var(--primary); color:white; }
         .btn-sec { background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; }
-        .btn-red { background:#fee2e2; color:#7f1d1d; }
-        input, select { width:100%; padding:14px; border:2px solid #e2e8f0; border-radius:12px; margin-bottom:10px; outline:none; background:white; }
+        input, select { width:100%; padding:12px; border:2px solid #e2e8f0; border-radius:10px; margin-bottom:10px; outline:none; background:white; }
+
+        /* LEADERBOARD */
+        .podium { display:flex; align-items:flex-end; justify-content:center; gap:10px; margin-bottom:20px; height:130px; }
+        .pod-bar { width:60px; border-radius:10px 10px 0 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:5px; color:white; font-weight:bold; position:relative; }
+        .rank-1 { height:100%; background:#f59e0b; } .rank-2 { height:80%; background:#94a3b8; } .rank-3 { height:60%; background:#b45309; }
+        .crown { position:absolute; top:-25px; font-size:20px; }
+
+        /* CHAT */
+        .chat-item { display:flex; gap:10px; padding:15px; border-bottom:1px solid #f1f5f9; align-items:center; cursor:pointer; }
+        .chat-win { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:2000; display:none; flex-direction:column; }
+        .chat-body { flex:1; background:#f8fafc; padding:15px; overflow-y:auto; }
+        .msg { max-width:70%; padding:8px 12px; border-radius:15px; font-size:13px; margin-bottom:5px; clear:both; }
+        .msg-me { float:right; background:var(--chat-me); color:white; }
+        .msg-them { float:left; background:var(--chat-them); }
+
+        /* MODALS */
+        .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9000; display:none; justify-content:center; align-items:center; }
+        .modal-box { background:white; width:90%; max-width:350px; padding:20px; border-radius:16px; max-height:80vh; overflow-y:auto; }
         
+        /* NAV */
+        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:10px; border-top:1px solid #eee; z-index:1000; }
+        .nav-item { text-align:center; font-size:10px; color:#94a3b8; font-weight:bold; }
+        .nav-item.active { color:var(--primary); }
+        .nav-item i { font-size:24px; display:block; }
+
+        /* UTILS */
         .teacher-only, .admin-only { display:none; }
         .sim-banner { background:#f97316; color:white; text-align:center; padding:8px; font-weight:bold; font-size:11px; cursor:pointer; display:none; }
-
-        /* --- CHAT & STORE --- */
-        .chat-list-item { display:flex; gap:15px; padding:15px; background:white; border-bottom:1px solid #f1f5f9; align-items:center; cursor:pointer; }
-        .chat-avatar { width:40px; height:40px; background:#e0e7ff; color:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; }
-        .chat-window { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:2000; display:none; flex-direction:column; }
-        .chat-body { flex:1; background:#f8fafc; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
-        .msg { max-width:70%; padding:10px 15px; border-radius:15px; font-size:14px; }
-        .msg-me { align-self:flex-end; background:var(--chat-me); color:white; border-radius:15px 15px 0 15px; }
-        .msg-them { align-self:flex-start; background:var(--chat-them); color:#334155; border-radius:15px 15px 15px 0; }
-        
-        .store-item { display:flex; gap:10px; align-items:center; padding:12px; border-bottom:1px solid #eee; cursor:pointer; }
-        .store-icon { width:40px; height:40px; background:#e0f7fa; color:#006064; border-radius:8px; display:flex; align-items:center; justify-content:center; }
-
-        /* --- AI & MODALS --- */
-        .ai-loading { text-align:center; padding:20px; font-style:italic; color:#7c3aed; animation:pulse 1.5s infinite; }
-        @keyframes pulse { 0%{opacity:0.6;} 50%{opacity:1;} 100%{opacity:0.6;} }
-        .modal-ol { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:3000; display:none; justify-content:center; align-items:center; backdrop-filter:blur(3px); }
-        .modal { background:white; width:90%; max-width:380px; border-radius:20px; padding:25px; max-height:90vh; overflow-y:auto; }
-        
-        /* --- NAV --- */
-        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:none; justify-content:space-around; padding:12px; border-top:1px solid #eee; z-index:900; }
-        .nav-item { text-align:center; font-size:10px; color:#94a3b8; font-weight:600; flex:1; cursor:pointer; }
-        .nav-item.active { color:var(--primary); }
-        .nav-item i { font-size:24px; display:block; margin-bottom:4px; }
-        
-        @media(max-width:768px){ .sidebar{display:none;} .bot-nav{display:flex;} }
     </style>
 </head>
 <body>
 
-    <div id="auth">
+    <div id="auth-layer">
         <div class="auth-card">
-            <div class="auth-logo">🎓</div>
-            <div class="auth-title">Jalaram Academy</div>
-            
+            <div style="font-size:60px; margin-bottom:10px;">🎓</div>
+            <h2 style="color:var(--primary); margin-bottom:20px;">Jalaram Academy</h2>
             <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
-            <input id="l-id" placeholder="ID (e.g. STU-001)">
+            <input id="l-id" placeholder="ID (e.g. ADM-001)">
             <input type="password" id="l-pass" placeholder="PIN (1234)">
-            
-            <button class="btn btn-main" onclick="login()">Login</button>
-            
-            <div class="auth-btn-group">
-                <button class="btn btn-sec" onclick="openReg()">New Student? Register</button>
-                <button class="btn btn-sec" onclick="openPublic()">View Courses</button>
+            <button class="btn btn-main" onclick="handleLogin()">Login</button>
+            <div style="margin-top:15px; padding-top:15px; border-top:1px solid #eee;">
+                <button class="btn btn-sec" onclick="showModal('reg-modal')">New Student? Register</button>
+                <button class="btn btn-sec" onclick="showModal('public-modal')">View Courses</button>
             </div>
         </div>
     </div>
 
-    <div id="app" style="display:none; height:100%; flex-direction:column;">
+    <div id="app-layer" style="display:none; height:100%; flex-direction:column;">
         
-        <div class="emo-header" id="emo-head">
-            <div class="emo-top">
-                <div style="font-weight:800; font-size:18px;"><i class="material-icons" style="vertical-align:middle;">school</i> Jalaram Academy</div>
-                <div id="u-chip" style="font-size:11px; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:15px;">Guest</div>
+        <div class="emo-header">
+            <div class="row">
+                <div style="font-weight:800; font-size:18px;">Jalaram Academy</div>
+                <div id="u-chip" style="font-size:11px; background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:15px;">User</div>
             </div>
             <div class="emo-greet" id="greet-text">Good Morning!</div>
-            <div class="emo-sub" id="greet-sub">Let's achieve something great.</div>
+            <div style="opacity:0.9; font-size:13px;">Ready to conquer the day?</div>
             <div class="mood-row" id="mood-bar">
-                <div class="mood-chip" onclick="setMood('Happy')">😄 Happy</div>
-                <div class="mood-chip" onclick="setMood('Focused')">🧠 Focused</div>
-                <div class="mood-chip" onclick="setMood('Tired')">😴 Tired</div>
+                <div class="mood-chip">😄 Happy</div><div class="mood-chip">🧠 Focused</div><div class="mood-chip">😴 Tired</div>
             </div>
         </div>
 
-        <div class="sim-banner" id="sim-bar" onclick="location.reload()">⚠️ SIMULATION MODE - TAP TO EXIT</div>
+        <div class="sim-banner" id="sim-bar" onclick="location.reload()">⚠️ SIMULATING - TAP TO EXIT</div>
 
-        <div class="app-shell">
-            <aside class="sidebar" id="side-nav"></aside>
-            <main class="main-content">
-
-                <div id="pane-home" class="pane">
-                    <div class="u-card">
-                        <h3>🏆 Top Performers</h3>
-                        <p style="font-size:12px; color:#64748b; margin-bottom:20px;">Based on Class 10 Weekly Test</p>
-                        <div class="podium">
-                            <div class="pod-bar rank-2"><div class="crown">🥈</div><small>Rohan</small>92%</div>
-                            <div class="pod-bar rank-1"><div class="crown">👑</div><small>Anjali</small>98%</div>
-                            <div class="pod-bar rank-3"><div class="crown">🥉</div><small>Dev</small>89%</div>
-                        </div>
-                        <div id="lb-list"></div>
+        <main class="main-content">
+            
+            <div id="pane-home" class="pane">
+                <div class="u-card">
+                    <h3>🏆 Class 10 Leaderboard</h3>
+                    <div class="podium">
+                        <div class="pod-bar rank-2"><div class="crown">🥈</div><small>Rohan</small>92%</div>
+                        <div class="pod-bar rank-1"><div class="crown">👑</div><small>Anjali</small>98%</div>
+                        <div class="pod-bar rank-3"><div class="crown">🥉</div><small>Dev</small>89%</div>
                     </div>
+                    <div id="lb-list"></div>
                 </div>
+            </div>
 
-                <div id="pane-batches" class="pane">
-                    <div class="u-card row"><h3>Classes</h3><button class="btn btn-sm btn-sec admin-only" onclick="addBatch()">+ Batch</button></div>
-                    <div id="batch-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"></div>
+            <div id="pane-batches" class="pane" style="display:none;">
+                <div class="row"><h3>Batches</h3><button class="btn btn-sec btn-sm admin-only" onclick="addBatch()">+ Batch</button></div>
+                <div id="batch-list"></div>
+                
+                <div id="batch-detail" style="display:none; margin-top:20px; border-top:2px solid #eee; padding-top:20px;">
+                    <div class="row"><b id="bd-title">Batch</b><button class="btn btn-sec btn-sm" onclick="document.getElementById('batch-detail').style.display='none'">Close</button></div>
                     
-                    <div id="batch-view" style="display:none; margin-top:20px;">
-                        <div class="u-card">
-                            <div class="row"><b id="bv-title">Class</b><button class="btn btn-sm btn-sec" onclick="closeBatch()">Close</button></div>
-                            
-                            <div class="teacher-only" style="margin-top:10px; padding:10px; background:#f0f9ff; border:1px solid #bfdbfe; border-radius:10px;">
-                                <div style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:5px;">⚡ QUANTUM NOTIFIER</div>
-                                <div class="row">
-                                    <input placeholder="Topic (e.g. Physics Test)" id="q-topic" style="margin:0; width:60%;">
-                                    <select id="q-buf" style="margin:0; width:35%;"><option value="0">No Buffer</option><option value="10">Buffer: 10m</option></select>
-                                </div>
-                                <button class="btn btn-main" style="margin-top:5px;" onclick="triggerQuantum()">Generate & Notify</button>
-                            </div>
-
-                            <div class="row" style="margin-top:15px; border-bottom:1px solid #eee; padding-bottom:5px;">
-                                <b>Students</b>
-                                <div class="teacher-only" style="display:flex; gap:5px;">
-                                    <button class="btn btn-sm btn-sec" onclick="renderStuList('att')">Att.</button>
-                                    <button class="btn btn-sm btn-sec" onclick="renderStuList('marks')">Marks</button>
-                                </div>
-                            </div>
-                            <div id="bv-list"></div>
-                        </div>
+                    <div class="teacher-only" style="background:#f0f9ff; padding:10px; border-radius:10px; margin:10px 0; border:1px solid #bfdbfe;">
+                        <b style="color:var(--primary);">⚡ Quantum Generator</b>
+                        <input id="q-topic" placeholder="Topic" style="margin:5px 0;">
+                        <div class="row"><select id="q-buf" style="margin:0; width:48%;"><option>No Buffer</option><option>10m Buffer</option></select><button class="btn btn-main btn-sm" style="width:48%;" onclick="alert('Quantum Sent!')">Notify</button></div>
                     </div>
-                </div>
 
-                <div id="pane-store" class="pane">
-                    <div class="u-card row"><h3>Store & Demos</h3><button class="btn btn-sm btn-sec admin-only" onclick="addMaterial()">+ Material</button></div>
-                    <div class="u-card" style="background:#f0fdf4;"><h4>Free Demos</h4><div id="demo-list"></div></div>
-                    <div class="u-card"><h4>Premium Content</h4><div id="store-list"></div></div>
-                </div>
-
-                <div id="pane-chat" class="pane"><div class="u-card"><h3>Messages</h3></div><div id="chat-list"></div></div>
-
-                <div id="pane-admin" class="pane">
-                    <div class="u-card row"><h3>Database</h3><button class="btn btn-sm btn-sec" onclick="openUserModal()">+ User</button></div>
-                    <input placeholder="Search users..." onkeyup="renderUsers(this.value)">
-                    <div id="user-list"></div>
-                </div>
-
-                <div id="pane-profile" class="pane">
-                    <div class="u-card">
-                        <h4>Profile</h4>
-                        <label style="font-size:11px; font-weight:bold;">USER ID</label><input id="prof-id" readonly style="background:#eee;">
-                        <label style="font-size:11px; font-weight:bold;">NAME</label><input id="prof-name">
-                        <button class="btn btn-main" onclick="alert('Saved')">Save Changes</button>
-                        <button class="btn btn-sec" style="margin-top:10px;" onclick="enablePush()">🔔 Enable Notifications</button>
+                    <div class="row" style="margin-top:10px;">
+                        <b>Students</b>
+                        <div class="teacher-only"><button class="btn btn-sec btn-sm" onclick="renderStudents('att')">Att.</button> <button class="btn btn-sec btn-sm" onclick="renderStudents('marks')">Marks</button></div>
                     </div>
+                    <div id="bd-list"></div>
                 </div>
+            </div>
 
-            </main>
-        </div>
+            <div id="pane-chat" class="pane" style="display:none;">
+                <div class="u-card"><h3>Messages</h3><div id="chat-list"></div></div>
+            </div>
+
+            <div id="pane-store" class="pane" style="display:none;">
+                <div class="u-card">
+                    <div class="row"><h3>Store</h3><button class="btn btn-sec btn-sm admin-only" onclick="addMaterial()">+ Add</button></div>
+                    <h4>Free Demos</h4><div id="demo-list"></div>
+                    <h4 style="margin-top:15px;">Premium</h4><div id="store-list"></div>
+                </div>
+            </div>
+
+            <div id="pane-admin" class="pane" style="display:none;">
+                <div class="u-card">
+                    <div class="row"><h3>Database</h3><button class="btn btn-sec btn-sm" onclick="alert('Add Logic')">+ User</button></div>
+                    <input placeholder="Search..." onkeyup="renderAdmin(this.value)">
+                    <div id="admin-list"></div>
+                </div>
+            </div>
+
+            <div id="pane-profile" class="pane" style="display:none;">
+                <div class="u-card">
+                    <h4>Profile</h4>
+                    <label style="font-size:11px; font-weight:bold;">USER ID</label><input id="prof-id" readonly style="background:#eee;">
+                    <label style="font-size:11px; font-weight:bold;">NAME</label><input id="prof-name">
+                    <button class="btn btn-main" onclick="alert('Saved')">Update</button>
+                </div>
+            </div>
+
+        </main>
         <div class="bot-nav" id="bot-nav"></div>
     </div>
 
-    <div id="chat-room" class="chat-window">
-        <div class="u-card row" style="border-radius:0; border-bottom:1px solid #eee; padding:15px; margin:0;"><i class="material-icons" onclick="document.getElementById('chat-room').style.display='none'">arrow_back</i><b id="chat-title">Chat</b><div></div></div>
-        <div class="chat-body" id="chat-msgs"></div>
-        <div style="padding:10px; border-top:1px solid #eee; display:flex; gap:10px;"><input placeholder="Type..." style="margin:0;"><button class="btn btn-main" style="width:auto;">Send</button></div>
-    </div>
-
-    <div id="reg-modal" class="modal-ol" onclick="this.style.display='none'">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h3>Join Academy</h3>
+    <div id="reg-modal" class="modal-overlay" onclick="hideModals()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>Register</h3>
             <input id="r-name" placeholder="Name">
             <select id="r-role"><option>Student</option><option>Teacher</option></select>
             <input id="r-pass" placeholder="Create PIN">
-            <button class="btn btn-main" onclick="doReg()">Register</button>
+            <button class="btn btn-main" onclick="handleReg()">Register</button>
+            <button class="btn btn-sec" onclick="hideModals()">Close</button>
         </div>
     </div>
 
-    <div id="public-modal" class="modal-ol" onclick="this.style.display='none'">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h3>Public Syllabus</h3>
-            <p style="font-size:12px; color:#666; margin-bottom:10px;">Click to generate AI description.</p>
-            <div class="store-item" onclick="aiDesc('Maths')"><b>Maths</b><br><small>Click for Details</small></div>
-            <div class="store-item" onclick="aiDesc('Science')"><b>Science</b><br><small>Click for Details</small></div>
-            <div id="ai-out" style="margin-top:15px; background:#f8fafc; padding:10px; border-radius:10px; font-size:13px;"></div>
+    <div id="public-modal" class="modal-overlay" onclick="hideModals()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3>Available Courses</h3>
+            <div style="padding:10px; border-bottom:1px solid #eee; cursor:pointer;" onclick="aiDesc('Maths')"><b>Maths</b><br><small>Click for AI Info</small></div>
+            <div style="padding:10px; border-bottom:1px solid #eee; cursor:pointer;" onclick="aiDesc('Science')"><b>Science</b><br><small>Click for AI Info</small></div>
+            <div id="ai-out" style="margin-top:10px; padding:10px; background:#f8fafc; font-size:13px;"></div>
+            <button class="btn btn-sec" style="margin-top:10px;" onclick="hideModals()">Close</button>
         </div>
     </div>
 
-    <div id="inspect-modal" class="modal-ol" onclick="this.style.display='none'">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h3 id="ins-name">User</h3>
-            <p id="ins-id" style="color:gray; font-size:12px; margin-bottom:15px;">ID</p>
-            <button class="btn btn-sec">Edit Details</button>
-            <button class="btn btn-main" style="margin-top:10px; background:#f97316;" onclick="startSim()">👁️ Simulate View</button>
+    <div id="chat-window" class="chat-win">
+        <div class="row" style="padding:15px; border-bottom:1px solid #eee;"><i class="material-icons" onclick="document.getElementById('chat-window').style.display='none'">arrow_back</i><b id="cw-title">Chat</b><div></div></div>
+        <div class="chat-body" id="cw-body"></div>
+        <div style="padding:10px; border-top:1px solid #eee; display:flex; gap:10px;"><input placeholder="Type..." style="margin:0;"><button class="btn btn-main" style="width:auto;">Send</button></div>
+    </div>
+
+    <div id="inspect-modal" class="modal-overlay" onclick="hideModals()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 id="ins-name">User</h3><p id="ins-id">ID</p>
+            <button class="btn btn-main" style="background:#f97316;" onclick="simUser()">👁️ Simulate View</button>
         </div>
     </div>
 
     <script>
-        // --- 1. SAFE DATA LOADING ---
-        let defaultUsers = [
+        // --- DATA ---
+        let users = [
             {n:'Admin', m:'ADM-001', p:'1234', role:'Admin'},
-            {n:'Rohan', m:'STU-001', p:'1234', role:'Student', batch:'Class 10 A', marks:92},
-            {n:'Anjali', m:'STU-002', p:'1234', role:'Student', batch:'Class 10 A', marks:98},
-            {n:'Dev', m:'STU-003', p:'1234', role:'Student', batch:'Class 10 A', marks:89},
-            {n:'Amit', m:'TCH-001', p:'1234', role:'Teacher', batch:'Class 10 A'}
+            {n:'Amit Sir', m:'TCH-001', p:'1234', role:'Teacher'},
+            {n:'Rohan', m:'STU-001', p:'1234', role:'Student', batch:'Class 10 A', marks:95},
+            {n:'Anjali', m:'STU-002', p:'1234', role:'Student', batch:'Class 10 A', marks:98}
         ];
-        let users = defaultUsers;
         let batches = ['Class 10 A', 'Class 12'];
-        let store = [{t:'Algebra Intro', s:'Maths', k:'Video', type:'Demo'}];
+        let store = [{t:'Algebra Intro', type:'Demo'}, {t:'Physics PDF', type:'Premium'}];
         let currentUser = null;
 
-        // Try load, if fail, reset
-        try {
-            if(localStorage.getItem('ja_users_v2')) users = JSON.parse(localStorage.getItem('ja_users_v2'));
-            if(localStorage.getItem('ja_batches_v2')) batches = JSON.parse(localStorage.getItem('ja_batches_v2'));
-            if(localStorage.getItem('ja_store_v2')) store = JSON.parse(localStorage.getItem('ja_store_v2'));
-        } catch(e) {
-            console.log("Resetting data");
-            users = defaultUsers;
-        }
-
-        function sync() {
-            localStorage.setItem('ja_users_v2', JSON.stringify(users));
-            localStorage.setItem('ja_batches_v2', JSON.stringify(batches));
-            localStorage.setItem('ja_store_v2', JSON.stringify(store));
-        }
-
-        // --- 2. CRITICAL UI FUNCTIONS (Defined First) ---
-        function openReg() { document.getElementById('reg-modal').style.display='flex'; }
-        function openPublic() { document.getElementById('public-modal').style.display='flex'; }
+        // --- AUTH ---
+        function showModal(id) { document.getElementById(id).style.display='flex'; }
+        function hideModals() { document.querySelectorAll('.modal-overlay').forEach(e=>e.style.display='none'); }
         
-        function login() {
+        function handleLogin() {
             let id = document.getElementById('l-id').value;
             let u = users.find(x => x.m === id);
-            if(u) { currentUser = u; initApp(); } else { alert("Invalid ID"); }
+            if(u) { currentUser = u; startApp(); } else { alert("Try ADM-001 / 1234"); }
         }
 
-        function doReg() {
-            let n = document.getElementById('r-name').value;
-            let r = document.getElementById('r-role').value;
+        function handleReg() {
+            let n=document.getElementById('r-name').value, r=document.getElementById('r-role').value;
             let id = (r==='Student'?'STU':'TCH') + '-' + Math.floor(Math.random()*1000);
             users.push({n:n, m:id, p:'1234', role:r, batch:'Class 10 A', marks:0});
-            sync();
-            alert(`✅ Registered!\nYour ID: ${id}`);
-            document.getElementById('reg-modal').style.display='none';
+            alert("ID: "+id); hideModals();
         }
 
-        // --- 3. APP LOGIC ---
-        function initApp() {
-            document.getElementById('auth').style.display = 'none';
-            document.getElementById('app').style.display = 'flex';
+        // --- APP LOGIC ---
+        function startApp() {
+            document.getElementById('auth-layer').style.display='none';
+            document.getElementById('app-layer').style.display='flex';
             document.getElementById('u-chip').innerText = currentUser.n;
-            setGreeting();
             
-            // Build Nav based on Role
-            let menu = [];
-            if(currentUser.role === 'Admin') menu = [{t:'pane-admin',l:'Admin',i:'admin_panel_settings'}, {t:'pane-batches',l:'Batches',i:'class'}, {t:'pane-store',l:'Store',i:'store'}, {t:'pane-profile',l:'Menu',i:'menu'}];
-            else if(currentUser.role === 'Teacher') menu = [{t:'pane-batches',l:'Classes',i:'class'}, {t:'pane-chat',l:'Chat',i:'chat'}, {t:'pane-profile',l:'Menu',i:'menu'}];
-            else menu = [{t:'pane-home',l:'Home',i:'home'}, {t:'pane-chat',l:'Chat',i:'chat'}, {t:'pane-store',l:'Store',i:'store'}, {t:'pane-profile',l:'Menu',i:'menu'}];
-
-            let html = menu.map(x => `<div class="nav-item" onclick="nav('${x.t}')"><i class="material-icons">${x.i}</i>${x.l}</div>`).join('');
-            document.getElementById('bot-nav').innerHTML = html;
-            document.getElementById('side-nav').innerHTML = html.replace(/nav-item/g, 'nav-link');
-
-            // Set Visibility classes
-            document.querySelectorAll('.admin-only').forEach(e=>e.style.display=currentUser.role==='Admin'?'block':'none');
-            document.querySelectorAll('.teacher-only').forEach(e=>e.style.display=(currentUser.role==='Teacher'||currentUser.role==='Admin')?'block':'none');
+            // Greeting
+            let h = new Date().getHours();
+            document.getElementById('greet-text').innerText = `${h<12?'Good Morning':'Good Evening'}, ${currentUser.n}`;
             document.getElementById('mood-bar').style.display = currentUser.role==='Student'?'flex':'none';
 
-            nav(menu[0].t);
+            // Visibility
+            document.querySelectorAll('.admin-only').forEach(e=>e.style.display=currentUser.role==='Admin'?'block':'none');
+            document.querySelectorAll('.teacher-only').forEach(e=>e.style.display=(currentUser.role==='Teacher'||currentUser.role==='Admin')?'block':'none');
+
+            // Build Nav
+            let items = [];
+            if(currentUser.role==='Admin') items = ['Admin', 'Batches', 'Store', 'Profile'];
+            else if(currentUser.role==='Teacher') items = ['Batches', 'Chat', 'Profile'];
+            else items = ['Home', 'Chat', 'Store', 'Profile'];
+
+            let html = items.map(i => {
+                let icon = {'Home':'home','Admin':'admin_panel_settings','Batches':'class','Store':'store','Chat':'chat','Profile':'person'}[i];
+                return `<div class="nav-item" onclick="showPane('pane-${i.toLowerCase()}')"><i class="material-icons">${icon}</i>${i}</div>`;
+            }).join('');
+            document.getElementById('bot-nav').innerHTML = html;
+
+            showPane('pane-'+items[0].toLowerCase());
         }
 
-        function nav(id) {
-            document.querySelectorAll('.pane').forEach(e => e.style.display='none');
+        function showPane(id) {
+            document.querySelectorAll('.pane').forEach(e=>e.style.display='none');
             document.getElementById(id).style.display='block';
             
-            if(id === 'pane-home') renderLeaderboard();
-            if(id === 'pane-admin') renderUsers('');
-            if(id === 'pane-batches') renderBatches();
-            if(id === 'pane-chat') renderChatList();
-            if(id === 'pane-store') renderStore();
-            if(id === 'pane-profile') {
+            if(id==='pane-home') renderLeaderboard();
+            if(id==='pane-batches') renderBatches();
+            if(id==='pane-chat') renderChat();
+            if(id==='pane-store') renderStore();
+            if(id==='pane-admin') renderAdmin('');
+            if(id==='pane-profile') {
                 document.getElementById('prof-name').value = currentUser.n;
                 document.getElementById('prof-id').value = currentUser.m;
             }
         }
 
         // --- FEATURES ---
-        function setGreeting() {
-            let h = new Date().getHours();
-            document.getElementById('greet-text').innerText = `${h<12?'Good Morning':(h<18?'Good Afternoon':'Good Evening')}, ${currentUser.n}!`;
-        }
-        function setMood(m) { document.getElementById('greet-sub').innerText = `Feeling ${m}? Let's do this! 💪`; }
-
         function renderLeaderboard() {
-            let stu = users.filter(u => u.role === 'Student').sort((a,b) => (b.marks||0) - (a.marks||0));
-            // Ensure podium names exist
-            if(stu[0]) document.querySelector('.rank-1 small').innerText = stu[0].n;
-            if(stu[1]) document.querySelector('.rank-2 small').innerText = stu[1].n;
-            if(stu[2]) document.querySelector('.rank-3 small').innerText = stu[2].n;
-            
-            document.getElementById('lb-list').innerHTML = stu.slice(3).map((u, i) => `
-                <div class="lb-row"><div style="display:flex; align-items:center;"><span style="width:30px; font-weight:bold; color:gray;">#${i+4}</span><b>${u.n}</b></div><div><span style="color:var(--primary); font-weight:bold;">${u.marks||0}%</span><span class="lb-grade">${u.marks>90?'A+':'A'}</span></div></div>
-            `).join('');
+            document.getElementById('lb-list').innerHTML = users.filter(u=>u.role==='Student').map((u,i)=>
+                `<div class="lb-row"><div><b>${u.n}</b></div><span style="color:blue;">${u.marks}%</span></div>`
+            ).join('');
         }
 
-        function renderChatList() {
-            let list = currentUser.role==='Student' ? users.filter(u=>u.role==='Teacher') : users.filter(u=>u.role==='Student');
-            document.getElementById('chat-list').innerHTML = list.map(u => `
-                <div class="chat-list-item" onclick="openChat('${u.n}')"><div class="chat-avatar">${u.n[0]}</div><div style="flex:1;"><b>${u.n}</b><br><small style="color:gray;">Tap to message</small></div><i class="material-icons" style="color:#ddd;">chevron_right</i></div>
-            `).join('');
+        function renderBatches() {
+            document.getElementById('batch-list').innerHTML = batches.map(b => 
+                `<div class="u-card" onclick="openBatch('${b}')" style="cursor:pointer;"><b>${b}</b></div>`
+            ).join('');
         }
-        function openChat(n){ document.getElementById('chat-room').style.display='flex'; document.getElementById('chat-title').innerText=n; document.getElementById('chat-msgs').innerHTML=`<div class="msg msg-them">Hello!</div><div class="msg msg-me">Hi ${n}, how are you?</div>`; }
-
-        function renderBatches() { document.getElementById('batch-grid').innerHTML = batches.map(b => `<div class="u-card" style="text-align:center; cursor:pointer;" onclick="openBatch('${b}')"><b>${b}</b></div>`).join(''); }
-        function openBatch(b) { document.getElementById('view-batch-list').style.display='none'; document.getElementById('batch-view').style.display='block'; document.getElementById('bv-title').innerText=b; renderStuList('view'); }
-        function closeBatch() { document.getElementById('batch-view').style.display='none'; document.getElementById('view-batch-list').style.display='block'; }
-        function addBatch() { let b = prompt("Batch Name:"); if(b){ batches.push(b); sync(); renderBatches(); } }
-
-        function renderStuList(mode) {
-            let b = document.getElementById('bv-title').innerText;
-            let list = users.filter(u => u.batch === b && u.role === 'Student');
-            document.getElementById('bv-list').innerHTML = list.map(u => {
-                let action = mode==='att' ? `<button class="btn-sm btn-sec" style="color:green;">P</button><button class="btn-sm btn-sec" style="color:red;">A</button>` : (mode==='marks' ? `<input style="width:50px; margin:0; padding:5px;" placeholder="${u.marks}">` : `<small>${u.m}</small>`);
-                return `<div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee;"><b>${u.n}</b><div>${action}</div></div>`;
+        function openBatch(b) {
+            document.getElementById('batch-detail').style.display='block';
+            document.getElementById('bd-title').innerText = b;
+            renderStudents('view');
+        }
+        function renderStudents(mode) {
+            let b = document.getElementById('bd-title').innerText;
+            document.getElementById('bd-list').innerHTML = users.filter(u=>u.batch===b && u.role==='Student').map(u => {
+                let act = mode==='att' ? `<button class="btn-sec btn-sm">P</button>` : (mode==='marks' ? `<input style="width:40px; margin:0;" placeholder="${u.marks}">` : `<small>${u.m}</small>`);
+                return `<div class="row" style="padding:10px; border-bottom:1px solid #eee;"><b>${u.n}</b><div>${act}</div></div>`;
             }).join('');
         }
+        function addBatch() { let b=prompt("Name:"); if(b) { batches.push(b); renderBatches(); } }
 
-        // --- QUANTUM, STORE, AI ---
-        function enablePush() { if(!("Notification" in window))return alert("Not Supported"); Notification.requestPermission().then(p=>alert(p==="granted"?"✅ Enabled":"Denied")); }
-        function triggerQuantum() {
-            let t = document.getElementById('q-topic').value, b = document.getElementById('q-buf').value;
-            let msg = `Quantum Test: ${t} (Buffer: ${b}m)`;
-            alert(msg);
-            if(Notification.permission==="granted") new Notification("Jalaram Academy", {body:
-.            <div class="emo-greet" id="greet-text">Good Morning!</div>
-            <div class="emo-sub" id="greet-sub">Let's achieve something great.</div>
-            <div class="mood-row" id="mood-bar">
-                <div class="mood-chip" onclick="setMood('Happy')">😄 Happy</div>
-                <div class="mood-chip" onclick="setMood('Focused')">🧠 Focused</div>
-                <div class="mood-chip" onclick="setMood('Tired')">😴 Tired</div>
-            </div>
-        </div>
-
-        <div class="sim-banner" id="sim-bar" onclick="location.reload()">⚠️ SIMULATION MODE - TAP TO EXIT</div>
-
-        <div class="app-shell">
-            <aside class="sidebar" id="side-nav"></aside>
-            <main class="main-content">
-
-                <div id="pane-home" class="pane">
-                    <div class="u-card">
-                        <h3>🏆 Top Performers</h3>
-                        <p style="font-size:12px; color:#64748b; margin-bottom:20px;">Based on Class 10 Weekly Test</p>
-                        <div class="podium">
-                            <div class="pod-bar rank-2"><div class="crown">🥈</div><small>Rohan</small>92%</div>
-                            <div class="pod-bar rank-1"><div class="crown">👑</div><small>Anjali</small>98%</div>
-                            <div class="pod-bar rank-3"><div class="crown">🥉</div><small>Dev</small>89%</div>
-                        </div>
-                        <div id="lb-list"></div>
-                    </div>
-                </div>
-
-                <div id="pane-batches" class="pane">
-                    <div class="u-card row"><h3>Classes</h3><button class="btn btn-sm btn-sec admin-only" onclick="addBatch()">+ Batch</button></div>
-                    <div id="batch-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"></div>
-                    
-                    <div id="batch-view" style="display:none; margin-top:20px;">
-                        <div class="u-card">
-                            <div class="row"><b id="bv-title">Class</b><button class="btn btn-sm btn-sec" onclick="closeBatch()">Close</button></div>
-                            
-                            <div class="teacher-only" style="margin-top:10px; padding:10px; background:#f0f9ff; border:1px solid #bfdbfe; border-radius:10px;">
-                                <div style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:5px;">⚡ QUANTUM NOTIFIER</div>
-                                <div class="row">
-                                    <input placeholder="Topic (e.g. Physics Test)" id="q-topic" style="margin:0; width:60%;">
-                                    <select id="q-buf" style="margin:0; width:35%;"><option value="0">No Buffer</option><option value="10">Buffer: 10m</option></select>
-                                </div>
-                                <button class="btn btn-main" style="margin-top:5px;" onclick="triggerQuantum()">Generate & Notify</button>
-                            </div>
-
-                            <div class="row" style="margin-top:15px; border-bottom:1px solid #eee; padding-bottom:5px;">
-                                <b>Students</b>
-                                <div class="teacher-only" style="display:flex; gap:5px;">
-                                    <button class="btn btn-sm btn-sec" onclick="renderStuList('att')">Att.</button>
-                                    <button class="btn btn-sm btn-sec" onclick="renderStuList('marks')">Marks</button>
-                                </div>
-                            </div>
-                            <div id="bv-list"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="pane-store" class="pane">
-                    <div class="u-card row"><h3>Store & Demos</h3><button class="btn btn-sm btn-sec admin-only" onclick="addMaterial()">+ Material</button></div>
-                    <div class="u-card" style="background:#f0fdf4;"><h4>Free Demos</h4><div id="demo-list"></div></div>
-                    <div class="u-card"><h4>Premium Content</h4><div id="store-list"></div></div>
-                </div>
-
-                <div id="pane-chat" class="pane"><div class="u-card"><h3>Messages</h3></div><div id="chat-list"></div></div>
-
-                <div id="pane-admin" class="pane">
-                    <div class="u-card row"><h3>Database</h3><button class="btn btn-sm btn-sec" onclick="openUserModal()">+ User</button></div>
-                    <input placeholder="Search users..." onkeyup="renderUsers(this.value)">
-                    <div id="user-list"></div>
-                </div>
-
-                <div id="pane-profile" class="pane">
-                    <div class="u-card">
-                        <h4>Profile</h4>
-                        <label style="font-size:11px; font-weight:bold;">USER ID</label><input id="prof-id" readonly style="background:#eee;">
-                        <label style="font-size:11px; font-weight:bold;">NAME</label><input id="prof-name">
-                        <button class="btn btn-main" onclick="alert('Saved')">Save Changes</button>
-                        <button class="btn btn-sec" style="margin-top:10px;" onclick="enablePush()">🔔 Enable Notifications</button>
-                    </div>
-                </div>
-
-            </main>
-        </div>
-        <div class="bot-nav" id="bot-nav"></div>
-    </div>
-
-    <div id="chat-room" class="chat-window">
-        <div class="u-card row" style="border-radius:0; border-bottom:1px solid #eee; padding:15px; margin:0;"><i class="material-icons" onclick="document.getElementById('chat-room').style.display='none'">arrow_back</i><b id="chat-title">Chat</b><div></div></div>
-        <div class="chat-body" id="chat-msgs"></div>
-        <div style="padding:10px; border-top:1px solid #eee; display:flex; gap:10px;"><input placeholder="Type..." style="margin:0;"><button class="btn btn-main" style="width:auto;">Send</button></div>
-    </div>
-
-    <div id="reg-modal" class="modal-ol" onclick="this.style.display='none'">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h3>Join Academy</h3>
-            <input id="r-name" placeholder="Name">
-            <select id="r-role"><option>Student</option><option>Teacher</option></select>
-            <input id="r-pass" placeholder="Create PIN">
-            <button class="btn btn-main" onclick="doReg()">Register</button>
-        </div>
-    </div>
-
-    <div id="public-modal" class="modal-ol" onclick="this.style.display='none'">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h3>Public Syllabus</h3>
-            <p style="font-size:12px; color:#666; margin-bottom:10px;">Click to generate AI description.</p>
-            <div class="store-item" onclick="aiDesc('Maths')"><b>Maths</b><br><small>Click for Details</small></div>
-            <div class="store-item" onclick="aiDesc('Science')"><b>Science</b><br><small>Click for Details</small></div>
-            <div id="ai-out" style="margin-top:15px; background:#f8fafc; padding:10px; border-radius:10px; font-size:13px;"></div>
-        </div>
-    </div>
-
-    <div id="inspect-modal" class="modal-ol" onclick="this.style.display='none'">
-        <div class="modal" onclick="event.stopPropagation()">
-            <h3 id="ins-name">User</h3>
-            <p id="ins-id" style="color:gray; font-size:12px; margin-bottom:15px;">ID</p>
-            <button class="btn btn-sec">Edit Details</button>
-            <button class="btn btn-main" style="margin-top:10px; background:#f97316;" onclick="startSim()">👁️ Simulate View</button>
-        </div>
-    </div>
-
-    <script>
-        // --- 1. SAFE DATA LOADING ---
-        let defaultUsers = [
-            {n:'Admin', m:'ADM-001', p:'1234', role:'Admin'},
-            {n:'Rohan', m:'STU-001', p:'1234', role:'Student', batch:'Class 10 A', marks:92},
-            {n:'Anjali', m:'STU-002', p:'1234', role:'Student', batch:'Class 10 A', marks:98},
-            {n:'Dev', m:'STU-003', p:'1234', role:'Student', batch:'Class 10 A', marks:89},
-            {n:'Amit', m:'TCH-001', p:'1234', role:'Teacher', batch:'Class 10 A'}
-        ];
-        let users = defaultUsers;
-        let batches = ['Class 10 A', 'Class 12'];
-        let store = [{t:'Algebra Intro', s:'Maths', k:'Video', type:'Demo'}];
-        let currentUser = null;
-
-        // Try load, if fail, reset
-        try {
-            if(localStorage.getItem('ja_users_v2')) users = JSON.parse(localStorage.getItem('ja_users_v2'));
-            if(localStorage.getItem('ja_batches_v2')) batches = JSON.parse(localStorage.getItem('ja_batches_v2'));
-            if(localStorage.getItem('ja_store_v2')) store = JSON.parse(localStorage.getItem('ja_store_v2'));
-        } catch(e) {
-            console.log("Resetting data");
-            users = defaultUsers;
-        }
-
-        function sync() {
-            localStorage.setItem('ja_users_v2', JSON.stringify(users));
-            localStorage.setItem('ja_batches_v2', JSON.stringify(batches));
-            localStorage.setItem('ja_store_v2', JSON.stringify(store));
-        }
-
-        // --- 2. CRITICAL UI FUNCTIONS (Defined First) ---
-        function openReg() { document.getElementById('reg-modal').style.display='flex'; }
-        function openPublic() { document.getElementById('public-modal').style.display='flex'; }
-        
-        function login() {
-            let id = document.getElementById('l-id').value;
-            let u = users.find(x => x.m === id);
-            if(u) { currentUser = u; initApp(); } else { alert("Invalid ID"); }
-        }
-
-        function doReg() {
-            let n = document.getElementById('r-name').value;
-            let r = document.getElementById('r-role').value;
-            let id = (r==='Student'?'STU':'TCH') + '-' + Math.floor(Math.random()*1000);
-            users.push({n:n, m:id, p:'1234', role:r, batch:'Class 10 A', marks:0});
-            sync();
-            alert(`✅ Registered!\nYour ID: ${id}`);
-            document.getElementById('reg-modal').style.display='none';
-        }
-
-        // --- 3. APP LOGIC ---
-        function initApp() {
-            document.getElementById('auth').style.display = 'none';
-            document.getElementById('app').style.display = 'flex';
-            document.getElementById('u-chip').innerText = currentUser.n;
-            setGreeting();
-            
-            // Build Nav based on Role
-            let menu = [];
-            if(currentUser.role === 'Admin') menu = [{t:'pane-admin',l:'Admin',i:'admin_panel_settings'}, {t:'pane-batches',l:'Batches',i:'class'}, {t:'pane-store',l:'Store',i:'store'}, {t:'pane-profile',l:'Menu',i:'menu'}];
-            else if(currentUser.role === 'Teacher') menu = [{t:'pane-batches',l:'Classes',i:'class'}, {t:'pane-chat',l:'Chat',i:'chat'}, {t:'pane-profile',l:'Menu',i:'menu'}];
-            else menu = [{t:'pane-home',l:'Home',i:'home'}, {t:'pane-chat',l:'Chat',i:'chat'}, {t:'pane-store',l:'Store',i:'store'}, {t:'pane-profile',l:'Menu',i:'menu'}];
-
-            let html = menu.map(x => `<div class="nav-item" onclick="nav('${x.t}')"><i class="material-icons">${x.i}</i>${x.l}</div>`).join('');
-            document.getElementById('bot-nav').innerHTML = html;
-            document.getElementById('side-nav').innerHTML = html.replace(/nav-item/g, 'nav-link');
-
-            // Set Visibility classes
-            document.querySelectorAll('.admin-only').forEach(e=>e.style.display=currentUser.role==='Admin'?'block':'none');
-            document.querySelectorAll('.teacher-only').forEach(e=>e.style.display=(currentUser.role==='Teacher'||currentUser.role==='Admin')?'block':'none');
-            document.getElementById('mood-bar').style.display = currentUser.role==='Student'?'flex':'none';
-
-            nav(menu[0].t);
-        }
-
-        function nav(id) {
-            document.querySelectorAll('.pane').forEach(e => e.style.display='none');
-            document.getElementById(id).style.display='block';
-            
-            if(id === 'pane-home') renderLeaderboard();
-            if(id === 'pane-admin') renderUsers('');
-            if(id === 'pane-batches') renderBatches();
-            if(id === 'pane-chat') renderChatList();
-            if(id === 'pane-store') renderStore();
-            if(id === 'pane-profile') {
-                document.getElementById('prof-name').value = currentUser.n;
-                document.getElementById('prof-id').value = currentUser.m;
-            }
-        }
-
-        // --- FEATURES ---
-        function setGreeting() {
-            let h = new Date().getHours();
-            document.getElementById('greet-text').innerText = `${h<12?'Good Morning':(h<18?'Good Afternoon':'Good Evening')}, ${currentUser.n}!`;
-        }
-        function setMood(m) { document.getElementById('greet-sub').innerText = `Feeling ${m}? Let's do this! 💪`; }
-
-        function renderLeaderboard() {
-            let stu = users.filter(u => u.role === 'Student').sort((a,b) => (b.marks||0) - (a.marks||0));
-            // Ensure podium names exist
-            if(stu[0]) document.querySelector('.rank-1 small').innerText = stu[0].n;
-            if(stu[1]) document.querySelector('.rank-2 small').innerText = stu[1].n;
-            if(stu[2]) document.querySelector('.rank-3 small').innerText = stu[2].n;
-            
-            document.getElementById('lb-list').innerHTML = stu.slice(3).map((u, i) => `
-                <div class="lb-row"><div style="display:flex; align-items:center;"><span style="width:30px; font-weight:bold; color:gray;">#${i+4}</span><b>${u.n}</b></div><div><span style="color:var(--primary); font-weight:bold;">${u.marks||0}%</span><span class="lb-grade">${u.marks>90?'A+':'A'}</span></div></div>
-            `).join('');
-        }
-
-        function renderChatList() {
+        function renderChat() {
             let list = currentUser.role==='Student' ? users.filter(u=>u.role==='Teacher') : users.filter(u=>u.role==='Student');
-            document.getElementById('chat-list').innerHTML = list.map(u => `
-                <div class="chat-list-item" onclick="openChat('${u.n}')"><div class="chat-avatar">${u.n[0]}</div><div style="flex:1;"><b>${u.n}</b><br><small style="color:gray;">Tap to message</small></div><i class="material-icons" style="color:#ddd;">chevron_right</i></div>
-            `).join('');
+            document.getElementById('chat-list').innerHTML = list.map(u => 
+                `<div class="chat-item" onclick="openChat('${u.n}')"><div class="chat-avatar" style="width:30px;height:30px;background:#ddd;border-radius:50%;"></div><b>${u.n}</b></div>`
+            ).join('');
         }
-        function openChat(n){ document.getElementById('chat-room').style.display='flex'; document.getElementById('chat-title').innerText=n; document.getElementById('chat-msgs').innerHTML=`<div class="msg msg-them">Hello!</div><div class="msg msg-me">Hi ${n}, how are you?</div>`; }
-
-        function renderBatches() { document.getElementById('batch-grid').innerHTML = batches.map(b => `<div class="u-card" style="text-align:center; cursor:pointer;" onclick="openBatch('${b}')"><b>${b}</b></div>`).join(''); }
-        function openBatch(b) { document.getElementById('view-batch-list').style.display='none'; document.getElementById('batch-view').style.display='block'; document.getElementById('bv-title').innerText=b; renderStuList('view'); }
-        function closeBatch() { document.getElementById('batch-view').style.display='none'; document.getElementById('view-batch-list').style.display='block'; }
-        function addBatch() { let b = prompt("Batch Name:"); if(b){ batches.push(b); sync(); renderBatches(); } }
-
-        function renderStuList(mode) {
-            let b = document.getElementById('bv-title').innerText;
-            let list = users.filter(u => u.batch === b && u.role === 'Student');
-            document.getElementById('bv-list').innerHTML = list.map(u => {
-                let action = mode==='att' ? `<button class="btn-sm btn-sec" style="color:green;">P</button><button class="btn-sm btn-sec" style="color:red;">A</button>` : (mode==='marks' ? `<input style="width:50px; margin:0; padding:5px;" placeholder="${u.marks}">` : `<small>${u.m}</small>`);
-                return `<div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee;"><b>${u.n}</b><div>${action}</div></div>`;
-            }).join('');
+        function openChat(n) {
+            document.getElementById('chat-window').style.display='flex';
+            document.getElementById('cw-title').innerText = n;
+            document.getElementById('cw-body').innerHTML = `<div class="msg msg-them">Hello!</div><div class="msg msg-me">Hi there.</div>`;
         }
 
-        // --- QUANTUM, STORE, AI ---
-        function enablePush() { if(!("Notification" in window))return alert("Not Supported"); Notification.requestPermission().then(p=>alert(p==="granted"?"✅ Enabled":"Denied")); }
-        function triggerQuantum() {
-            let t = document.getElementById('q-topic').value, b = document.getElementById('q-buf').value;
-            let msg = `Quantum Test: ${t} (Buffer: ${b}m)`;
-            alert(msg);
-            if(Notification.permission==="granted") new Notification("Jalaram Academy", {body:msg});
-        }
-        function addMaterial() { store.push({t:'New File', s:'General', k:'PDF', type:'Premium'}); sync(); renderStore(); }
         function renderStore() {
-            document.getElementById('demo-list').innerHTML = store.filter(x=>x.type==='Demo').map(i=>`<div class="store-item"><div class="store-icon"><i class="material-icons">play_circle</i></div><div><b>${i.t}</b><br><small>${i.s}</small></div></div>`).join('');
-            document.getElementById('store-list').innerHTML = store.filter(x=>x.type!=='Demo').map(i=>`<div class="store-item"><div class="store-icon"><i class="material-icons">description</i></div><div><b>${i.t}</b><br><small>${i.s}</small></div></div>`).join('');
+            document.getElementById('demo-list').innerHTML = store.filter(x=>x.type==='Demo').map(i=>`<div class="store-item"><b>${i.t}</b></div>`).join('');
+            document.getElementById('store-list').innerHTML = store.filter(x=>x.type!=='Demo').map(i=>`<div class="store-item"><b>${i.t}</b></div>`).join('');
         }
-        
-        function aiDesc(s) {
-            let box = document.getElementById('ai-out');
-            box.innerHTML = `<div class="ai-loading">Generating...</div>`;
-            setTimeout(() => box.innerHTML = `<b>${s} Syllabus</b><br>Generated by AI.<br>Includes advanced concepts and practicals.`, 1000);
-        }
+        function addMaterial() { store.push({t:'New File', type:'Premium'}); renderStore(); }
 
-        // --- ADMIN ---
-        function renderUsers(q) {
-            let t = q.toLowerCase();
-            document.getElementById('user-list').innerHTML = users.filter(u => u.role!=='Admin' && u.n.toLowerCase().includes(t)).map(u => `
-                <div class="u-card row" onclick="inspect('${u.m}')"><div><b>${u.n}</b><br><small>${u.m}</small></div><span>${u.role}</span></div>
-            `).join('');
+        function renderAdmin(q) {
+            document.getElementById('admin-list').innerHTML = users.filter(u=>u.role!=='Admin' && u.n.toLowerCase().includes(q.toLowerCase())).map(u => 
+                `<div class="row" style="padding:10px; border-bottom:1px solid #eee;" onclick="insp('${u.m}')"><b>${u.n}</b><span>${u.role}</span></div>`
+            ).join('');
         }
-        function inspect(id) {
-            let u = users.find(x => x.m === id);
+        function insp(id) {
+            let u = users.find(x=>x.m===id);
             document.getElementById('inspect-modal').style.display='flex';
             document.getElementById('ins-name').innerText = u.n;
             document.getElementById('ins-id').innerText = u.m;
             document.getElementById('inspect-modal').dataset.mid = id;
         }
-        function startSim() {
-            currentUser = users.find(x => x.m === document.getElementById('inspect-modal').dataset.mid);
-            document.getElementById('inspect-modal').style.display='none';
+        function simUser() {
+            currentUser = users.find(x=>x.m===document.getElementById('inspect-modal').dataset.mid);
+            hideModals();
             document.getElementById('sim-bar').style.display='block';
-            initApp();
+            startApp();
+        }
+
+        // --- PUBLIC AI ---
+        function aiDesc(s) {
+            document.getElementById('ai-out').innerText = "Generating AI Syllabus...";
+            setTimeout(() => document.getElementById('ai-out').innerHTML = `<b>${s} Syllabus</b><br>AI Generated Content.<br>Topic 1: Intro...`, 1000);
         }
     </script>
 </body>
 </html>
-
