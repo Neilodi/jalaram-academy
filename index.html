@@ -3,371 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jalaram Academy v257</title>
+    <title>Jalaram Academy v311 | Final Gradebook</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script src='https://meet.jit.si/external_api.js'></script>
 
     <style>
-        :root { --primary: #4f46e5; --bg: #f8fafc; --text: #0f172a; }
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; }
+        :root { --primary: #0f5bb8; --bg: #f8fafc; --text: #0f172a; --danger: #ef4444; --success: #22c55e; --surface: #ffffff; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; user-select:none; }
         body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
 
-        /* AUTH */
-        #auth-layer { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px; }
-        
-        /* APP */
-        #app-layer { display:none; height:100%; flex-direction:column; }
-        .app-bar { padding:20px; background:white; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
-        .main-content { flex:1; overflow-y:auto; padding:20px; padding-bottom:100px; }
-
-        /* UI */
-        .u-card { background:white; padding:15px; border-radius:16px; box-shadow:0 4px 10px rgba(0,0,0,0.03); margin-bottom:15px; border:1px solid #e2e8f0; }
-        .btn { padding:14px; border:none; border-radius:12px; font-weight:700; cursor:pointer; width:100%; font-size:14px; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:5px; transition:0.2s; }
+        /* UI COMPONENTS */
+        .btn { width:100%; padding:14px; border-radius:10px; border:none; font-weight:700; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px; transition:0.2s; }
         .btn:active { transform:scale(0.98); }
         .btn-main { background:var(--primary); color:white; }
-        .btn-sec { background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; }
-        input, select { width:100%; padding:14px; border:2px solid #e2e8f0; border-radius:12px; margin-bottom:10px; outline:none; background:white; font-size:14px; }
+        .btn-sec { background:white; color:#334155; border:1px solid #cbd5e1; }
+        .btn-danger { background:#fee2e2; color:#b91c1c; }
+        .btn-upi { background:#4f46e5; color:white; }
+        .btn-sm { width:auto; padding:6px 12px; font-size:12px; margin:0; height:32px; }
+
+        .card { background:var(--surface); border-radius:16px; padding:16px; margin-bottom:12px; border:1px solid #e2e8f0; box-shadow:0 2px 4px rgba(0,0,0,0.02); }
+        .row { display:flex; align-items:center; justify-content:space-between; }
+        input, select, textarea { width:100%; padding:14px; border:1px solid #cbd5e1; border-radius:10px; margin-bottom:12px; outline:none; background:#f8fafc; font-size:14px; }
+        input:focus, textarea:focus { border-color:var(--primary); background:white; }
+
+        /* LAYOUT */
+        #auth-layer { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px; }
+        #app-layer { display:none; height:100%; flex-direction:column; }
+        .main-content { flex:1; overflow-y:auto; padding:15px; padding-bottom:100px; }
+        
+        .app-header { background:white; padding:15px; border-bottom:1px solid #e2e8f0; display:flex; align-items:center; justify-content:space-between; }
+        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:12px 10px 25px 10px; border-top:1px solid #e2e8f0; z-index:1000; }
+        .nav-item { text-align:center; color:#94a3b8; font-size:10px; font-weight:600; cursor:pointer; }
+        .nav-item.active { color:var(--primary); }
+        .nav-item i { font-size:24px; display:block; margin-bottom:4px; }
+
+        /* SUB NAV */
+        .sub-nav { display:flex; gap:20px; border-bottom:1px solid #e2e8f0; margin-bottom:15px; padding-bottom:0px; overflow-x:auto; }
+        .sub-item { font-size:13px; font-weight:600; color:#64748b; cursor:pointer; padding-bottom:10px; white-space:nowrap; border-bottom:2px solid transparent; }
+        .sub-item.active { color:var(--primary); border-bottom-color:var(--primary); }
 
         /* MODALS */
-        .sheet-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9000; display:none; align-items:flex-end; }
-        .sheet { background:white; width:100%; border-radius:25px 25px 0 0; padding:25px; box-shadow:0 -10px 40px rgba(0,0,0,0.1); max-height:85vh; overflow-y:auto; animation:slideUp 0.3s forwards; }
-        @keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-        .sheet-handle { width:40px; height:5px; background:#e2e8f0; border-radius:10px; margin:0 auto 20px auto; }
+        .sheet-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9000; display:none; align-items:flex-end; backdrop-filter:blur(2px); }
+        .sheet { background:white; width:100%; border-radius:24px 24px 0 0; padding:24px; max-height:90vh; overflow-y:auto; animation:slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        @keyframes slideUp { from{transform:translateY(100%);} to{transform:translateY(0);} }
 
-        /* EXTRAS */
-        .teacher-only, .admin-only { display:none; }
-        .pie-chart { width:24px; height:24px; border-radius:50%; background:conic-gradient(var(--primary) 0% 0%, #e2e8f0 0% 100%); margin-left:10px; }
-        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:12px; border-top:1px solid #eee; z-index:1000; }
-        .nav-item { text-align:center; font-size:10px; color:#94a3b8; font-weight:bold; }
-        .nav-item.active { color:var(--primary); }
-        .nav-item i { font-size:24px; display:block; margin-bottom:3px; }
+        /* FULLSCREEN PLAYERS */
+        .fullscreen-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:10000; display:none; flex-direction:column; }
+        .fs-header { padding:15px; background:rgba(20,20,20,0.9); color:white; display:flex; justify-content:space-between; align-items:center; }
+        .fs-content { flex:1; width:100%; height:100%; background:black; overflow-y:auto; padding:20px; }
+        iframe { width:100%; height:100%; border:none; }
+
+        /* CHAT BUBBLES (DOUBTS) */
+        .chat-msg { background:#f1f5f9; padding:10px; border-radius:10px; margin-bottom:10px; font-size:13px; }
+
+        /* UTILS */
+        .badge { font-size:10px; padding:4px 8px; border-radius:6px; font-weight:700; text-transform:uppercase; }
+        .b-admin { background:#1e293b; color:white; }
+        .b-student { background:#fef3c7; color:#92400e; }
+        .empty-state { text-align:center; padding:40px 20px; color:#94a3b8; font-size:13px; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
+
+    <div id="video-room" class="fullscreen-overlay">
+        <div class="fs-header">
+            <div class="row" style="gap:10px;"><span style="color:red; animation:pulse 2s infinite;">●</span> <b id="room-title">Live Class</b></div>
+            <button class="btn-sm btn-danger" onclick="VideoService.endCall()">End Call</button>
+        </div>
+        <div id="jitsi-container" class="fs-content" style="padding:0;"></div>
+    </div>
+
+    <div id="content-player" class="fullscreen-overlay">
+        <div class="fs-header">
+            <b id="content-title">Learning Mode</b>
+            <button class="btn-sm btn-sec" style="background:rgba(255,255,255,0.2); color:white; border:none;" onclick="ContentService.close()">Close</button>
+        </div>
+        <div id="player-container" class="fs-content" style="padding:0;"></div>
+    </div>
+
+    <div id="quiz-player" class="fullscreen-overlay" style="background:#f8fafc;">
+        <div class="fs-header" style="background:white; color:#333; border-bottom:1px solid #eee;">
+            <b id="quiz-title-display">Quiz</b>
+            <button class="btn-sm btn-sec" onclick="QuizService.close()">Exit</button>
+        </div>
+        <div id="quiz-container" class="fs-content" style="background:#f8fafc; color:#333;"></div>
+    </div>
 
     <div id="auth-layer">
-        <div style="font-size:50px; margin-bottom:10px;">🎓</div>
-        <h2 style="color:var(--primary); margin-bottom:5px;">Jalaram Academy</h2>
-        <p style="color:#64748b; margin-bottom:30px;">v257 Safe Mode</p>
-        
+        <div style="font-size:64px; margin-bottom:20px;">🎓</div>
+        <h2 style="color:var(--text); margin-bottom:10px;">Jalaram Academy</h2>
+        <p style="color:#64748b; margin-bottom:30px; font-size:14px;">Enterprise Resource Portal v311</p>
         <div style="width:100%; max-width:320px;">
-            <select id="l-role"><option>Admin</option><option>Teacher</option><option>Student</option></select>
-            <input id="l-id" placeholder="ID (ADM-001)">
-            <input type="password" id="l-pass" placeholder="PIN (1234)">
-            
-            <button class="btn btn-main" onclick="tryLogin()">Login Dashboard</button>
-            
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:15px;">
-                <button class="btn btn-sec" onclick="openSheet('reg-sheet')">New Register</button>
-                <button class="btn btn-sec" onclick="openSheet('public-sheet')">View Courses</button>
-            </div>
+            <select id="l-role"><option value="Admin">Admin</option><option value="Teacher">Teacher</option><option value="Student">Student</option></select>
+            <input id="l-id" placeholder="User ID (e.g. ADM-001)">
+            <input type="password" id="l-pass" placeholder="PIN">
+            <button class="btn btn-main" onclick="AuthService.login()">Login</button>
+            <button class="btn btn-sec" style="margin-top:12px;" onclick="Router.openSheet('reg-sheet')">Register New</button>
         </div>
     </div>
 
     <div id="app-layer">
-        <div class="app-bar">
-            <div>
-                <h3 style="margin:0;" id="greet-name">Hello</h3>
-                <small style="color:#64748b">Let's learn something.</small>
-            </div>
-            <i class="material-icons" onclick="location.reload()" style="color:#64748b">power_settings_new</i>
+        <div class="app-header">
+            <div><b style="font-size:16px;">Jalaram Academy</b><div style="font-size:11px; color:#64748b;" id="user-greeting">Welcome</div></div>
+            <i class="material-icons" style="color:#64748b; cursor:pointer;" onclick="AuthService.logout()">logout</i>
         </div>
-
-        <main class="main-content">
-            <div id="pane-home" class="pane">
-                <div class="u-card">
-                    <h3>🏆 Leaderboard</h3>
-                    <div id="lb-list"></div>
-                </div>
-            </div>
-
-            <div id="pane-batches" class="pane" style="display:none;">
-                <div class="u-card">
-                    <div class="row"><h3>Classes</h3><button class="btn btn-sm btn-sec admin-only" style="width:auto; padding:5px 10px;" onclick="addBatch()">+ Batch</button></div>
-                    <div id="batch-list"></div>
-                </div>
-            </div>
-
-            <div id="pane-admin" class="pane" style="display:none;">
-                <div class="u-card">
-                    <h3>Database</h3>
-                    <div id="user-list"></div>
-                </div>
-                <div class="u-card">
-                    <h3>Courses</h3>
-                    <div class="row"><button class="btn btn-sec btn-sm" onclick="addCourse()">+ Add Course</button></div>
-                    <div id="course-list"></div>
-                </div>
-            </div>
-            
-            <div id="pane-store" class="pane" style="display:none;"><div class="u-card"><h3>Store</h3><div id="store-list"></div></div></div>
-            <div id="pane-chat" class="pane" style="display:none;"><div class="u-card"><h3>Chat</h3><div id="chat-list"></div></div></div>
-            <div id="pane-profile" class="pane" style="display:none;"><div class="u-card"><h3>Profile</h3><input id="prof-id" readonly></div></div>
-        </main>
-
+        <main class="main-content"><div id="pane-container"></div></main>
         <div class="bot-nav" id="bot-nav"></div>
     </div>
 
-    <div id="reg-sheet" class="sheet-overlay" onclick="closeSheet('reg-sheet')">
+    <div id="reg-sheet" class="sheet-overlay" onclick="Router.closeSheet('reg-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <div class="sheet-handle"></div>
-            <h3>New Registration</h3>
-            <select id="r-role" onchange="togReg()"><option>Student</option><option>Teacher</option></select>
-            <input id="r-name" placeholder="Full Name">
-            
-            <div id="r-stu-div">
-                <input id="r-sm" placeholder="Student Mobile">
-                <select id="r-batch"></select>
-                <small>Select Subjects:</small>
-                <div id="r-ticks" style="display:grid; grid-template-columns:1fr 1fr; gap:5px; margin-bottom:10px;"></div>
-            </div>
-            
-            <div id="r-tch-div" style="display:none;">
-                <input id="r-subs" placeholder="Subjects (Comma separated)">
-            </div>
-
-            <input id="r-pass" placeholder="Create PIN">
-            <button class="btn btn-main" onclick="doReg()">Register</button>
+            <h3>Register</h3>
+            <select id="r-role" onchange="UiRenderer.toggleRegFields()"><option>Student</option><option>Teacher</option></select>
+            <input id="r-name" placeholder="Name">
+            <div id="r-stu-div"><input id="r-sm" placeholder="Student Mobile"><input id="r-pm" placeholder="Parent Mobile"><select id="r-batch"></select></div>
+            <div id="r-tch-div" style="display:none;"><input id="r-subs" placeholder="Subjects"></div>
+            <input id="r-pass" placeholder="PIN (Default: 1234)">
+            <button class="btn btn-main" onclick="AuthService.register()">Create</button>
         </div>
     </div>
 
-    <div id="batch-sheet" class="sheet-overlay" onclick="closeSheet('batch-sheet')">
+    <div id="add-course-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-course-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <div class="sheet-handle"></div>
-            <h3 id="bs-title">Batch</h3>
-            
-            <div class="teacher-only" style="background:#f0f9ff; padding:15px; border-radius:10px; margin-bottom:15px; border:1px solid #bfdbfe;">
-                <b style="color:var(--primary)">⚡ Quantum Generator</b>
-                <input id="q-topic" placeholder="Topic" style="margin-top:5px;">
-                <div class="row">
-                    <select id="q-buf" style="width:48%; margin:0;"><option>No Buffer</option><option>10m Buffer</option></select>
-                    <button class="btn btn-main" style="width:48%; margin:0;" onclick="alert('Quantum Notification Sent!')">Notify</button>
-                </div>
-            </div>
-
-            <div class="teacher-only row" style="margin-bottom:10px;">
-                <b>Tools:</b> 
-                <div>
-                    <button class="btn btn-sec" style="width:auto; padding:5px 10px;" onclick="renderStu('att')">Att.</button>
-                    <button class="btn btn-sec" style="width:auto; padding:5px 10px;" onclick="setupMarks()">Marks</button>
-                </div>
-            </div>
-            
-            <div id="marks-panel" style="display:none; background:#fff7ed; padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid #fdba74;">
-                <b style="color:#c2410c">Test Setup</b>
-                <div class="row">
-                    <input id="t-name" placeholder="Test Name" style="width:60%; margin:0;">
-                    <input id="t-total" placeholder="Total" style="width:35%; margin:0;" type="number" onchange="renderStu('marks')">
-                </div>
-            </div>
-
-            <div id="bs-list"></div>
+            <h3>Add New Course</h3>
+            <input id="ac-name" placeholder="Course Title">
+            <input id="ac-price" type="number" placeholder="Price (₹)">
+            <select id="ac-cat"></select>
+            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
+            <label style="font-size:12px; font-weight:bold;">Content</label>
+            <select id="ac-type"><option value="video">Video (YouTube URL)</option><option value="pdf">PDF (Drive URL)</option></select>
+            <input id="ac-url" placeholder="Paste URL Here">
+            <button class="btn btn-main" onclick="MarketService.addCourse()">Publish Course</button>
         </div>
     </div>
 
-    <div id="public-sheet" class="sheet-overlay" onclick="closeSheet('public-sheet')">
+    <div id="buy-sheet" class="sheet-overlay" onclick="Router.closeSheet('buy-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <div class="sheet-handle"></div>
-            <h3>Courses</h3>
-            <div onclick="aiGen('Maths')" style="padding:15px; border-bottom:1px solid #eee;"><b>Maths</b><br><small>Tap for Info</small></div>
-            <div onclick="aiGen('Science')" style="padding:15px; border-bottom:1px solid #eee;"><b>Science</b><br><small>Tap for Info</small></div>
-            <div id="ai-res" style="margin-top:15px; padding:15px; background:#f8fafc; border-radius:10px;"></div>
+            <h3>Secure Payment</h3>
+            <p style="font-size:12px; color:#64748b; margin-bottom:15px;">Zero Commission Gateway</p>
+            <div id="upi-qr-container" style="text-align:center; margin-bottom:20px;"></div>
+            <div id="upi-intent-btn" style="margin-bottom:15px;"></div>
+            <input id="buy-txn" placeholder="Enter UTR/Ref Number">
+            <input type="hidden" id="buy-course-id">
+            <button class="btn btn-main" onclick="MarketService.confirmOrder()">Submit Verification</button>
+        </div>
+    </div>
+    
+    <div id="pay-sheet" class="sheet-overlay" onclick="Router.closeSheet('pay-sheet')">
+        <div class="sheet" onclick="event.stopPropagation()">
+            <h3>Setup UPI</h3>
+            <input id="p-val" placeholder="Your UPI ID (VPA)">
+            <input id="p-name" placeholder="Merchant Name (Optional)">
+            <button class="btn btn-main" onclick="savePayAccount()">Save UPI</button>
+        </div>
+    </div>
+
+    <div id="batch-sheet" class="sheet-overlay" onclick="Router.closeSheet('batch-sheet')">
+        <div class="sheet" onclick="event.stopPropagation()">
+            <div class="row"><h3 id="bs-title">Batch</h3><button class="btn-sm btn-sec" onclick="Router.closeSheet('batch-sheet')">Close</button></div>
+            <div class="sub-nav">
+                <div class="sub-item active" id="tab-live" onclick="BatchService.switchTab('live')">Live</div>
+                <div class="sub-item" id="tab-doubts" onclick="BatchService.switchTab('doubts')">Doubts</div>
+                <div class="sub-item" id="tab-tests" onclick="BatchService.switchTab('tests')">Tests</div>
+                <div class="sub-item" id="tab-marks" onclick="BatchService.switchTab('marks')">Marks</div> </div>
+            
+            <div id="b-content"></div>
+        </div>
+    </div>
+
+    <div id="add-quiz-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-quiz-sheet')">
+        <div class="sheet" onclick="event.stopPropagation()">
+            <h3>Create Quiz</h3>
+            <input id="qz-q" placeholder="Question">
+            <input id="qz-o1" placeholder="Option A">
+            <input id="qz-o2" placeholder="Option B">
+            <input id="qz-o3" placeholder="Option C">
+            <input id="qz-o4" placeholder="Option D">
+            <select id="qz-ans">
+                <option value="1">Option A Correct</option>
+                <option value="2">Option B Correct</option>
+                <option value="3">Option C Correct</option>
+                <option value="4">Option D Correct</option>
+            </select>
+            <button class="btn btn-main" onclick="QuizService.add()">Post Quiz</button>
         </div>
     </div>
 
     <script>
-        // --- 1. CORE FUNCTIONS (Must be defined first) ---
-        function openSheet(id) {
-            document.getElementById(id).style.display = 'flex';
-            if(id === 'reg-sheet') initReg();
-        }
-        function closeSheet(id) {
-            document.getElementById(id).style.display = 'none';
-        }
-
-        // --- 2. DATA LOAD (With Fail-Safe) ---
-        let users = [
-            {n:'Admin', m:'ADM-001', p:'1234', role:'Admin'},
-            {n:'Amit Sir', m:'TCH-001', p:'1234', role:'Teacher', subjects:'Maths, Science'},
-            {n:'Rohan', m:'STU-001', p:'1234', role:'Student', batch:'Class 10 A', marks:45}
-        ];
-        let batches = ['Class 10 A', 'Class 12'];
-        let globalSubjects = ['Maths', 'Science', 'English'];
-        let currentUser = null;
-        let activeTotal = 100;
-
-        // Force clean start to fix broken buttons from previous cache
-        try {
-            if(!localStorage.getItem('v257_fix')) {
-                localStorage.clear();
-                localStorage.setItem('v257_fix', 'true');
-            } else {
-                if(localStorage.getItem('ja_users')) users = JSON.parse(localStorage.getItem('ja_users'));
-                if(localStorage.getItem('ja_batches')) batches = JSON.parse(localStorage.getItem('ja_batches'));
-                if(localStorage.getItem('ja_subs')) globalSubjects = JSON.parse(localStorage.getItem('ja_subs'));
+        // === DATA SERVICE ===
+        class DatabaseService {
+            constructor() {
+                // Added 'results' table for score persistence
+                this.tables = ['users', 'courses', 'batches', 'orders', 'config', 'doubts', 'quizzes', 'notis', 'results'];
+                this.cache = {}; 
+                this.tables.forEach(t => this.cache[t] = JSON.parse(localStorage.getItem('ja_' + t)) || []);
+                if(this.cache['config'].length === 0) this.cache['config'] = [{upiId: "", upiName: "Jalaram Academy"}];
             }
-        } catch(e) { console.log("Data reset error", e); }
-
-        function sync() {
-            localStorage.setItem('ja_users', JSON.stringify(users));
-            localStorage.setItem('ja_batches', JSON.stringify(batches));
-            localStorage.setItem('ja_subs', JSON.stringify(globalSubjects));
+            async add(table, data) { if(!data.id) data.id = Date.now().toString(); this.cache[table].push(data); this.commit(table); }
+            async get(table) { return this.cache[table]; }
+            commit(table) { localStorage.setItem('ja_' + table, JSON.stringify(this.cache[table])); }
         }
+        const DB = new DatabaseService();
 
-        // --- 3. LOGIN & REG ---
-        function tryLogin() {
-            let id = document.getElementById('l-id').value;
-            let u = users.find(x => x.m === id);
-            if(u) { currentUser = u; launchApp(); } 
-            else { alert("Try ADM-001 / 1234"); }
-        }
+        // === PLAYERS ===
+        const ContentService = {
+            play: (type, url, title) => {
+                const c = document.getElementById('player-container');
+                document.getElementById('content-title').innerText = title;
+                document.getElementById('content-player').style.display = 'flex';
+                if(type === 'video') c.innerHTML = `<iframe src="${url.replace('watch?v=', 'embed/')}" allowfullscreen></iframe>`;
+                if(type === 'pdf') c.innerHTML = `<iframe src="${url.replace('/view', '/preview')}"></iframe>`;
+            },
+            close: () => document.getElementById('content-player').style.display = 'none'
+        };
 
-        function initReg() {
-            document.getElementById('r-batch').innerHTML = batches.map(b => `<option>${b}</option>`).join('');
-            document.getElementById('r-ticks').innerHTML = globalSubjects.map(s => `<label><input type="checkbox" value="${s}"> ${s}</label>`).join('');
-            togReg();
-        }
-
-        function togReg() {
-            let r = document.getElementById('r-role').value;
-            document.getElementById('r-stu-div').style.display = r === 'Student' ? 'block' : 'none';
-            document.getElementById('r-tch-div').style.display = r === 'Teacher' ? 'block' : 'none';
-        }
-
-        function doReg() {
-            let n = document.getElementById('r-name').value;
-            let role = document.getElementById('r-role').value;
-            let id = (role==='Student'?'STU':'TCH') + '-' + Math.floor(Math.random()*10000);
-            
-            let u = {n:n, m:id, p:'1234', role:role, status:'Pending'};
-            if(role === 'Student') {
-                u.batch = document.getElementById('r-batch').value;
-                // Get Ticks
-                let acc = [];
-                document.querySelectorAll('#r-ticks input:checked').forEach(c => acc.push(c.value));
-                u.access = acc;
-            } else {
-                u.subjects = document.getElementById('r-subs').value;
-                // Add to Global Subjects
-                u.subjects.split(',').forEach(s => {
-                    let trimS = s.trim();
-                    if(!globalSubjects.includes(trimS)) globalSubjects.push(trimS);
+        const VideoService = {
+            api: null,
+            startCall: (room, user) => {
+                document.getElementById('video-room').style.display = 'flex';
+                document.getElementById('room-title').innerText = room;
+                VideoService.api = new JitsiMeetExternalAPI('meet.jit.si', {
+                    roomName: `Jalaram_${room.replace(/\s/g,'')}_Final`, width: '100%', height: '100%',
+                    parentNode: document.querySelector('#jitsi-container'), userInfo: { displayName: user },
+                    configOverwrite: { startWithAudioMuted: true }
                 });
-            }
-            users.push(u); sync();
-            alert("ID: " + id); closeSheet('reg-sheet');
-        }
+                VideoService.api.addEventListeners({ videoConferenceLeft: () => VideoService.endCall() });
+            },
+            endCall: () => { if(VideoService.api) VideoService.api.dispose(); document.getElementById('video-room').style.display = 'none'; }
+        };
 
-        // --- 4. APP LAUNCHER ---
-        function launchApp() {
-            document.getElementById('auth-layer').style.display = 'none';
-            document.getElementById('app-layer').style.display = 'flex';
-            document.getElementById('greet-name').innerText = "Hi, " + currentUser.n;
+        // === QUIZ ENGINE (With Gradebook) ===
+        const QuizService = {
+            add: async () => {
+                const q = {
+                    batch: document.getElementById('bs-title').innerText,
+                    q: document.getElementById('qz-q').value,
+                    opts: [
+                        document.getElementById('qz-o1').value, document.getElementById('qz-o2').value,
+                        document.getElementById('qz-o3').value, document.getElementById('qz-o4').value
+                    ],
+                    ans: document.getElementById('qz-ans').value,
+                    date: new Date().toLocaleDateString()
+                };
+                if(!q.q) return alert("Question Required");
+                await DB.add('quizzes', q);
+                Router.closeSheet('add-quiz-sheet');
+                BatchService.switchTab('tests');
+            },
+            start: (qid) => {
+                const q = DB.cache['quizzes'].find(x => x.id == qid);
+                document.getElementById('quiz-player').style.display = 'flex';
+                document.getElementById('quiz-container').innerHTML = `
+                    <div style="padding:20px;">
+                        <h3>${q.q}</h3>
+                        ${q.opts.map((o,i) => `<button class="btn btn-sec" style="margin-bottom:10px; justify-content:flex-start" onclick="QuizService.check('${qid}', ${i+1})">${['A','B','C','D'][i]}. ${o}</button>`).join('')}
+                    </div>
+                `;
+            },
+            check: async (qid, sel) => {
+                const q = DB.cache['quizzes'].find(x => x.id == qid);
+                const isCorrect = (sel == q.ans);
+                const score = isCorrect ? 4 : 0;
+                
+                // SAVE RESULT (Persistence)
+                await DB.add('results', {
+                    qid: qid,
+                    qText: q.q,
+                    uid: AuthService.currentUser.m,
+                    uName: AuthService.currentUser.n,
+                    batch: AuthService.currentUser.batch,
+                    score: score,
+                    date: new Date().toLocaleDateString()
+                });
 
-            // Visibility
-            document.querySelectorAll('.admin-only').forEach(e => e.style.display = currentUser.role==='Admin'?'block':'none');
-            document.querySelectorAll('.teacher-only').forEach(e => e.style.display = (currentUser.role==='Teacher'||currentUser.role==='Admin')?'block':'none');
+                if(isCorrect) alert("✅ Correct Answer! +4 Marks Saved.");
+                else alert("❌ Wrong Answer! Score: 0 Saved.");
+                QuizService.close();
+            },
+            close: () => document.getElementById('quiz-player').style.display = 'none'
+        };
 
-            // Nav
-            let menu = [];
-            if(currentUser.role==='Admin') menu = ['Admin', 'Batches', 'Store'];
-            else if(currentUser.role==='Teacher') menu = ['Batches', 'Chat', 'Profile'];
-            else menu = ['Home', 'Chat', 'Store'];
-
-            document.getElementById('bot-nav').innerHTML = menu.map(m => {
-                let icon = {'Home':'home','Admin':'admin_panel_settings','Batches':'class','Store':'menu_book','Chat':'chat','Profile':'person'}[m];
-                return `<div class="nav-item" onclick="nav('pane-${m.toLowerCase()}')"><i class="material-icons">${icon}</i>${m}</div>`;
-            }).join('');
-
-            nav('pane-' + menu[0].toLowerCase());
-        }
-
-        function nav(id) {
-            document.querySelectorAll('.pane').forEach(p => p.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-            
-            if(id === 'pane-home') renderLB();
-            if(id === 'pane-batches') renderBatches();
-            if(id === 'pane-admin') renderAdmin();
-            if(id === 'pane-profile') document.getElementById('prof-id').value = currentUser.m;
-        }
-
-        // --- 5. FEATURES ---
-        function renderLB() {
-            let list = users.filter(u => u.role === 'Student').sort((a,b) => b.marks - a.marks);
-            document.getElementById('lb-list').innerHTML = list.map((u, i) => `
-                <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee;">
-                    <b>#${i+1} ${u.n}</b> <span style="color:blue">${u.marks || 0}%</span>
-                </div>
-            `).join('');
-        }
-
-        function renderBatches() {
-            document.getElementById('batch-list').innerHTML = batches.map(b => `
-                <div class="u-card" onclick="openBatch('${b}')"><b>${b}</b></div>
-            `).join('');
-        }
-
-        function openBatch(b) {
-            openSheet('batch-sheet');
-            document.getElementById('bs-title').innerText = b;
-            renderStu('view');
-        }
-
-        function setupMarks() {
-            document.getElementById('marks-panel').style.display = 'block';
-        }
-
-        function renderStu(mode) {
-            let b = document.getElementById('bs-title').innerText;
-            if(mode === 'marks') activeTotal = parseInt(document.getElementById('t-total').value) || 100;
-
-            document.getElementById('bs-list').innerHTML = users.filter(u => u.batch === b && u.role === 'Student').map(u => {
-                let action = `<small>${u.m}</small>`;
-                if(mode === 'att') action = `<button class="btn-sec" style="padding:5px;">P</button><button class="btn-sec" style="padding:5px;">A</button>`;
-                if(mode === 'marks') {
-                    let pct = Math.round(((u.marks||0) / activeTotal) * 100);
-                    action = `<div style="display:flex; align-items:center;"><input value="${u.marks||0}" style="width:40px; margin:0;" onchange="saveMark('${u.m}', this.value)"> <div class="pie-chart" style="background:conic-gradient(var(--primary) 0% ${pct}%, #eee ${pct}% 100%)"></div></div>`;
+        // === BATCH MANAGER (With Marks Tab) ===
+        const BatchService = {
+            currentBatch: null,
+            open: (name) => {
+                BatchService.currentBatch = name;
+                document.getElementById('bs-title').innerText = name;
+                Router.openSheet('batch-sheet');
+                BatchService.switchTab('live');
+            },
+            switchTab: (tab) => {
+                document.querySelectorAll('.sub-item').forEach(i => i.classList.remove('active'));
+                document.getElementById('tab-'+tab).classList.add('active');
+                const c = document.getElementById('b-content');
+                const role = AuthService.currentUser.role;
+                
+                if(tab === 'live') {
+                    c.innerHTML = `<div style="text-align:center; padding:30px;"><button class="btn btn-main btn-danger" onclick="VideoService.startCall('${BatchService.currentBatch}', '${AuthService.currentUser.n}')">🔴 Join Video Class</button></div>`;
                 }
-                return `<div class="row" style="padding:10px; border-bottom:1px solid #eee;"><b>${u.n}</b>${action}</div>`;
-            }).join('');
-        }
+                if(tab === 'doubts') {
+                    const doubts = DB.cache['doubts'].filter(d => d.batch === BatchService.currentBatch);
+                    c.innerHTML = `<div style="height:300px; overflow-y:auto; margin-bottom:10px;">${doubts.map(d => `
+                        <div class="chat-msg"><b>${d.user}</b>: ${d.msg}</div>
+                    `).join('')}</div>
+                    <div class="row"><input id="d-input" placeholder="Ask doubt..." style="margin:0"><button class="btn-sm btn-main" onclick="BatchService.postDoubt()">Send</button></div>`;
+                }
+                if(tab === 'tests') {
+                    const tests = DB.cache['quizzes'].filter(q => q.batch === BatchService.currentBatch);
+                    let html = tests.map(t => `<div class="card"><div class="row"><b>${t.q}</b><button class="btn-sm btn-main" onclick="QuizService.start('${t.id}')">Start</button></div></div>`).join('');
+                    if(role === 'Teacher' || role === 'Admin') html = `<button class="btn btn-sec" onclick="Router.openSheet('add-quiz-sheet')">+ Create Quiz</button>` + html;
+                    c.innerHTML = html || '<div class="empty-state">No Active Tests</div>';
+                }
+                // NEW: MARKS TAB (TEACHER VIEW)
+                if(tab === 'marks') {
+                    if(role === 'Student') {
+                        // Student View: Show My Results
+                        const myRes = DB.cache['results'].filter(r => r.uid === AuthService.currentUser.m);
+                        c.innerHTML = myRes.length ? myRes.map(r => `<div class="card"><div class="row"><div><small>${r.date}</small><br>${r.qText}</div><b>${r.score}/4</b></div></div>`).join('') : '<div class="empty-state">No results yet.</div>';
+                    } else {
+                        // Teacher View: Show All Students in Batch
+                        const batchRes = DB.cache['results'].filter(r => r.batch === BatchService.currentBatch);
+                        c.innerHTML = batchRes.length ? batchRes.map(r => `<div class="card"><div class="row"><div><b>${r.uName}</b><br><small>${r.qText}</small></div><b>${r.score}/4</b></div></div>`).join('') : '<div class="empty-state">No student results found.</div>';
+                    }
+                }
+            },
+            postDoubt: async () => {
+                const msg = document.getElementById('d-input').value;
+                if(msg) { await DB.add('doubts', { batch: BatchService.currentBatch, user: AuthService.currentUser.n, msg: msg }); BatchService.switchTab('doubts'); }
+            }
+        };
 
-        function saveMark(id, val) {
-            let u = users.find(x => x.m === id);
-            if(u) { u.marks = parseInt(val); sync(); renderStu('marks'); }
-        }
+        // === MARKETPLACE ===
+        const MarketService = {
+            addCourse: async () => {
+                await DB.add('courses', {
+                    name: document.getElementById('ac-name').value, price: document.getElementById('ac-price').value,
+                    cat: document.getElementById('ac-cat').value, type: document.getElementById('ac-type').value,
+                    url: document.getElementById('ac-url').value
+                });
+                Router.closeSheet('add-course-sheet'); UiRenderer.renderCourses();
+            },
+            initBuy: async (cid, price, name) => {
+                const config = (await DB.get('config'))[0];
+                if(!config.upiId) return alert("Admin UPI not set");
+                const upiLink = `upi://pay?pa=${config.upiId}&pn=${encodeURIComponent(config.upiName)}&am=${price}&tn=${encodeURIComponent(name)}&cu=INR`;
+                document.getElementById('upi-qr-container').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiLink)}" style="border-radius:10px;">`;
+                document.getElementById('upi-intent-btn').innerHTML = `<a href="${upiLink}" class="btn btn-upi" style="text-decoration:none;">Pay ₹${price} via UPI App</a>`;
+                document.getElementById('buy-course-id').value = cid;
+                Router.openSheet('buy-sheet');
+            },
+            confirmOrder: async () => {
+                const txn = document.getElementById('buy-txn').value;
+                if(!txn) return alert("UTR Required");
+                await DB.add('orders', { userId: AuthService.currentUser.m, courseId: document.getElementById('buy-course-id').value, txn: txn });
+                alert("Payment Submitted for Verification"); Router.closeSheet('buy-sheet');
+            }
+        };
 
-        // --- 6. ADMIN ---
-        function renderAdmin() {
-            document.getElementById('user-list').innerHTML = users.map(u => `
-                <div style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
-                    <div><b>${u.n}</b><br><small>${u.m}</small></div>
-                    <button class="btn-red" style="width:auto; padding:5px 10px; font-size:12px;" onclick="delUser('${u.m}')">Del</button>
-                </div>
-            `).join('');
-            
-            document.getElementById('course-list').innerHTML = globalSubjects.map(s => `
-                <div style="padding:10px; border-bottom:1px solid #eee;"><b>${s}</b></div>
-            `).join('');
-        }
+        // === AUTH & ROUTER ===
+        const AuthService = {
+            currentUser: null,
+            login: async () => {
+                const id=document.getElementById('l-id').value, pass=document.getElementById('l-pass').value, role=document.getElementById('l-role').value;
+                let users = await DB.get('users');
+                if(users.length===0 && id==='ADM-001') await DB.add('users', {m:'ADM-001',n:'Admin',p:'1234',role:'Admin'});
+                const user = (await DB.get('users')).find(u => u.m === id && u.p === pass && u.role === role);
+                if (user) { AuthService.currentUser = user; document.getElementById('auth-layer').style.display='none'; document.getElementById('app-layer').style.display='flex'; Router.init(user.role); }
+                else alert("Invalid Credentials");
+            },
+            logout: () => location.reload(),
+            register: async () => {
+                const r = document.getElementById('r-role').value;
+                const newId = (r==='Student'?'STU-':'TCH-') + Math.floor(1000+Math.random()*9000);
+                await DB.add('users', { m:newId, n:document.getElementById('r-name').value, p:document.getElementById('r-pass').value||'1234', role:r, myCourses:[], batch:document.getElementById('r-batch').value }); 
+                alert(`User Created! ID: ${newId}`); Router.closeSheet('reg-sheet');
+            }
+        };
 
-        function delUser(id) {
-            if(confirm("Delete?")) {
-                users = users.filter(x => x.m !== id);
-                // Smart Subject Cleanup
-                updateGlobalSubjects();
-                sync();
-                renderAdmin();
+        const Router = {
+            init: (role) => {
+                let menu = role==='Admin'?['Admin','Courses']:['Home','Courses'];
+                document.getElementById('bot-nav').innerHTML = menu.map(m => `<div class="nav-item" onclick="Router.nav('${m}')"><i class="material-icons">${m==='Admin'?'settings':m==='Courses'?'library_books':'home'}</i>${m}</div>`).join('');
+                Router.nav(menu[0]);
+            },
+            nav: (page) => {
+                document.getElementById('pane-container').innerHTML = `<h2 style="margin-bottom:15px;">${page}</h2><div id="content-area"></div>`;
+                if(page==='Admin') UiRenderer.renderAdmin(); if(page==='Courses') UiRenderer.renderCourses(); if(page==='Home') UiRenderer.renderHome();
+            },
+            openSheet: (id) => document.getElementById(id).style.display='flex',
+            closeSheet: (id) => document.getElementById(id).style.display='none'
+        };
+
+        const UiRenderer = {
+            async renderHome() {
+                const u = AuthService.currentUser;
+                const notis = (await DB.get('notis')).filter(n => n.batch === u.batch);
+                document.getElementById('content-area').innerHTML = `
+                    <div class="card" onclick="BatchService.open('${u.batch || 'General'}')">
+                        <div class="row"><h3 style="color:#b91c1c;">🔴 My Classroom</h3><i class="material-icons" style="color:#b91c1c;">videocam</i></div>
+                        <p style="font-size:12px; color:gray">Video Class, Tests & Results</p>
+                    </div>
+                    <div class="card"><h3>📢 Updates</h3>${notis.length ? notis.map(n=>`<div class="chat-msg">${n.msg}</div>`).join('') : '<div class="empty-state">No updates</div>'}</div>
+                `;
+            },
+            async renderAdmin() {
+                const orders = await DB.get('orders');
+                document.getElementById('content-area').innerHTML = `
+                    <div class="card"><div class="row"><h3>UPI Config</h3><button class="btn-sm btn-sec" onclick="Router.openSheet('pay-sheet')">Edit</button></div></div>
+                    <div class="card"><h3>Verify Orders (${orders.length})</h3><div id="order-list"></div></div>
+                `;
+                document.getElementById('order-list').innerHTML = orders.map(o => `<div class="row" style="padding:10px; border-bottom:1px solid #eee;"><div><b>${o.userId}</b><br><small style="color:blue">UTR: ${o.txn}</small></div><button class="btn-sm btn-main" onclick="verifyOrder('${o.id}')">Verify</button></div>`).join('');
+            },
+            async renderCourses() {
+                const courses = await DB.get('courses');
+                const u = AuthService.currentUser;
+                let html = u.role==='Admin' ? `<button class="btn btn-main" style="margin-bottom:15px;" onclick="Router.openSheet('add-course-sheet')">+ Add Course</button>` : '';
+                courses.forEach(c => {
+                    const owned = u.myCourses && u.myCourses.includes(c.id);
+                    let btn = owned ? `<button class="btn-sm btn-main" style="background:var(--success)" onclick="ContentService.play('${c.type}', '${c.url}', '${c.name}')">Start</button>` : `<button class="btn-sm btn-main" onclick="MarketService.initBuy('${c.id}', '${c.price}', '${c.name}')">Buy ₹${c.price}</button>`;
+                    if(u.role==='Admin') btn = `<small>Active</small>`;
+                    html += `<div class="card"><div class="row"><div><b>${c.name}</b><br><small>${c.type.toUpperCase()}</small></div>${btn}</div></div>`;
+                });
+                document.getElementById('content-area').innerHTML = html;
+                if(u.role === 'Admin') document.getElementById('ac-cat').innerHTML = '<option>IIT-JEE</option><option>NEET</option>';
+            },
+            toggleRegFields() { document.getElementById('r-stu-div').style.display = document.getElementById('r-role').value==='Student'?'block':'none'; }
+        };
+
+        async function verifyOrder(oid) {
+            let orders = await DB.get('orders');
+            let users = await DB.get('users');
+            const order = orders.find(o => o.id === oid);
+            const user = users.find(u => u.m === order.userId);
+            if(user) {
+                if(!user.myCourses) user.myCourses = [];
+                user.myCourses.push(order.courseId);
+                await DB.update('users', user.id, { myCourses: user.myCourses });
+                orders = orders.filter(o => o.id !== oid);
+                localStorage.setItem('ja_orders', JSON.stringify(orders));
+                alert("Order Verified!"); UiRenderer.renderAdmin();
             }
         }
-
-        function addBatch() { let b = prompt("Name:"); if(b) { batches.push(b); sync(); renderBatches(); } }
-        function addCourse() { let c = prompt("Course:"); if(c) { globalSubjects.push(c); sync(); renderAdmin(); } }
-
-        function aiGen(s) {
-            document.getElementById('ai-res').innerHTML = "Generating...";
-            setTimeout(() => document.getElementById('ai-res').innerHTML = `<b>${s} Syllabus</b><br>AI generated insight loaded.`, 1000);
+        async function savePayAccount() {
+            let config = (await DB.get('config'))[0];
+            config.upiId = document.getElementById('p-val').value;
+            config.upiName = document.getElementById('p-name').value;
+            await DB.update('config', 0, config);
+            Router.closeSheet('pay-sheet'); alert("UPI Saved!");
         }
     </script>
 </body>
