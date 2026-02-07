@@ -181,7 +181,141 @@
             ● Encrypted Connection | Server: Mumbai-1
         </div>
     </div>
+     <div id="app-shell" class="hidden w-full h-full flex">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="material-icons" style="margin-right: 12px; font-size: 28px; color: var(--primary);">school</i>
+                <span style="font-size: 20px; font-weight: 800; color: var(--primary);">Jalaram</span>
+            </div>
+            <div id="desktop-nav" class="nav-menu"></div>
+            <div style="padding: 24px; border-top: 1px solid var(--border);">
+                <button class="btn btn-danger w-full" onclick="AuthenticationService.logout()">
+                    <i class="material-icons">logout</i> Logout
+                </button>
+            </div>
+        </aside>
 
+        <div class="main-content">
+            <header class="top-bar">
+                <div>
+                    <h2 id="page-title" style="font-size: 20px; font-weight: 700;">Dashboard</h2>
+                    <span style="font-size: 13px; color: var(--text-sub);">Academic Year 2026</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="position:relative; cursor:pointer;" onclick="NotificationService.renderPanel(document.getElementById('main-container'))">
+                        <i class="material-icons" style="color:var(--text-sub);">notifications</i>
+                        <span id="header-noti-badge" style="position:absolute; top:-5px; right:-5px; background:red; color:white; font-size:10px; padding:2px 5px; border-radius:10px; display:none;">0</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <div id="header-user-name" style="font-weight: 700; font-size: 14px;">Guest</div>
+                        <span id="header-user-role" class="badge b-blue">Visitor</span>
+                    </div>
+                    <div onclick="PageControllers.renderSettings(document.getElementById('main-container'))" style="cursor:pointer; width: 42px; height: 42px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">U</div>
+                </div>
+            </header>
+
+            <main id="main-container" class="content-scroll">
+                </main>
+        </div>
+
+        <nav id="mobile-nav" class="mobile-nav"></nav>
+    </div>
+
+    <div id="exam-engine-layer" class="fullscreen-layer" style="background: #f1f5f9;">
+        <div style="height: 70px; background: white; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+            <div class="flex items-center gap-4">
+                <i class="material-icons" style="color: var(--primary);">timer</i>
+                <div>
+                    <div style="font-weight:700;">Exam Active</div>
+                    <div style="font-size:12px; color:gray;">Do not refresh</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="exam-timer-display" style="font-family:monospace; font-size:24px; font-weight:700; color:var(--danger);">00:00</div>
+                <button class="btn btn-primary" onclick="ExamService.submitExam()">Submit</button>
+            </div>
+        </div>
+        <div style="flex:1; overflow-y:auto; padding:20px; display:flex; justify-content:center;">
+            <div id="exam-question-container" style="width:100%; max-width:800px;"></div>
+        </div>
+    </div>
+
+    <div id="video-engine-layer" class="fullscreen-layer">
+        <div style="height:60px; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:space-between; padding:0 20px; color:white;">
+            <div class="flex items-center gap-2">
+                <span style="height:10px; width:10px; background:red; border-radius:50%; display:inline-block;"></span>
+                <b>Live Classroom</b>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="VideoService.handleCallEnd()">End Class</button>
+        </div>
+        <div style="flex:1; background:black;"></div>
+    </div>
+
+    <div id="register-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="card-title">New Registration</h3>
+                <i class="material-icons" style="cursor:pointer;" onclick="ModalService.close()">close</i>
+            </div>
+            
+            <div class="input-group">
+                <label class="form-label">Role</label>
+                <select id="reg-role" class="form-input" onchange="FormHandlers.toggleRegistrationFields()">
+                    <option>Student</option>
+                    <option>Teacher</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label class="form-label">Full Name</label>
+                <input id="reg-name" class="form-input" placeholder="John Doe">
+            </div>
+
+            <div id="reg-student-fields">
+                <div class="input-group"><label class="form-label">Student Mobile</label><input id="reg-stu-mobile" class="form-input" type="tel" maxlength="10"></div>
+                <div class="input-group"><label class="form-label">Parent Mobile</label><input id="reg-parent-mobile" class="form-input" type="tel" maxlength="10"></div>
+                <div class="input-group"><label class="form-label">Batch</label><select id="reg-batch" class="form-input"></select></div>
+            </div>
+
+            <div id="reg-teacher-fields" class="hidden">
+                <div class="input-group"><label class="form-label">Teacher Mobile</label><input id="reg-teach-mobile" class="form-input" type="tel" maxlength="10"></div>
+                <div class="input-group"><label class="form-label">Subjects (Comma separated)</label><input id="reg-subjects" class="form-input" placeholder="Maths, Physics"></div>
+            </div>
+
+            <div class="input-group">
+                <label class="form-label">Set Login PIN</label>
+                <input id="reg-pin" type="password" class="form-input" placeholder="4 Digit PIN" maxlength="4">
+            </div>
+
+            <button class="btn btn-primary w-full" onclick="AuthenticationService.registerUser()">Submit Registration</button>
+        </div>
+    </div>
+
+    <div id="course-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <h3 class="card-title mb-4">Publish New Course</h3>
+            <input id="course-title" class="form-input mb-2" placeholder="Course Title">
+            <textarea id="course-desc" class="form-input mb-2" placeholder="Description"></textarea>
+            <div class="flex gap-2 mb-2">
+                <input id="course-price" type="number" class="form-input" placeholder="Price (₹)">
+                <select id="course-category" class="form-input"></select>
+            </div>
+            <input id="course-video" class="form-input mb-4" placeholder="Video URL (mp4/YouTube)">
+            <button class="btn btn-primary w-full" onclick="FormHandlers.submitNewCourse()">Publish</button>
+            <button class="btn btn-secondary w-full mt-2" onclick="ModalService.close()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="edit-user-modal" class="modal-backdrop">
+        <div class="modal-content">
+            <h3 class="card-title mb-4">Edit Profile</h3>
+            <input type="hidden" id="edit-user-id">
+            <div class="input-group"><label class="form-label">Name</label><input id="edit-name" class="form-input"></div>
+            <div class="input-group"><label class="form-label">Mobile</label><input id="edit-mobile" class="form-input"></div>
+            <div class="input-group" id="edit-batch-group"><label class="form-label">Batch</label><select id="edit-batch" class="form-input"></select></div>
+            <button class="btn btn-success w-full" onclick="FormHandlers.saveUserChanges()">Save Changes</button>
+            <button class="btn btn-secondary w-full mt-2" onclick="ModalService.close()">Close</button>
+        </div>
+    </div>
    <script>
         /* ======================================================================================
            MODULE 5: THE CORE DATABASE (Persistence Layer)
@@ -1154,6 +1288,34 @@
                     });
                     Utils.showToast("Homework Submitted Successfully", "success");
                 }
+            }
+            , // <--- MAKE SURE THIS COMMA IS HERE!
+
+            // [NEW] Teacher Views Submissions
+            viewSubmissions: (assignmentId) => {
+                // Lazy init submissions if they don't exist
+                if(!DB.cache.submissions) DB.cache.submissions = [];
+                
+                const subs = DB.select('submissions', s => s.assignmentId === assignmentId);
+                let html = `<div class="card-header"><span class="card-title">Submissions</span></div>`;
+                
+                if(subs.length === 0) {
+                    html += `<div style="padding:20px;">No submissions yet.</div>`;
+                } else {
+                    html += subs.map(s => `
+                        <div class="card" style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <div style="font-weight:700;">Student ID: ${s.studentId}</div>
+                                <div style="font-size:12px; color:green;">${s.status}</div>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="window.open('${s.link}', '_blank')">Open Link</button>
+                        </div>
+                    `).join('');
+                }
+                
+                // Show in main container
+                const container = document.getElementById('main-container');
+                container.innerHTML = html + `<button class="btn btn-secondary mt-4" onclick="RouterService.navigate('dashboard')">Back to Dashboard</button>`;
             }
         };
     </script>
@@ -2173,8 +2335,80 @@
                     localStorage.setItem('ja_theme', 'dark');
                 }
             }
-        };
+       /* ======================================================================================
+           MODULE 21: SYSTEM SETTINGS & DATA MANAGEMENT
+           ====================================================================================== */
+        const SystemService = {
+            
+            // 21.1 Export Data (Backup)
+            exportDatabase: () => {
+                const data = {};
+                Object.keys(localStorage).forEach(key => {
+                    if (key.startsWith('ja_')) {
+                        data[key] = JSON.parse(localStorage.getItem(key));
+                    }
+                });
 
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Jalaram_Backup_${new Date().toISOString().slice(0,10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                Utils.showToast("System Backup Downloaded", "success");
+            },
+
+            // 21.2 Factory Reset
+            factoryReset: () => {
+                const code = prompt("Type 'DELETE' to confirm factory reset. This cannot be undone.");
+                if (code === 'DELETE') {
+                    localStorage.clear();
+                    Utils.showToast("System Wiped. Rebooting...", "warning");
+                    setTimeout(() => location.reload(), 2000);
+                } else {
+                    Utils.showToast("Reset Cancelled", "info");
+                }
+            },
+
+            // 21.3 Theme Toggle
+            toggleDarkMode: () => {
+                const body = document.body;
+                if (body.classList.contains('dark-mode')) {
+                    body.classList.remove('dark-mode');
+                    localStorage.setItem('ja_theme', 'light');
+                } else {
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('ja_theme', 'dark');
+                }
+            },
+
+            // 21.4 Import Data (Restore)
+            importDatabase: (inputElement) => {
+                const file = inputElement.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        Object.keys(data).forEach(key => {
+                            if (key.startsWith('ja_')) {
+                                localStorage.setItem(key, JSON.stringify(data[key]));
+                            }
+                        });
+                        alert("System Restored Successfully! The page will now reload.");
+                        location.reload();
+                    } catch (err) {
+                        console.error(err);
+                        alert("Error: Corrupt Backup File");
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
         /* ======================================================================================
            MODULE 22: ADVANCED TEACHER TOOLS (The "Quantum" Features)
            ====================================================================================== */
@@ -2264,7 +2498,34 @@
             // Append System Actions
             const systemCard = document.createElement('div');
             systemCard.className = 'card';
+            // --- COPY AND PASTE THIS BLOCK TO REPLACE THE OLD SYSTEM CARD ---
+            const systemCard = document.createElement('div');
+            systemCard.className = 'card';
             systemCard.innerHTML = `
+                <div class="card-header"><span class="card-title">System & Data</span></div>
+                <div class="flex flex-col gap-2">
+                    
+                    <button class="btn btn-secondary w-full" onclick="SystemService.exportDatabase()">
+                        <i class="material-icons">download</i> Backup My Data
+                    </button>
+
+                    <div style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px;">
+                        <label style="font-size: 12px; font-weight: bold; color: var(--text-sub); margin-bottom: 5px; display: block;">
+                            Restore Data (.json)
+                        </label>
+                        <input type="file" accept=".json" onchange="SystemService.importDatabase(this)" 
+                               class="form-input" style="padding: 5px; font-size: 12px;">
+                    </div>
+
+                    ${user.role === 'Admin' ? `
+                        <button class="btn btn-danger w-full" style="margin-top: 10px;" onclick="SystemService.factoryReset()">
+                            <i class="material-icons">delete_forever</i> Factory Reset System
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+            container.appendChild(systemCard);
+            // --- END OF NEW CODE ---
                 <div class="card-header"><span class="card-title">System & Data</span></div>
                 <div class="flex flex-col gap-2">
                     <button class="btn btn-secondary w-full" onclick="SystemService.exportDatabase()">
@@ -2815,9 +3076,44 @@
             }
         };
 
-        // --- FIRE THE ENGINE ---
-        window.addEventListener('DOMContentLoaded', AppInit.start);
-
-    </script>
+<script>
+    /* ======================================================================================
+       FINAL WIRING: EXPOSE SERVICES TO HTML
+       ====================================================================================== */
+    window.AuthSystem = AuthenticationService;
+    window.ModalSystem = ModalService;
+    window.ExamEngine = ExamService; 
+    window.ExamService = ExamService; 
+    window.PageControllers = PageControllers;
+    window.NotificationService = NotificationService;
+    window.RouterService = RouterService;
+    window.BatchActions = BatchActions;
+    window.AdminActions = AdminActions;
+    window.FormHandlers = FormHandlers;
+    window.VideoService = VideoService;
+    window.ChatService = ChatService;
+    window.FinanceService = FinanceService;
+    window.ResourceService = ResourceService;
+    window.SystemService = SystemService;
+    window.TeacherTools = TeacherTools;
+    window.AssignmentService = AssignmentService;
+    
+    // MediaService for Video Player
+    window.MediaService = {
+        playVideo: (url) => {
+            if(confirm("Open video lesson in new tab?\n" + url)) {
+                window.open(url, '_blank');
+            }
+        }
+    };
+    
+    // Prevent Back Button Exit
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+        window.history.go(1);
+    };
+</script>
 </body>
 </html>
+
+
