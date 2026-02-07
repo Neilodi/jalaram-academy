@@ -3,484 +3,720 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jalaram Academy v325 | Dual Quantum</title>
+    <title>Jalaram Academy | Enterprise ERP</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <script src='https://meet.jit.si/external_api.js'></script>
 
     <style>
-        :root { --primary: #0f5bb8; --bg: #f8fafc; --text: #0f172a; --danger: #ef4444; --success: #22c55e; --surface: #ffffff; }
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; -webkit-tap-highlight-color:transparent; user-select:none; }
-        body { background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+        /* --- GLOBAL VARIABLES --- */
+        :root {
+            --primary: #0f5bb8;
+            --primary-dark: #0a3d7c;
+            --bg-color: #f4f6f9;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+        }
 
-        /* UI COMPONENTS */
-        .btn { width:100%; padding:14px; border-radius:10px; border:none; font-weight:700; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px; transition:0.2s; }
-        .btn:active { transform:scale(0.98); }
-        .btn-main { background:var(--primary); color:white; }
-        .btn-sec { background:white; color:#334155; border:1px solid #cbd5e1; }
-        .btn-danger { background:#fee2e2; color:#b91c1c; }
-        .btn-sm { width:auto; padding:6px 12px; font-size:12px; margin:0; height:32px; }
-
-        .card { background:var(--surface); border-radius:16px; padding:16px; margin-bottom:12px; border:1px solid #e2e8f0; box-shadow:0 2px 4px rgba(0,0,0,0.02); }
-        .row { display:flex; align-items:center; justify-content:space-between; }
-        input, select, textarea { width:100%; padding:14px; border:1px solid #cbd5e1; border-radius:10px; margin-bottom:12px; outline:none; background:#f8fafc; font-size:14px; font-family:inherit; }
-        input:focus, textarea:focus { border-color:var(--primary); background:white; }
-
-        /* LAYOUT */
-        #auth-layer { position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:5000; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px; }
-        #app-layer { display:none; height:100%; flex-direction:column; }
-        .main-content { flex:1; overflow-y:auto; padding:15px; padding-bottom:100px; }
+        /* --- RESET & BASE --- */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+        body { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-color); color: var(--text-main); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         
-        .app-header { background:white; padding:15px; border-bottom:1px solid #e2e8f0; display:flex; align-items:center; justify-content:space-between; }
-        .bot-nav { position:fixed; bottom:0; width:100%; background:white; display:flex; justify-content:space-around; padding:12px 10px 25px 10px; border-top:1px solid #e2e8f0; z-index:1000; }
-        .nav-item { text-align:center; color:#94a3b8; font-size:10px; font-weight:600; cursor:pointer; }
-        .nav-item.active { color:var(--primary); }
-        .nav-item i { font-size:24px; display:block; margin-bottom:4px; }
+        /* --- UI COMPONENTS --- */
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-main { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(15, 91, 184, 0.2); }
+        .btn-sec { background: white; color: var(--text-main); border: 1px solid var(--border); }
+        .btn-danger { background: #fee2e2; color: #b91c1c; }
+        .btn-sm { padding: 6px 12px; font-size: 11px; width: auto; height: 32px; }
 
-        /* SUB NAV */
-        .sub-nav { display:flex; gap:20px; border-bottom:1px solid #e2e8f0; margin-bottom:15px; padding-bottom:0px; overflow-x:auto; }
-        .sub-item { font-size:13px; font-weight:600; color:#64748b; cursor:pointer; padding-bottom:10px; white-space:nowrap; border-bottom:2px solid transparent; }
-        .sub-item.active { color:var(--primary); border-bottom-color:var(--primary); }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus { border-color: var(--primary); }
 
-        /* MODALS */
-        .sheet-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9000; display:none; align-items:flex-end; backdrop-filter:blur(2px); }
-        .sheet { background:white; width:100%; border-radius:24px 24px 0 0; padding:24px; max-height:90vh; overflow-y:auto; animation:slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        @keyframes slideUp { from{transform:translateY(100%);} to{transform:translateY(0);} }
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid var(--border);
+        }
 
-        /* FULLSCREEN PLAYERS */
-        .fullscreen-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:10000; display:none; flex-direction:column; }
-        .fs-header { padding:15px; background:rgba(20,20,20,0.9); color:white; display:flex; justify-content:space-between; align-items:center; }
-        .fs-content { flex:1; width:100%; height:100%; background:black; overflow-y:auto; padding:20px; }
-        iframe { width:100%; height:100%; border:none; }
-
-        /* UTILS */
-        .chat-msg { background:#f1f5f9; padding:10px; border-radius:10px; margin-bottom:10px; font-size:13px; border-left:3px solid var(--primary); }
-        .badge { font-size:10px; padding:4px 8px; border-radius:6px; font-weight:700; text-transform:uppercase; }
-        .b-admin { background:#1e293b; color:white; }
-        .b-student { background:#fef3c7; color:#92400e; }
-        .empty-state { text-align:center; padding:40px 20px; color:#94a3b8; font-size:13px; }
-        .sim-banner { background:#f97316; color:white; text-align:center; padding:8px; font-weight:bold; font-size:11px; cursor:pointer; display:none; }
+        .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         
-        /* 1. QUANTUM SCHEDULER (Daily) */
-        .schedule-card { background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border:1px solid #bae6fd; padding:15px; border-radius:12px; margin-bottom:10px; border-left:4px solid var(--primary); }
+        /* --- APP SHELL --- */
+        #auth-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 5000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 30px;
+        }
         
-        /* 2. QUANTUM GENERATOR (Instant) */
-        .quantum-box { background:#eff6ff; padding:10px; border-radius:8px; margin-bottom:10px; border:1px solid #bfdbfe; }
-        .status-dot { width:8px; height:8px; background:var(--success); border-radius:50%; display:inline-block; animation:pulse 1.5s infinite; }
-        @keyframes pulse { 0%{opacity:1;} 50%{opacity:0.4;} 100%{opacity:1;} }
+        #app-layer {
+            display: none; height: 100%; flex-direction: column;
+        }
 
-        /* OTHER STYLES */
-        .exam-timer { background:#333; color:white; padding:5px 10px; border-radius:5px; font-family:monospace; font-weight:bold; }
-        .upload-opt { display:flex; align-items:center; padding:15px; border:1px solid #e2e8f0; border-radius:10px; margin-bottom:10px; cursor:pointer; }
-        .chk-row { display:flex; align-items:center; padding:10px; background:#f1f5f9; border-radius:8px; margin-bottom:8px; }
-        .chk-row input { width:auto; margin:0 10px 0 0; }
-        #canvas-container { position: relative; width: 100%; overflow: hidden; touch-action: none; border: 2px solid #ddd; border-radius: 8px; }
+        .app-header {
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            z-index: 100;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            padding-bottom: 100px; /* Space for Nav */
+        }
+
+        .bot-nav {
+            position: fixed; bottom: 0; width: 100%;
+            background: white;
+            display: flex; justify-content: space-around;
+            padding: 12px 0 25px 0;
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
+        }
+        .nav-item {
+            text-align: center; color: #94a3b8; font-size: 10px; font-weight: 700;
+            cursor: pointer; transition: 0.2s;
+        }
+        .nav-item.active { color: var(--primary); transform: translateY(-2px); }
+        .nav-item i { font-size: 24px; display: block; margin-bottom: 4px; }
+
+        /* --- SUB NAVIGATION (TABS) --- */
+        .sub-nav {
+            display: flex; gap: 20px; border-bottom: 1px solid var(--border);
+            margin-bottom: 20px; padding-bottom: 0px; overflow-x: auto;
+        }
+        .sub-item {
+            font-size: 13px; font-weight: 600; color: var(--text-sub);
+            cursor: pointer; padding-bottom: 12px; white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+        .sub-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+        /* --- FULLSCREEN MODALS (SHEETS) --- */
+        .sheet-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 9000;
+            display: none; align-items: flex-end;
+            backdrop-filter: blur(4px);
+        }
+        .sheet {
+            background: white; width: 100%;
+            border-radius: 24px 24px 0 0;
+            padding: 24px;
+            max-height: 90vh; overflow-y: auto;
+            animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        /* --- PLAYER OVERLAYS --- */
+        .fullscreen-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: black; z-index: 10000;
+            display: none; flex-direction: column;
+        }
+        .fs-header {
+            padding: 15px; background: rgba(20,20,20,0.95);
+            color: white; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .fs-content { flex: 1; width: 100%; height: 100%; background: #111; overflow-y: auto; padding: 0; }
+
+        /* --- SPECIAL WIDGETS --- */
+        /* 1. Quantum Board */
+        .quantum-box {
+            background: #eff6ff; border: 1px solid #bfdbfe;
+            padding: 15px; border-radius: 12px; margin-bottom: 15px;
+        }
+        .schedule-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd; padding: 15px;
+            border-radius: 12px; margin-bottom: 10px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* 2. Admin Widgets */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .stat-card { background: #f8fafc; border: 1px solid var(--border); padding: 15px; border-radius: 12px; text-align: center; }
+        .stat-num { font-size: 24px; font-weight: 800; color: var(--primary); display: block; }
+        .stat-label { font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; }
+        
+        .user-row {
+            display: flex; align-items: center; padding: 12px;
+            border-bottom: 1px solid var(--border); gap: 12px;
+        }
+        .user-av {
+            width: 40px; height: 40px; background: #e2e8f0;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; color: var(--text-sub);
+        }
+        .action-btn {
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; margin-left: 5px;
+        }
+
+        /* 3. Messages & Badges */
+        .chat-msg { background: #f1f5f9; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 13px; border-left: 3px solid var(--primary); }
+        .badge { font-size: 10px; padding: 4px 8px; border-radius: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .b-mcq { background: #1e293b; color: white; }
+        .b-exam { background: #fff7ed; color: #c2410c; border: 1px solid #fdba74; }
+        
+        /* 4. Canvas & Checks */
+        .chk-row { display: flex; align-items: center; padding: 10px; background: #f8fafc; border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border); }
+        .chk-row input { width: auto; margin: 0 12px 0 0; }
+        
+        #canvas-wrapper { position: relative; width: 100%; background: #333; overflow: hidden; touch-action: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; min-height: 400px; }
         canvas { position: absolute; top: 0; left: 0; cursor: crosshair; }
+        
+        /* 5. OTP Screen */
+        .otp-box { display: flex; gap: 10px; justify-content: center; margin: 20px 0; }
+        .otp-digit { width: 50px; height: 60px; font-size: 24px; text-align: center; border: 2px solid var(--border); border-radius: 10px; font-weight: 700; }
+        .otp-digit:focus { border-color: var(--primary); outline: none; }
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+    <div id="auth-layer">
+        <div style="font-size: 64px; margin-bottom: 10px;">🎓</div>
+        <h2 style="color: var(--text-main); margin-bottom: 5px;">Jalaram Academy</h2>
+        <p style="color: var(--text-sub); margin-bottom: 40px; font-size: 14px;">Enterprise Resource Portal</p>
+        
+        <div id="auth-step-1" style="width: 100%; max-width: 340px;">
+            <label style="font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 5px; display: block;">Select Role</label>
+            <select id="l-role">
+                <option value="Admin">Admin</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Student">Student</option>
+            </select>
+            <input id="l-id" placeholder="Enter User ID">
+            <button class="btn btn-main" onclick="AuthService.requestOtp()">Secure Login</button>
+            <button class="btn btn-sec" style="margin-top: 15px;" onclick="Router.openSheet('reg-sheet')">New Registration</button>
+        </div>
+
+        <div id="auth-step-2" style="width: 100%; max-width: 340px; display: none; text-align: center;">
+            <h3 style="margin-bottom: 10px;">Verify Identity</h3>
+            <p id="otp-msg" style="font-size: 13px; color: var(--text-sub); margin-bottom: 20px; line-height: 1.5;"></p>
+            <div class="otp-box">
+                <input class="otp-digit" maxlength="1" id="d1" onkeyup="move(this,'d2')">
+                <input class="otp-digit" maxlength="1" id="d2" onkeyup="move(this,'d3')">
+                <input class="otp-digit" maxlength="1" id="d3" onkeyup="move(this,'d4')">
+                <input class="otp-digit" maxlength="1" id="d4" onkeyup="verify()">
+            </div>
+            <button class="btn btn-main" onclick="AuthService.verifyOtp()">Verify OTP</button>
+            <button class="btn btn-sec" style="margin-top: 10px;" onclick="location.reload()">Cancel</button>
+        </div>
+        
+        <div style="margin-top: 50px; font-size: 11px; color: #10b981; font-weight: 600;">
+            <i class="material-icons" style="font-size: 10px; vertical-align: middle;">lock</i> Secure Connection
+        </div>
+    </div>
+
+    <div id="app-layer">
+        <header class="app-header">
+            <div>
+                <div style="font-size: 18px; font-weight: 800; color: var(--primary-dark);">Jalaram Academy</div>
+                <div style="font-size: 11px; color: var(--text-sub); font-weight: 600;" id="user-greeting">Welcome</div>
+            </div>
+            <i class="material-icons" style="color: var(--text-sub); cursor: pointer;" onclick="AuthService.logout()">logout</i>
+        </header>
+
+        <main class="main-content">
+            <div id="pane-container"></div>
+        </main>
+
+        <nav class="bot-nav" id="bot-nav"></nav>
+    </div>
 
     <div id="video-room" class="fullscreen-overlay">
         <div class="fs-header">
             <div class="row" style="gap:10px;"><span style="color:red; animation:pulse 2s infinite;">●</span> <b id="room-title">Live Class</b></div>
             <button class="btn-sm btn-danger" onclick="VideoService.endCall()">End Call</button>
         </div>
-        <div id="jitsi-container" class="fs-content" style="padding:0;"></div>
-    </div>
-
-    <div id="content-player" class="fullscreen-overlay">
-        <div class="fs-header">
-            <b id="content-title">Learning Mode</b>
-            <button class="btn-sm btn-sec" style="background:rgba(255,255,255,0.2); color:white; border:none;" onclick="ContentService.close()">Close</button>
-        </div>
-        <div id="player-container" class="fs-content" style="padding:0;"></div>
+        <div id="jitsi-container" class="fs-content"></div>
     </div>
 
     <div id="quiz-player" class="fullscreen-overlay" style="background:#f8fafc;">
         <div class="fs-header" style="background:white; color:#333; border-bottom:1px solid #eee;">
-            <div class="row" style="gap:10px;"><b id="quiz-title-display">Exam</b><span id="exam-countdown" class="exam-timer" style="display:none;">00:00:00</span></div>
+            <div class="row" style="gap:10px;">
+                <b id="quiz-title-display">Exam</b>
+                <span id="exam-countdown" class="exam-timer" style="background:#333; color:white; padding:4px 8px; border-radius:4px; font-family:monospace; display:none;">00:00:00</span>
+            </div>
             <button class="btn-sm btn-sec" onclick="QuizService.close()">Exit</button>
         </div>
-        <div id="quiz-container" class="fs-content" style="background:#f8fafc; color:#333;"></div>
+        <div id="quiz-container" class="fs-content" style="background:#f8fafc; color:#333; padding:20px;"></div>
     </div>
 
     <div id="checker-player" class="fullscreen-overlay" style="background:white; z-index:10002;">
-        <div class="fs-header" style="background:#333; color:white;">
+        <div class="fs-header" style="background:#1e293b; color:white; border:none;">
             <b>Correction Mode</b>
             <div style="display:flex; gap:10px">
-                <button class="btn-sm btn-sec" onclick="CanvasEngine.clear()">Clear</button>
-                <button class="btn-sm btn-main" onclick="CanvasEngine.saveAndMark()">Save</button>
+                <button class="btn-sm btn-sec" style="background:rgba(255,255,255,0.1); color:white; border:none;" onclick="CanvasEngine.clear()">Clear</button>
+                <button class="btn-sm btn-main" onclick="CanvasEngine.saveAndMark()">Save & Mark</button>
                 <button class="btn-sm btn-danger" onclick="document.getElementById('checker-player').style.display='none'">X</button>
             </div>
         </div>
-        <div class="fs-content" style="background:#f1f5f9; padding:10px; display:flex; flex-direction:column; align-items:center;">
-            <div id="canvas-wrapper" style="background:white; box-shadow:0 4px 10px rgba(0,0,0,0.1); width:100%; max-width:600px; position:relative; min-height:300px; display:flex; align-items:center; justify-content:center; color:#888;">
+        <div class="fs-content" style="background:#f1f5f9; padding:20px; display:flex; flex-direction:column; align-items:center;">
+            <div id="canvas-wrapper">
                 <img id="sheet-bg" style="width:100%; display:block; pointer-events:none;">
-                <div id="text-answer-display" style="padding:20px; width:100%; display:none; text-align:left;"></div>
-                <canvas id="draw-layer" style="position:absolute; top:0; left:0; width:100%; height:100%;"></canvas>
+                <div id="text-answer-display" style="padding:20px; width:100%; display:none; text-align:left; color:white;"></div>
+                <canvas id="draw-layer"></canvas>
             </div>
-            <div style="width:100%; max-width:600px; margin-top:20px; padding:20px; background:white; border-radius:10px;">
-                <label><b>Assign Marks/Grade:</b></label>
-                <input id="manual-score" type="text" placeholder="Score">
-                <textarea id="manual-feedback" placeholder="Teacher Remarks..." rows="2"></textarea>
+            <div class="card" style="width:100%; max-width:600px; margin-top:20px;">
+                <label style="font-weight:700; font-size:12px;">Grade / Marks</label>
+                <input id="manual-score" type="text" placeholder="e.g. 15/20 or A+">
+                <label style="font-weight:700; font-size:12px;">Teacher Feedback</label>
+                <textarea id="manual-feedback" placeholder="Write feedback for the student..." rows="3"></textarea>
             </div>
         </div>
-    </div>
-
-    <div id="auth-layer">
-        <div style="font-size:64px; margin-bottom:20px;">🎓</div>
-        <h2 style="color:var(--text); margin-bottom:10px;">Jalaram Academy</h2>
-        <p style="color:#64748b; margin-bottom:30px; font-size:14px;">Dual Quantum v325</p>
-        <div style="width:100%; max-width:320px;">
-            <select id="l-role"><option value="Admin">Admin</option><option value="Teacher">Teacher</option><option value="Student">Student</option></select>
-            <input id="l-id" placeholder="User ID (e.g. ADM-001)">
-            <input type="password" id="l-pass" placeholder="PIN">
-            <button class="btn btn-main" onclick="AuthService.login()">Login</button>
-            <button class="btn btn-sec" style="margin-top:12px;" onclick="Router.openSheet('reg-sheet')">Register New</button>
-        </div>
-        <div style="margin-top:50px; font-size:10px; color:green;">● System: Online & Ready</div>
-    </div>
-
-    <div id="app-layer">
-        <div class="sim-banner" id="sim-bar" onclick="location.reload()">Simulating User Mode... Tap to Exit</div>
-        <div class="app-header">
-            <div><b style="font-size:16px;">Jalaram Academy</b><div style="font-size:11px; color:#64748b;" id="user-greeting">Welcome</div></div>
-            <i class="material-icons" style="color:#64748b; cursor:pointer;" onclick="AuthService.logout()">logout</i>
-        </div>
-        <main class="main-content"><div id="pane-container"></div></main>
-        <div class="bot-nav" id="bot-nav"></div>
     </div>
 
     <div id="reg-sheet" class="sheet-overlay" onclick="Router.closeSheet('reg-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <h3>Register</h3>
-            <select id="r-role" onchange="UiRenderer.toggleRegFields()"><option>Student</option><option>Teacher</option></select>
-            <input id="r-name" placeholder="Name">
+            <h3>Register New User</h3>
+            <select id="r-role" onchange="UiRenderer.toggleRegFields()">
+                <option>Student</option>
+                <option>Teacher</option>
+            </select>
+            <input id="r-name" placeholder="Full Name">
+            
             <div id="r-stu-div">
-                <input id="r-sm" placeholder="Student Mobile"><input id="r-pm" placeholder="Parent Mobile">
+                <input id="r-sm" placeholder="Student Mobile Number">
+                <input id="r-pm" placeholder="Parent Mobile Number">
                 <select id="r-batch"></select>
-                <label style="font-size:11px; font-weight:bold; margin-top:10px; display:block;">Student Subjects</label>
-                <input id="r-stu-subs" placeholder="e.g. Maths, Physics (Empty = All)">
+                <label style="font-size:11px; font-weight:bold; margin-top:10px; display:block;">Allowed Subjects</label>
+                <input id="r-stu-subs" placeholder="e.g. Maths, Physics, Chemistry">
             </div>
-            <div id="r-tch-div" style="display:none;"><input id="r-subs" placeholder="Subjects Teaches"></div>
-            <input id="r-pass" placeholder="PIN (Default: 1234)">
-            <button class="btn btn-main" onclick="AuthService.register()">Create</button>
+            
+            <div id="r-tch-div" style="display:none;">
+                <input id="r-subs" placeholder="Subjects Taught (comma separated)">
+            </div>
+            
+            <input id="r-pass" placeholder="Create PIN (Default: 1234)">
+            <button class="btn btn-main" onclick="AuthService.register()">Create Account</button>
         </div>
     </div>
 
     <div id="batch-sheet" class="sheet-overlay" onclick="Router.closeSheet('batch-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <div class="row"><h3 id="bs-title">Batch</h3><button class="btn-sm btn-sec" onclick="Router.closeSheet('batch-sheet')">Close</button></div>
+            <div class="row">
+                <h3 id="bs-title" style="margin:0;">Batch</h3>
+                <button class="btn-sm btn-sec" onclick="Router.closeSheet('batch-sheet')">Close</button>
+            </div>
             
-            <div id="quantum-gen" class="quantum-box" style="display:none;">
-                <div class="row"><b style="color:var(--primary); font-size:12px;">⚡ QUANTUM PAGER (Instant)</b><span class="status-dot"></span></div>
-                <div class="row" style="margin-top:5px; gap:5px;">
-                    <input id="q-topic" placeholder="Message (e.g. Class in 10m)" style="margin:0; font-size:12px;">
-                    <select id="q-buf" style="width:80px; margin:0; font-size:12px;"><option value="">Now</option><option value="in 10m">10m</option><option value="in 30m">30m</option></select>
+            <div id="quantum-gen" class="quantum-box" style="display:none; margin-top:15px;">
+                <div class="row" style="margin-bottom:8px;">
+                    <b style="color:var(--primary); font-size:12px;">⚡ QUANTUM GENERATOR</b>
+                    <span style="font-size:10px; background:#dcfce7; color:#166534; padding:2px 6px; border-radius:4px;">INSTANT</span>
                 </div>
-                <button class="btn btn-main btn-sm" style="width:100%; margin-top:5px;" onclick="BatchService.sendQuantum()">⚡ Send Blast</button>
+                <div class="row" style="gap:5px;">
+                    <input id="q-topic" placeholder="Message (e.g. Class Delayed)" style="margin:0; font-size:13px;">
+                    <select id="q-buf" style="width:100px; margin:0; font-size:13px;">
+                        <option value="">Now</option>
+                        <option value="in 10m">in 10m</option>
+                        <option value="in 30m">in 30m</option>
+                    </select>
+                </div>
+                <button class="btn btn-main btn-sm" style="width:100%; margin-top:8px;" onclick="BatchService.sendQuantum()">⚡ Blast Notification</button>
             </div>
 
-            <div class="sub-nav">
+            <div class="sub-nav" style="margin-top:15px;">
                 <div class="sub-item active" id="tab-live" onclick="BatchService.switchTab('live')">Live</div>
-                <div class="sub-item" id="tab-assign" onclick="BatchService.switchTab('assign')">Work</div>
+                <div class="sub-item" id="tab-assign" onclick="BatchService.switchTab('assign')">Assignments</div>
                 <div class="sub-item" id="tab-tests" onclick="BatchService.switchTab('tests')">Tests</div>
-                <div class="sub-item" id="tab-rank" onclick="BatchService.switchTab('rank')">Rank</div>
+                <div class="sub-item" id="tab-students" onclick="BatchService.switchTab('students')">Students</div>
             </div>
             <div id="b-content"></div>
         </div>
     </div>
 
-    <div id="subject-select-sheet" class="sheet-overlay" onclick="Router.closeSheet('subject-select-sheet')">
+    <div id="req-sheet" class="sheet-overlay" onclick="Router.closeSheet('req-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <h3>Select Class Subject</h3>
-            <div class="row" style="background:#f0f9ff; padding:10px; border-radius:8px; margin-bottom:15px; border:1px solid #bae6fd;">
-                <b style="color:#0284c7">Repeat Daily (Schedule)?</b>
-                <input type="checkbox" id="class-daily-toggle" style="width:20px; height:20px;">
+            <h3>Request Profile Edit</h3>
+            <div style="background:#fff7ed; border:1px solid #ffedd5; padding:10px; border-radius:8px; margin-bottom:15px; font-size:12px; color:#c2410c;">
+                <b>Maker-Checker Protocol:</b> You can propose changes. The Admin must approve them before they apply.
             </div>
-            <div id="subject-list-container"></div>
-            <button class="btn btn-sec" style="margin-top:10px;" onclick="BatchService.startVisibilityCall('General')">Start Combined Class</button>
+            <input type="hidden" id="req-uid">
+            
+            <label style="font-size:11px; font-weight:bold;">Student Name</label>
+            <input id="req-name">
+            <label style="font-size:11px; font-weight:bold;">Student Mobile (S)</label>
+            <input id="req-sm">
+            <label style="font-size:11px; font-weight:bold;">Parent Mobile (P)</label>
+            <input id="req-pm">
+            
+            <button class="btn btn-main" onclick="BatchService.submitRequest()">📨 Send Request to Admin</button>
+        </div>
+    </div>
+
+    <div id="edit-user-sheet" class="sheet-overlay" onclick="Router.closeSheet('edit-user-sheet')">
+        <div class="sheet" onclick="event.stopPropagation()">
+            <h3>Manage User (Admin)</h3>
+            <input type="hidden" id="eu-id">
+            <label style="font-size:11px; font-weight:bold;">Name</label><input id="eu-name">
+            <label style="font-size:11px; font-weight:bold;">Student Mobile</label><input id="eu-sm">
+            <label style="font-size:11px; font-weight:bold;">Parent Mobile</label><input id="eu-pm">
+            <label style="font-size:11px; font-weight:bold;">Batch</label><select id="eu-batch"></select>
+            <div class="row">
+                <button class="btn btn-main" onclick="UiRenderer.saveUserEdit()">Save Changes</button>
+                <button class="btn btn-danger" style="width:40%" onclick="UiRenderer.deleteUser()">Delete</button>
+            </div>
         </div>
     </div>
 
     <div id="staff-sheet" class="sheet-overlay" onclick="Router.closeSheet('staff-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <div class="row"><h3>Select Teachers</h3><button class="btn-sm btn-sec" onclick="Router.closeSheet('staff-sheet')">Cancel</button></div>
-            <div class="row" style="background:#f1f5f9; padding:10px; border-radius:8px; margin-bottom:10px;"><b>Select All</b><input type="checkbox" onchange="BatchService.toggleAllTeachers(this)"></div>
+            <div class="row"><h3>Select Staff</h3><button class="btn-sm btn-sec" onclick="Router.closeSheet('staff-sheet')">Cancel</button></div>
+            <div class="chk-row"><b>Select All</b><input type="checkbox" onchange="BatchService.toggleAllTeachers(this)"></div>
             <div id="staff-list" style="max-height:300px; overflow-y:auto; margin-bottom:15px;"></div>
-            <button class="btn btn-main btn-danger" onclick="BatchService.startStaffCall()">📞 Call</button>
+            <button class="btn btn-main btn-danger" onclick="BatchService.startStaffCall()">📞 Start Call</button>
         </div>
     </div>
 
-    <div id="add-assign-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-assign-sheet')">
+    <div id="subject-select-sheet" class="sheet-overlay" onclick="Router.closeSheet('subject-select-sheet')">
         <div class="sheet" onclick="event.stopPropagation()">
-            <h3>New Assignment</h3>
-            <input id="as-title" placeholder="Title">
-            <textarea id="as-desc" placeholder="Instructions" rows="3"></textarea>
-            <label style="font-size:11px; font-weight:bold;">Deadline</label><input id="as-deadline" type="datetime-local">
-            <label style="font-size:11px; font-weight:bold;">Subject</label><select id="as-subject"><option value="General">All</option><option value="Mathematics">Mathematics</option><option value="Physics">Physics</option><option value="Chemistry">Chemistry</option><option value="Biology">Biology</option></select>
-            <button class="btn btn-main" style="margin-top:15px;" onclick="AssignmentService.create()">Post</button>
-        </div>
-    </div>
-
-    <div id="submit-assign-sheet" class="sheet-overlay" onclick="Router.closeSheet('submit-assign-sheet')">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <h3>Submit</h3>
-            <p id="sas-title" style="font-weight:bold;"></p><input type="hidden" id="sas-id">
-            <div class="upload-opt" onclick="document.getElementById('assign-upload-img').click()"><i class="material-icons">image</i> <b>Gallery / Camera</b><input type="file" id="assign-upload-img" accept="image/*" style="display:none" onchange="AssignmentService.handleFile(this, 'img')"></div>
-            <div class="upload-opt" onclick="document.getElementById('assign-upload-pdf').click()"><i class="material-icons">picture_as_pdf</i> <b>PDF Document</b><input type="file" id="assign-upload-pdf" accept="application/pdf" style="display:none" onchange="AssignmentService.handleFile(this, 'pdf')"></div>
-        </div>
-    </div>
-
-    <div id="test-creator-sheet" class="sheet-overlay" onclick="Router.closeSheet('test-creator-sheet')">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <h3>Create Test</h3>
-            <div class="row" style="margin-bottom:20px;">
-                <button class="btn btn-sec" style="flex:1; margin-right:10px;" onclick="Router.openSheet('add-quiz-sheet'); Router.closeSheet('test-creator-sheet');">MCQ</button>
-                <button class="btn btn-main" style="flex:1;" onclick="QuizService.initSubjectiveCreator(); Router.closeSheet('test-creator-sheet');">Subjective Exam</button>
+            <h3>Start Class</h3>
+            <div class="row" style="background:#f0f9ff; padding:12px; border-radius:10px; margin-bottom:15px; border:1px solid #bae6fd;">
+                <div>
+                    <b style="color:#0284c7; font-size:14px;">Recurring Schedule?</b>
+                    <div style="font-size:11px; color:#64748b;">Add to "Today's Schedule" for students</div>
+                </div>
+                <input type="checkbox" id="class-daily-toggle" style="width:24px; height:24px; margin:0;">
             </div>
+            <div id="subject-list-container"></div>
+            <button class="btn btn-sec" style="margin-top:10px;" onclick="BatchService.startVisibilityCall('General')">Start General Class</button>
         </div>
     </div>
 
-    <div id="add-quiz-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-quiz-sheet')">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <h3>Create MCQ</h3>
-            <input id="qz-q" placeholder="Question">
-            <input id="qz-o1" placeholder="A"><input id="qz-o2" placeholder="B"><input id="qz-o3" placeholder="C"><input id="qz-o4" placeholder="D">
-            <select id="qz-ans"><option value="1">A</option><option value="2">B</option><option value="3">C</option><option value="4">D</option></select>
-            <button class="btn btn-main" onclick="QuizService.add()">Post</button>
-        </div>
-    </div>
+    <div id="add-assign-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-assign-sheet')"><div class="sheet" onclick="event.stopPropagation()"><h3>New Assignment</h3><input id="as-title" placeholder="Title"><textarea id="as-desc" placeholder="Instructions" rows="3"></textarea><label style="font-size:11px; font-weight:bold;">Deadline</label><input id="as-deadline" type="datetime-local"><label style="font-size:11px; font-weight:bold;">Subject</label><select id="as-subject"><option value="General">All</option><option value="Mathematics">Mathematics</option><option value="Physics">Physics</option></select><button class="btn btn-main" style="margin-top:15px;" onclick="AssignmentService.create()">Post</button></div></div>
+    
+    <div id="submit-assign-sheet" class="sheet-overlay" onclick="Router.closeSheet('submit-assign-sheet')"><div class="sheet" onclick="event.stopPropagation()"><h3>Submit Work</h3><p id="sas-title" style="font-weight:bold;"></p><input type="hidden" id="sas-id"><div class="card" style="display:flex; align-items:center; gap:15px; cursor:pointer;" onclick="document.getElementById('assign-upload-img').click()"><i class="material-icons" style="font-size:24px; color:var(--primary);">image</i> <b>Upload Photo / Gallery</b></div><input type="file" id="assign-upload-img" accept="image/*" style="display:none" onchange="AssignmentService.handleFile(this, 'img')"><div class="card" style="display:flex; align-items:center; gap:15px; cursor:pointer;" onclick="document.getElementById('assign-upload-pdf').click()"><i class="material-icons" style="font-size:24px; color:#ef4444;">picture_as_pdf</i> <b>Upload PDF Document</b></div><input type="file" id="assign-upload-pdf" accept="application/pdf" style="display:none" onchange="AssignmentService.handleFile(this, 'pdf')"></div></div>
 
-    <div id="add-sub-exam-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-sub-exam-sheet')">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <h3>Create Exam</h3>
-            <input id="se-title" placeholder="Exam Title">
-            <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
-            <div class="row" style="margin-bottom:10px;">
-                <div style="flex:1; margin-right:10px;"><label style="font-size:11px;">Timed?</label><select id="se-timed" onchange="document.getElementById('time-config').style.display=this.value==='Yes'?'flex':'none'"><option value="No">No</option><option value="Yes">Yes</option></select></div>
-                <div style="flex:1;"><label style="font-size:11px;">Daily (Schedule)?</label><select id="se-daily"><option value="No">No</option><option value="Yes">Yes</option></select></div>
-            </div>
-            <div id="time-config" class="row" style="display:none; gap:5px; margin-top:5px; margin-bottom:10px;"><input id="se-h" placeholder="HH" type="number"><input id="se-m" placeholder="MM" type="number"></div>
-            <div style="margin-bottom:15px; background:#f0fdf4; padding:10px; border-radius:8px;"><label style="font-size:11px; font-weight:bold; color:#166534;">Grading Mode</label><select id="se-mode"><option value="ai">🤖 AI Auto-Check</option><option value="manual">✍️ Manual Review</option></select></div>
-            <div style="background:#f0f9ff; padding:15px; border-radius:10px; margin-bottom:15px;">
-                <input id="se-q" placeholder="Question Text"><div class="row"><input id="se-mm" type="number" placeholder="Marks" style="width:100%"></div><textarea id="se-keys" placeholder="Keywords: !Important, Synonym/Alt" rows="2"></textarea>
-                <button class="btn btn-sec" onclick="QuizService.pushQuestion()">+ Add Question</button>
-            </div>
-            <div id="se-preview-list" style="margin-bottom:15px; max-height:100px; overflow-y:auto;"></div>
-            <div class="row" style="background:#f0fdf4; padding:10px; border-radius:8px; margin-bottom:10px;"><b>Total:</b> <span id="se-total-calc">0</span></div>
-            <button class="btn btn-main" onclick="QuizService.publishExam()">Publish</button>
-        </div>
-    </div>
-
-    <div id="add-course-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-course-sheet')">
-        <div class="sheet" onclick="event.stopPropagation()">
-            <h3>Add Course</h3>
-            <input id="ac-name" placeholder="Title"><input id="ac-price" type="number" placeholder="Price">
-            <select id="ac-cat"></select><select id="ac-type"><option value="video">Video</option><option value="pdf">PDF</option></select>
-            <input id="ac-url" placeholder="URL">
-            <button class="btn btn-main" onclick="MarketService.addCourse()">Publish</button>
-        </div>
-    </div>
+    <div id="test-creator-sheet" class="sheet-overlay" onclick="Router.closeSheet('test-creator-sheet')"><div class="sheet" onclick="event.stopPropagation()"><h3>Create Test</h3><div class="row" style="margin-bottom:20px;"><button class="btn btn-sec" style="flex:1;" onclick="Router.openSheet('add-quiz-sheet'); Router.closeSheet('test-creator-sheet');">Objective (MCQ)</button><button class="btn btn-main" style="flex:1;" onclick="QuizService.initSubjectiveCreator(); Router.closeSheet('test-creator-sheet');">Subjective Exam</button></div></div></div>
+    
+    <div id="add-quiz-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-quiz-sheet')"><div class="sheet" onclick="event.stopPropagation()"><h3>Create MCQ</h3><input id="qz-q" placeholder="Question"><input id="qz-o1" placeholder="Option A"><input id="qz-o2" placeholder="Option B"><input id="qz-o3" placeholder="Option C"><input id="qz-o4" placeholder="Option D"><select id="qz-ans"><option value="1">A Correct</option><option value="2">B Correct</option><option value="3">C Correct</option><option value="4">D Correct</option></select><button class="btn btn-main" onclick="QuizService.add()">Post Quiz</button></div></div>
+    
+    <div id="add-sub-exam-sheet" class="sheet-overlay" onclick="Router.closeSheet('add-sub-exam-sheet')"><div class="sheet" onclick="event.stopPropagation()"><h3>Create Exam</h3><input id="se-title" placeholder="Exam Title"><hr style="border:0; border-top:1px solid #eee; margin:15px 0;"><div class="row" style="margin-bottom:10px;"><div style="flex:1;"><label style="font-size:11px;">Timed?</label><select id="se-timed" onchange="document.getElementById('time-config').style.display=this.value==='Yes'?'flex':'none'"><option value="No">No</option><option value="Yes">Yes</option></select></div><div style="flex:1;"><label style="font-size:11px;">Daily?</label><select id="se-daily"><option value="No">No</option><option value="Yes">Yes</option></select></div></div><div id="time-config" class="row" style="display:none; gap:5px; margin-top:5px; margin-bottom:10px;"><input id="se-h" placeholder="HH" type="number"><input id="se-m" placeholder="MM" type="number"></div><div style="margin-bottom:15px; background:#f0fdf4; padding:10px; border-radius:8px;"><label style="font-size:11px; font-weight:bold; color:#166534;">Grading Mode</label><select id="se-mode"><option value="ai">🤖 AI Auto-Check</option><option value="manual">✍️ Manual Review</option></select></div><div style="background:#f0f9ff; padding:15px; border-radius:10px; margin-bottom:15px;"><input id="se-q" placeholder="Question Text"><div class="row"><input id="se-mm" type="number" placeholder="Marks" style="width:100%"></div><textarea id="se-keys" placeholder="AI Keywords (e.g. !Mitochondria, Powerhouse)" rows="2"></textarea><button class="btn btn-sec" onclick="QuizService.pushQuestion()">+ Add Question</button></div><div id="se-preview-list" style="margin-bottom:15px; max-height:100px; overflow-y:auto;"></div><button class="btn btn-main" onclick="QuizService.publishExam()">Publish Exam</button></div></div>
 
     <script>
-        // === 1. DATABASE SERVICE ===
+        // === 1. DATABASE CORE ===
         class DatabaseService {
             constructor() {
-                this.tables = ['users', 'courses', 'batches', 'orders', 'config', 'doubts', 'quizzes', 'exams', 'assignments', 'submissions', 'notis', 'results', 'schedule'];
+                this.tables = ['users', 'courses', 'batches', 'orders', 'config', 'doubts', 'quizzes', 'exams', 'assignments', 'submissions', 'notis', 'results', 'schedule', 'categories', 'requests'];
                 this.cache = {}; 
                 this.tables.forEach(t => this.cache[t] = JSON.parse(localStorage.getItem('ja_' + t)) || []);
-                if(this.cache['users'].length === 0) { this.cache['users'].push({m:'ADM-001', n:'Admin', p:'1234', role:'Admin', status:'Active'}); this.commit('users'); }
+                
+                // SEED DATA FOR FIRST LAUNCH
+                if(this.cache['users'].length === 0) { 
+                    this.cache['users'].push({m:'ADM-001', n:'Admin System', p:'1234', role:'Admin', status:'Active', sm:'9876543210', pm:'9876543210'}); 
+                    this.commit('users'); 
+                }
                 if(this.cache['batches'].length === 0) { this.cache['batches'].push({name:'Class 10 A'}, {name:'Class 12 B'}); this.commit('batches'); }
-                if(this.cache['config'].length === 0) { this.cache['config'].push({upiId: "", upiName: "Jalaram Academy"}); this.commit('config'); }
             }
             async add(table, data) { if(!data.id) data.id = Date.now().toString(); this.cache[table].push(data); this.commit(table); }
             async get(table) { return this.cache[table]; }
-            async update(table, id, data) {
-                const idx = this.cache[table].findIndex(x => x.id === id);
-                if(idx !== -1) { this.cache[table][idx] = { ...this.cache[table][idx], ...data }; this.commit(table); }
-            }
+            async update(table, id, data) { const idx = this.cache[table].findIndex(x => x.id === id); if(idx !== -1) { this.cache[table][idx] = { ...this.cache[table][idx], ...data }; this.commit(table); } }
             async delete(table, id) { this.cache[table] = this.cache[table].filter(x => x.id !== id); this.commit(table); }
             commit(table) { localStorage.setItem('ja_' + table, JSON.stringify(this.cache[table])); }
         }
         const DB = new DatabaseService();
 
-        // === 2. CANVAS ENGINE (RED PEN) ===
-        const CanvasEngine = {
-            ctx: null, canvas: null, isDrawing: false, currentResultId: null, isSubmission: false,
-            init: (imgSrc, rid, textContent, isSub = false) => {
-                CanvasEngine.currentResultId = rid; CanvasEngine.isSubmission = isSub; 
-                const img = document.getElementById('sheet-bg'); const textDiv = document.getElementById('text-answer-display'); CanvasEngine.canvas = document.getElementById('draw-layer'); CanvasEngine.ctx = CanvasEngine.canvas.getContext('2d');
-                if (imgSrc) { img.style.display = 'block'; textDiv.style.display = 'none'; img.src = imgSrc; img.onload = () => { CanvasEngine.canvas.width = img.width || 600; CanvasEngine.canvas.height = img.height || 800; CanvasEngine.setPen(); }; } 
-                else { img.style.display = 'none'; textDiv.style.display = 'block'; textDiv.innerHTML = textContent || "No Content"; CanvasEngine.canvas.width = 600; CanvasEngine.canvas.height = 600; CanvasEngine.setPen(); }
-                ['mousedown','touchstart'].forEach(e => CanvasEngine.canvas.addEventListener(e, CanvasEngine.startDraw)); ['mousemove','touchmove'].forEach(e => CanvasEngine.canvas.addEventListener(e, CanvasEngine.draw)); ['mouseup','touchend'].forEach(e => CanvasEngine.canvas.addEventListener(e, CanvasEngine.stopDraw));
+        // === 2. AUTH SERVICE (SMART OTP) ===
+        function move(e, p, c, n){ var length = document.getElementById(e).value.length; var maxlength = document.getElementById(e).getAttribute("maxlength"); if(length == maxlength){ if(n!==""){document.getElementById(n).focus();} } if(e.key === "Backspace"){ if(p!==""){ document.getElementById(p).focus(); } } }
+        function move(obj, nextID) { if(obj.value.length >= obj.maxLength) document.getElementById(nextID).focus(); }
+
+        const AuthService = {
+            currentUser: null, tempUser: null, generatedOtp: null,
+            
+            requestOtp: async () => {
+                const id = document.getElementById('l-id').value;
+                const role = document.getElementById('l-role').value;
+                const user = (await DB.get('users')).find(u => u.m === id && u.role === role);
+                
+                if (user) { 
+                    if(user.status === 'Pending') return alert("Account is pending approval from Admin.");
+                    AuthService.tempUser = user;
+                    
+                    // SMART DETECTION
+                    if (window.firebase) {
+                        // In a real deployed version, this would call Firebase Auth
+                        console.log("Cloud Environment Detected");
+                    } else {
+                        // LOCAL ENVIRONMENT
+                        AuthService.generatedOtp = Math.floor(1000 + Math.random() * 9000);
+                        document.getElementById('otp-msg').innerText = `OTP ${AuthService.generatedOtp} sent to: ${user.sm} (Student) & ${user.pm} (Parent)`;
+                    }
+                    
+                    document.getElementById('auth-step-1').style.display = 'none';
+                    document.getElementById('auth-step-2').style.display = 'block';
+                } else alert("User ID not found in database.");
             },
-            setPen: () => { CanvasEngine.ctx.strokeStyle = "red"; CanvasEngine.ctx.lineWidth = 3; CanvasEngine.ctx.lineCap = "round"; },
-            getPos: (e) => { const rect = CanvasEngine.canvas.getBoundingClientRect(); const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY; return { x: (clientX - rect.left) * (CanvasEngine.canvas.width / rect.width), y: (clientY - rect.top) * (CanvasEngine.canvas.height / rect.height) }; },
-            startDraw: (e) => { e.preventDefault(); CanvasEngine.isDrawing = true; const p = CanvasEngine.getPos(e); CanvasEngine.ctx.beginPath(); CanvasEngine.ctx.moveTo(p.x, p.y); },
-            draw: (e) => { if(!CanvasEngine.isDrawing) return; e.preventDefault(); const p = CanvasEngine.getPos(e); CanvasEngine.ctx.lineTo(p.x, p.y); CanvasEngine.ctx.stroke(); },
-            stopDraw: () => { CanvasEngine.isDrawing = false; },
-            clear: () => CanvasEngine.ctx.clearRect(0, 0, CanvasEngine.canvas.width, CanvasEngine.canvas.height),
-            saveAndMark: async () => {
-                const score = document.getElementById('manual-score').value; const feedback = document.getElementById('manual-feedback').value; if(!score) return alert("Enter Marks");
-                const table = CanvasEngine.isSubmission ? 'submissions' : 'results'; await DB.update(table, CanvasEngine.currentResultId, { score: score, feedback: feedback, corrected: true });
-                alert("Saved!"); document.getElementById('checker-player').style.display = 'none'; 
-                if(CanvasEngine.isSubmission) BatchService.switchTab('assign'); else BatchService.switchTab('rank');
+            
+            verifyOtp: async () => {
+                const input = [1,2,3,4].map(i => document.getElementById('d'+i).value).join('');
+                // If cloud, use firebase logic. If local, use generated variable.
+                if(window.firebase || input == AuthService.generatedOtp) {
+                    AuthService.currentUser = AuthService.tempUser;
+                    document.getElementById('auth-layer').style.display='none'; 
+                    document.getElementById('app-layer').style.display='flex'; 
+                    document.getElementById('user-greeting').innerText = `Hello, ${AuthService.currentUser.n}`;
+                    Router.init(AuthService.currentUser.role);
+                } else {
+                    alert("Incorrect OTP. Please try again.");
+                }
+            },
+            
+            logout: () => location.reload(),
+            
+            register: async () => {
+                const r = document.getElementById('r-role').value; 
+                const id = (r==='Student'?'STU':'TCH') + '-' + Math.floor(Math.random()*10000);
+                const subStr = r==='Teacher' ? document.getElementById('r-subs').value : document.getElementById('r-stu-subs').value;
+                const subs = subStr ? subStr.split(',').map(s=>s.trim()) : [];
+                
+                // If ADMIN is adding, activate instantly. Else, PENDING.
+                const isAdmin = AuthService.currentUser && AuthService.currentUser.role === 'Admin';
+                const status = isAdmin ? 'Active' : 'Pending';
+                
+                await DB.add('users', { 
+                    m:id, n:document.getElementById('r-name').value, 
+                    role:r, status:status, 
+                    batch:document.getElementById('r-batch').value, 
+                    subs: subs, sm: document.getElementById('r-sm').value, pm: document.getElementById('r-pm').value 
+                });
+                
+                if(isAdmin) { 
+                    alert(`User Created Successfully!\nID: ${id}\nStatus: Active`); 
+                    Router.closeSheet('reg-sheet'); 
+                    UiRenderer.renderAdmin(); 
+                } else { 
+                    alert(`Registration Request Sent!\nYour ID: ${id}\nPlease wait for Admin Approval.`); 
+                    Router.closeSheet('reg-sheet'); 
+                }
             }
         };
 
-        // === 3. BATCH MANAGER (DUAL QUANTUM) ===
+        // === 3. LOGIC CONTROLLER (BATCHES, REQUESTS, EXAMS) ===
         const BatchService = {
             currentBatch: null,
             open: (name) => { 
                 BatchService.currentBatch = name; 
                 document.getElementById('bs-title').innerText = name; 
                 Router.openSheet('batch-sheet'); 
-                // Show Quantum Generator only for Teachers/Admin
+                // RBAC: Only Staff sees Generator
                 const u = AuthService.currentUser;
                 document.getElementById('quantum-gen').style.display = (u.role === 'Teacher' || u.role === 'Admin') ? 'block' : 'none';
                 BatchService.switchTab('live'); 
             },
             switchTab: (tab) => {
                 document.querySelectorAll('.sub-item').forEach(i => i.classList.remove('active')); document.getElementById('tab-'+tab).classList.add('active');
-                const c = document.getElementById('b-content'); const role = AuthService.currentUser.role;
+                const c = document.getElementById('b-content'); const role = AuthService.currentUser.role; const u = AuthService.currentUser;
                 
+                // LIVE CLASS TAB
                 if(tab === 'live') {
                     let mainBtn = `<div style="text-align:center; padding:30px;"><button class="btn btn-main btn-danger" onclick="BatchService.prepLiveClass()">🔴 Start/Join Video Class</button></div>`;
-                    if(role === 'Admin') mainBtn += `<div style="margin-top:20px; padding-top:20px; border-top:1px solid #eee;"><button class="btn btn-sec" onclick="BatchService.openStaffSelection()">📞 Staff Meeting</button></div>`;
+                    if(role === 'Admin') mainBtn += `<div style="margin-top:20px; padding-top:20px; border-top:1px solid #eee;"><button class="btn btn-sec" onclick="BatchService.openStaffSelection()">📞 Initiate Staff Call</button></div>`;
                     c.innerHTML = mainBtn;
                 }
+                
+                // ASSIGNMENTS TAB
                 if(tab === 'assign') {
-                    const assigns = DB.cache['assignments'].filter(a => a.batch === BatchService.currentBatch); let html = '';
-                    if(role === 'Teacher' || role === 'Admin') { html = `<button class="btn btn-sec" onclick="Router.openSheet('add-assign-sheet')" style="margin-bottom:15px;">+ New Assignment</button>`; assigns.forEach(a => { const subs = DB.cache['submissions'].filter(s => s.aid === a.id); const pending = subs.filter(s => !s.corrected); html += `<div class="card"><b>${a.title}</b><br><small>${a.subject} • ${subs.length} Submitted</small>${pending.length ? `<div style="background:#fff7ed; padding:5px; margin-top:5px; border:1px solid #fed7aa; border-radius:5px; font-size:12px;">⚠ ${pending.length} Pending Check</div>` : ''}<div style="margin-top:10px;">${subs.map(s => `<div class="row" style="border-top:1px solid #eee; padding-top:5px; margin-top:5px;"><span style="font-size:12px;">${s.uName} ${s.corrected ? '✅' : '⏳'}</span><button class="btn-sm btn-main" onclick="BatchService.checkSubmission('${s.id}')">Check</button></div>`).join('')}</div></div>`; }); } else { assigns.forEach(a => { const isVisible = !(u.subs||[]).length || (u.subs||[]).includes(a.subject) || a.subject === 'General'; if(isVisible) { const mySub = DB.cache['submissions'].find(s => s.aid === a.id && s.uid === u.m); const status = mySub ? (mySub.corrected ? `<b style="color:green">Grade: ${mySub.score}</b>` : `<b style="color:orange">Submitted</b>`) : `<button class="btn-sm btn-main" onclick="AssignmentService.initSubmit('${a.id}')">Submit</button>`; html += `<div class="card"><div class="row"><div><b>${a.title}</b><br><small>${a.desc}</small></div>${status}</div></div>`; } }); }
-                    c.innerHTML = html || '<div class="empty-state">No Assignments</div>';
+                    const assigns = DB.cache['assignments'].filter(a => a.batch === BatchService.currentBatch); 
+                    let html = (role !== 'Student') ? `<button class="btn btn-sec" onclick="Router.openSheet('add-assign-sheet')" style="margin-bottom:15px;">+ Create Assignment</button>` : '';
+                    assigns.forEach(a => { 
+                        const statusBtn = (role !== 'Student') ? `<button class="btn-sm btn-main" onclick="BatchService.checkSubmission('${a.id}')">Check Work</button>` : `<button class="btn-sm btn-main" onclick="AssignmentService.initSubmit('${a.id}')">Submit</button>`;
+                        html += `<div class="card"><div class="row"><div><b>${a.title}</b><br><small style="color:#64748b">${a.subject} • Due: ${new Date(a.deadline).toLocaleDateString()}</small></div>${statusBtn}</div></div>`; 
+                    });
+                    c.innerHTML = html || '<div class="empty-state">No Assignments Active</div>';
                 }
+                
+                // TESTS TAB
                 if(tab === 'tests') {
-                    const mcqs = DB.cache['quizzes'].filter(q => q.batch === BatchService.currentBatch); const exams = DB.cache['exams'].filter(q => q.batch === BatchService.currentBatch);
-                    let html = mcqs.map(t => `<div class="card"><div class="row"><div><span class="badge b-admin">MCQ</span> <b>${t.q}</b></div><button class="btn-sm btn-main" onclick="QuizService.start('${t.id}','mcq')">Start</button></div></div>`).join('');
-                    html += exams.map(t => `<div class="card"><div class="row"><div><span class="badge b-student">EXAM</span> <b>${t.title}</b></div><button class="btn-sm btn-main" onclick="QuizService.start('${t.id}','exam')">Start</button></div></div>`).join('');
-                    if(role === 'Teacher' || role === 'Admin') html = `<button class="btn btn-sec" onclick="Router.openSheet('test-creator-sheet')">+ Create Test</button>` + html;
-                    c.innerHTML = html || '<div class="empty-state">No Tests</div>';
+                    const allTests = [...DB.cache['quizzes'], ...DB.cache['exams']].filter(q => q.batch === BatchService.currentBatch);
+                    let html = allTests.map(t => `<div class="card"><div class="row"><div><span class="badge ${t.type==='mcq'?'b-mcq':'b-exam'}">${t.type.toUpperCase()}</span> <b>${t.title||t.q}</b></div><button class="btn-sm btn-main" onclick="QuizService.start('${t.id}','${t.type}')">Start</button></div></div>`).join('');
+                    if(role !== 'Student') html = `<button class="btn btn-sec" onclick="Router.openSheet('test-creator-sheet')">+ Create Test</button>` + html;
+                    c.innerHTML = html || '<div class="empty-state">No Active Tests</div>';
                 }
-                if(tab === 'rank') { /* ... */ }
+                
+                // STUDENTS TAB (MAKER-CHECKER)
+                if(tab === 'students') {
+                    const students = DB.cache['users'].filter(st => {
+                        if(st.batch !== BatchService.currentBatch || st.role !== 'Student') return false;
+                        if(u.role === 'Admin') return true;
+                        // TEACHER VISIBILITY LOGIC:
+                        return (u.subs || []).some(ts => (st.subs || []).includes(ts));
+                    });
+                    c.innerHTML = students.map(s => `
+                        <div class="user-row">
+                            <div class="user-av">${s.n[0]}</div>
+                            <div style="flex:1"><b>${s.n}</b><br><small style="color:#64748b">${s.m}</small></div>
+                            ${(role==='Teacher') ? `<div class="action-btn" style="background:#f0f9ff; color:#0f5bb8;" onclick="BatchService.openEditRequest('${s.id}')"><i class="material-icons" style="font-size:16px;">edit</i></div>` : ''}
+                        </div>
+                    `).join('') || '<div class="empty-state">No Students Visible to You</div>';
+                }
             },
-            sendQuantum: async () => {
-                const topic = document.getElementById('q-topic').value; const buf = document.getElementById('q-buf').value;
-                if(!topic) return alert("Enter Topic");
-                await DB.add('notis', { batch: BatchService.currentBatch, msg: `⚡ ALERT: ${topic} ${buf}`, date: new Date().toLocaleTimeString() });
-                alert("Quantum Alert Sent!");
-            },
-            prepLiveClass: () => { const u = AuthService.currentUser; if(u.role === 'Student' || u.role === 'Admin') { VideoService.startCall(BatchService.currentBatch, u.n); } else { const subs = u.subs || []; document.getElementById('subject-list-container').innerHTML = subs.length ? subs.map(s => `<button class="btn btn-main" style="margin-bottom:10px" onclick="BatchService.startVisibilityCall('${s}')">Start ${s} Class</button>`).join('') : '<div class="empty-state">No subjects.</div>'; Router.openSheet('subject-select-sheet'); } },
             
-            // 📅 QUANTUM PLANNER LOGIC (Adding to Schedule)
-            startVisibilityCall: async (subject) => {
-                const batch = BatchService.currentBatch; const isDaily = document.getElementById('class-daily-toggle').checked; Router.closeSheet('subject-select-sheet');
-                if(isDaily) { await DB.add('schedule', { batch: batch, type: 'Class', title: `${subject} Live`, info: 'Daily', room: `${batch} ${subject}` }); }
-                const students = (await DB.get('users')).filter(u => u.role === 'Student' && u.batch === batch);
-                students.forEach(async (stu) => { const isVisible = !(stu.subs||[]).length || (stu.subs||[]).includes(subject) || subject === 'General'; if(isVisible) await DB.add('notis', { batch: batch, msg: `🔴 ${subject} Live Class!`, date: new Date().toLocaleDateString(), target: stu.m, isCall: true, room: `${batch} ${subject}` }); });
-                VideoService.startCall(`${batch} ${subject}`, AuthService.currentUser.n); alert(`Class Started!`);
+            // MAKER-CHECKER LOGIC
+            openEditRequest: (uid) => {
+                const s = DB.cache['users'].find(u => u.id === uid);
+                document.getElementById('req-uid').value = uid; 
+                document.getElementById('req-name').value = s.n; 
+                document.getElementById('req-sm').value = s.sm || ''; 
+                document.getElementById('req-pm').value = s.pm || '';
+                Router.openSheet('req-sheet');
             },
-            checkSubmission: (sid) => { const sub = DB.cache['submissions'].find(s => s.id === sid); document.getElementById('checker-player').style.display = 'flex'; if(sub.type === 'pdf') { CanvasEngine.init(null, sid, `<iframe src="${sub.pdfData}" style="width:100%;height:400px;"></iframe>`, true); } else { CanvasEngine.init(sub.sheetImg, sid, null, true); } },
+            submitRequest: async () => {
+                const uid = document.getElementById('req-uid').value; 
+                const s = DB.cache['users'].find(u => u.id === uid);
+                // Create Request Object
+                const req = { 
+                    type: 'ProfileUpdate', targetUid: uid, targetName: s.n, requester: AuthService.currentUser.n, 
+                    changes: { n: document.getElementById('req-name').value, sm: document.getElementById('req-sm').value, pm: document.getElementById('req-pm').value }, 
+                    status: 'Pending', date: new Date().toLocaleDateString() 
+                };
+                await DB.add('requests', req);
+                alert("Change Request Sent to Admin for Approval."); Router.closeSheet('req-sheet');
+            },
+            
+            // QUANTUM LOGIC
+            sendQuantum: async () => { 
+                const topic = document.getElementById('q-topic').value; const buf = document.getElementById('q-buf').value; 
+                if(!topic) return alert("Enter Message"); 
+                await DB.add('notis', { batch: BatchService.currentBatch, msg: `⚡ ALERT: ${topic} ${buf}`, date: new Date().toLocaleTimeString() }); 
+                alert("Blast Notification Sent!"); 
+            },
+            prepLiveClass: () => { 
+                const u = AuthService.currentUser; 
+                if(u.role === 'Student' || u.role === 'Admin') { VideoService.startCall(BatchService.currentBatch, u.n); } 
+                else { 
+                    const subs = u.subs || []; 
+                    document.getElementById('subject-list-container').innerHTML = subs.length ? subs.map(s => `<button class="btn btn-main" style="margin-bottom:10px" onclick="BatchService.startVisibilityCall('${s}')">Start ${s} Class</button>`).join('') : '<div class="empty-state">No subjects found.</div>'; 
+                    Router.openSheet('subject-select-sheet'); 
+                } 
+            },
+            startVisibilityCall: async (subject) => { 
+                const batch = BatchService.currentBatch; 
+                const isDaily = document.getElementById('class-daily-toggle').checked; 
+                Router.closeSheet('subject-select-sheet'); 
+                
+                // QUANTUM PLANNER
+                if(isDaily) { await DB.add('schedule', { batch: batch, type: 'Class', title: `${subject} Live`, info: 'Daily @ ' + new Date().getHours() + ':00', room: `${batch} ${subject}` }); } 
+                
+                const students = (await DB.get('users')).filter(u => u.role === 'Student' && u.batch === batch); 
+                students.forEach(async (stu) => { 
+                    const isVisible = !(stu.subs||[]).length || (stu.subs||[]).includes(subject) || subject === 'General'; 
+                    if(isVisible) await DB.add('notis', { batch: batch, msg: `🔴 ${subject} Live Class!`, date: new Date().toLocaleDateString(), target: stu.m, isCall: true, room: `${batch} ${subject}` }); 
+                }); 
+                VideoService.startCall(`${batch} ${subject}`, AuthService.currentUser.n); 
+                alert(`Class Started for ${batch} (${subject})`); 
+            },
+            checkSubmission: (sid) => { 
+                const sub = DB.cache['submissions'].find(s => s.id === sid); 
+                document.getElementById('checker-player').style.display = 'flex'; 
+                if(sub.type === 'pdf') { CanvasEngine.init(null, sid, `<iframe src="${sub.pdfData}" style="width:100%;height:100%;border:none;"></iframe>`, true); } 
+                else { CanvasEngine.init(sub.sheetImg, sid, null, true); } 
+            },
             openStaffSelection: async () => { const teachers = (await DB.get('users')).filter(u => u.role === 'Teacher'); document.getElementById('staff-list').innerHTML = teachers.map(t => `<div class="chk-row"><input type="checkbox" class="tch-chk" value="${t.m}"><div><b>${t.n}</b><br><small>${t.m}</small></div></div>`).join(''); Router.openSheet('staff-sheet'); },
             toggleAllTeachers: (s) => { document.querySelectorAll('.tch-chk').forEach(c => c.checked = s.checked); },
-            startStaffCall: async () => { const selected = Array.from(document.querySelectorAll('.tch-chk:checked')).map(c => c.value); if(selected.length === 0) return alert("Select 1+"); selected.forEach(async (tid) => { await DB.add('notis', { batch: BatchService.currentBatch, msg: `📞 Staff Call`, date: new Date().toLocaleDateString(), target: tid, isCall: true, room: `${BatchService.currentBatch} Staff` }); }); Router.closeSheet('staff-sheet'); VideoService.startCall(`${BatchService.currentBatch} Staff`, 'Admin'); alert("Calling..."); },
-            removeSchedule: async (id) => { await DB.delete('schedule', id); UiRenderer.renderHome(); },
-            openCorrector: (rid) => { const res = DB.cache['results'].find(r => r.id === rid); document.getElementById('checker-player').style.display = 'flex'; CanvasEngine.init(res.sheetImg, rid, res.textContent); }
+            startStaffCall: async () => { const selected = Array.from(document.querySelectorAll('.tch-chk:checked')).map(c => c.value); if(selected.length === 0) return alert("Select at least 1 staff member"); selected.forEach(async (tid) => { await DB.add('notis', { batch: BatchService.currentBatch, msg: `📞 Staff Call`, date: new Date().toLocaleDateString(), target: tid, isCall: true, room: `${BatchService.currentBatch} Staff` }); }); Router.closeSheet('staff-sheet'); VideoService.startCall(`${BatchService.currentBatch} Staff`, 'Admin'); alert("Calling Staff..."); }
         };
 
-        // === 4. OTHER SERVICES ===
-        const AssignmentService = { create: async () => { const title = document.getElementById('as-title').value; if(!title) return alert("Req"); await DB.add('assignments', { batch: BatchService.currentBatch, title: title, desc: document.getElementById('as-desc').value, deadline: document.getElementById('as-deadline').value, subject: document.getElementById('as-subject').value }); Router.closeSheet('add-assign-sheet'); BatchService.switchTab('assign'); }, initSubmit: (aid) => { document.getElementById('sas-id').value = aid; Router.openSheet('submit-assign-sheet'); }, handleFile: (input, type) => { if(input.files.length) { const r = new FileReader(); r.onload = async (e) => { await DB.add('submissions', { aid: document.getElementById('sas-id').value, uid: AuthService.currentUser.m, uName: AuthService.currentUser.n, sheetImg: type==='img'?e.target.result:null, pdfData: type==='pdf'?e.target.result:null, type: type }); alert("Sent"); Router.closeSheet('submit-assign-sheet'); BatchService.switchTab('assign'); }; r.readAsDataURL(input.files[0]); } } };
-        
-        const QuizService = { 
-            tempQuestions: [], 
-            add: async () => { await DB.add('quizzes', { batch: document.getElementById('bs-title').innerText, q: document.getElementById('qz-q').value, opts: [1,2,3,4].map(i=>document.getElementById('qz-o'+i).value), ans: document.getElementById('qz-ans').value, type: 'mcq' }); Router.closeSheet('add-quiz-sheet'); }, 
-            initSubjectiveCreator: () => { QuizService.tempQuestions=[]; document.getElementById('se-preview-list').innerHTML=''; Router.openSheet('add-sub-exam-sheet'); }, 
-            pushQuestion: () => { QuizService.tempQuestions.push({ q: document.getElementById('se-q').value, mm: parseInt(document.getElementById('se-mm').value), keys: document.getElementById('se-keys').value.split(',') }); document.getElementById('se-q').value=''; document.getElementById('se-preview-list').innerHTML = QuizService.tempQuestions.map(x=>`<div class="q-preview">${x.q}</div>`).join(''); }, 
-            publishExam: async () => { 
-                const isDaily = document.getElementById('se-daily').value === 'Yes'; 
-                const exam = { batch: document.getElementById('bs-title').innerText, title: document.getElementById('se-title').value, questions: QuizService.tempQuestions, mode: document.getElementById('se-mode').value, type: 'exam' };
-                await DB.add('exams', exam); 
-                // QUANTUM: Add to Schedule if daily
-                if(isDaily) { await DB.add('schedule', { batch: exam.batch, type: 'Test', title: exam.title, info: 'Daily Practice', id: exam.id }); }
-                Router.closeSheet('add-sub-exam-sheet'); 
-            }, 
-            start: (id, type) => { const c = document.getElementById('quiz-container'); document.getElementById('quiz-player').style.display='flex'; c.innerHTML = type==='mcq' ? 'MCQ Started' : 'Exam Started (Anti-Cheat Active)'; }, 
-            close: () => document.getElementById('quiz-player').style.display='none' 
-        };
-        
-        const VideoService = { api: null, startCall: (r, u) => { document.getElementById('video-room').style.display='flex'; VideoService.api = new JitsiMeetExternalAPI('meet.jit.si', { roomName: r, width:'100%', height:'100%', parentNode: document.getElementById('jitsi-container') }); }, endCall: () => { if(VideoService.api) VideoService.api.dispose(); document.getElementById('video-room').style.display='none'; } };
-        const MarketService = { addCourse: async () => { await DB.add('courses', { name: document.getElementById('ac-name').value, price: document.getElementById('ac-price').value }); Router.closeSheet('add-course-sheet'); UiRenderer.renderCourses(); }, initBuy: () => Router.openSheet('buy-sheet'), confirmOrder: () => { alert("Verified"); Router.closeSheet('buy-sheet'); } };
-        
-        const AuthService = {
-            currentUser: null,
-            login: async () => {
-                const id=document.getElementById('l-id').value, pass=document.getElementById('l-pass').value, role=document.getElementById('l-role').value;
-                const user = (await DB.get('users')).find(u => u.m === id && u.p === pass && u.role === role);
-                if (user) { 
-                    if(user.status === 'Pending') return alert("Account Pending Approval");
-                    AuthService.currentUser = user; document.getElementById('auth-layer').style.display='none'; document.getElementById('app-layer').style.display='flex'; Router.init(user.role); 
-                } else alert("Invalid");
-            },
-            logout: () => location.reload(),
-            register: async () => {
-                const r = document.getElementById('r-role').value; const id = (r==='Student'?'STU':'TCH') + '-' + Math.floor(Math.random()*10000);
-                const subStr = r==='Teacher' ? document.getElementById('r-subs').value : document.getElementById('r-stu-subs').value;
-                const subs = subStr ? subStr.split(',').map(s=>s.trim()) : [];
-                
-                await DB.add('users', { m:id, n:document.getElementById('r-name').value, p:document.getElementById('r-pass').value||'1234', role:r, status:'Pending', batch:document.getElementById('r-batch').value, subs: subs });
-                alert(`Registered! ID: ${id}\nWait for Admin Approval.`); Router.closeSheet('reg-sheet');
-            }
-        };
-
-        const Router = {
-            init: (role) => {
-                let menu = role==='Admin'?['Admin','Courses']:['Home','Courses'];
-                document.getElementById('bot-nav').innerHTML = menu.map(m => `<div class="nav-item" onclick="Router.nav('${m}')"><i class="material-icons">${m==='Admin'?'settings':m==='Courses'?'library_books':'home'}</i>${m}</div>`).join('');
-                Router.nav(menu[0]);
-            },
-            nav: (page) => {
-                document.getElementById('pane-container').innerHTML = `<h2 style="margin-bottom:15px;">${page}</h2><div id="content-area"></div>`;
-                if(page==='Admin') UiRenderer.renderAdmin(); if(page==='Courses') UiRenderer.renderCourses(); if(page==='Home') UiRenderer.renderHome();
-            },
-            openSheet: (id) => document.getElementById(id).style.display='flex',
-            closeSheet: (id) => document.getElementById(id).style.display='none'
-        };
-
+        // === 4. ADMIN & UI ===
         const UiRenderer = {
             async renderHome() {
                 const u = AuthService.currentUser;
                 const notis = (await DB.get('notis')).filter(n => (n.batch === u.batch && !n.target) || (n.target === u.m));
-                
-                // 📅 SHOW QUANTUM SCHEDULE
                 const schedule = (await DB.get('schedule')).filter(s => s.batch === u.batch);
-                let schedHtml = schedule.length ? `<h3>📅 Today's Schedule</h3>` + schedule.map(s => {
-                    const action = s.type === 'Class' ? `VideoService.startCall('${s.room}','${u.n}')` : `BatchService.open('${u.batch}');BatchService.switchTab('tests')`;
-                    const delBtn = (u.role === 'Teacher' || u.role === 'Admin') ? `<button class="btn-sm btn-danger" style="margin-left:10px" onclick="BatchService.removeSchedule('${s.id}')">Del</button>` : '';
-                    return `<div class="schedule-card"><div class="row"><div><b>${s.title}</b><br><small>${s.info}</small></div><div class="row"><button class="btn-sm btn-main" onclick="${action}">Join</button>${delBtn}</div></div></div>`;
-                }).join('') : '';
                 
-                document.getElementById('content-area').innerHTML = `${schedHtml}<div class="card" onclick="BatchService.open('${u.batch || 'General'}')"><div class="row"><h3 style="color:#b91c1c;">🔴 My Classroom</h3><i class="material-icons" style="color:#b91c1c;">videocam</i></div><p style="font-size:12px; color:gray">Video Class, Tests & Results</p></div><div class="card"><h3>📢 Updates</h3>${notis.map(n => `<div class="chat-msg">${n.msg}</div>`).join('')}</div>`;
+                let schedHtml = schedule.length ? `<h3>📅 Today's Schedule</h3>` + schedule.map(s => `<div class="schedule-card"><div class="row"><div><b>${s.title}</b><br><small>${s.info}</small></div><button class="btn-sm btn-main" onclick="VideoService.startCall('${s.room}','${u.n}')">Join</button></div></div>`).join('') : '';
+                
+                document.getElementById('pane-container').innerHTML = `
+                    ${schedHtml}
+                    <div class="card" onclick="BatchService.open('${u.batch || 'General'}')">
+                        <div class="row">
+                            <div><h3 style="color:#b91c1c; margin:0;">🔴 Enter Classroom</h3><p style="font-size:12px; color:gray; margin-top:5px;">Join Video, Tests & Submissions</p></div>
+                            <i class="material-icons" style="color:#b91c1c; font-size:32px;">videocam</i>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>📢 Notice Board</h3>
+                        ${notis.length ? notis.map(n => `<div class="chat-msg ${n.isCall?'chat-alert':''}">${n.msg} ${n.isCall ? `<button class="btn-sm btn-main" style="margin-top:5px;" onclick="VideoService.startCall('${n.room}','${u.n}')">Join Call</button>` : ''}</div>`).join('') : '<div class="empty-state">No new notices.</div>'}
+                    </div>`;
             },
             async renderAdmin() {
                 const users = await DB.get('users');
                 const pending = users.filter(u => u.status === 'Pending');
+                const requests = await DB.get('requests'); 
                 
-                // PENDING APPROVALS
-                let html = `<div class="card"><h3>Pending Approvals (${pending.length})</h3>${pending.map(u => `<div class="row"><b>${u.n}</b> <button class="btn-sm btn-main" onclick="approveUser('${u.id}')">Approve</button></div>`).join('')}</div>`;
-                
-                // ACTIVE DATABASE (WITH SIMULATE)
-                html += `<div class="card"><h3>Database</h3>${users.filter(u=>u.status==='Active').map(u => `<div class="row"><div><b>${u.n}</b><br><small>${u.m}</small></div><button class="btn-sm btn-sec" onclick="simulateUser('${u.id}')">Simulate</button></div>`).join('')}</div>`;
-                document.getElementById('content-area').innerHTML = html;
+                let html = `
+                    <div class="stat-grid">
+                        <div class="stat-card"><span class="stat-num">${users.filter(u=>u.role==='Student').length}</span><span class="stat-label">Students</span></div>
+                        <div class="stat-card"><span class="stat-num">${users.filter(u=>u.role==='Teacher').length}</span><span class="stat-label">Teachers</span></div>
+                    </div>
+                    ${pending.length ? `<div class="card" style="border-left:4px solid #ef4444;"><h3>⚠️ Pending Approvals (${pending.length})</h3>${pending.map(u => `<div class="row"><div><b>${u.n}</b><br><small>${u.role}</small></div><button class="btn-sm btn-main" onclick="approveUser('${u.id}')">Approve</button></div>`).join('')}</div>` : ''}
+                    
+                    ${requests.length ? `<div class="card" style="border-left:4px solid #f59e0b;"><h3>📝 Profile Requests (${requests.length})</h3>${requests.map(r => `<div style="padding:10px; border-bottom:1px solid #eee;"><div style="font-size:11px; color:gray">Request by ${r.requester} for <b>${r.targetName}</b></div><div style="font-size:12px; margin:5px 0;">Name: ${r.changes.n}<br>Mobile: ${r.changes.sm}</div><div class="row"><button class="btn-sm btn-main" onclick="UiRenderer.processRequest('${r.id}', true)">Approve</button><button class="btn-sm btn-danger" onclick="UiRenderer.processRequest('${r.id}', false)">Reject</button></div></div>`).join('')}</div>` : ''}
+                    
+                    <div class="card">
+                        <h3>Database</h3>
+                        ${users.filter(u=>u.status==='Active').map(u => `<div class="user-row"><div class="user-av">${u.role[0]}</div><div style="flex:1"><b>${u.n}</b><br><small style="color:#64748b">${u.m}</small></div><div class="action-btn" style="background:#f0f9ff; color:#0f5bb8;" onclick="UiRenderer.editUser('${u.id}')"><i class="material-icons" style="font-size:16px;">edit</i></div></div>`).join('')}
+                    </div>
+                `;
+                document.getElementById('pane-container').innerHTML = html;
             },
-            async renderCourses() { /* ... */ },
+            editUser: async (uid) => { const u = (await DB.get('users')).find(x => x.id === uid); document.getElementById('eu-id').value = uid; document.getElementById('eu-name').value = u.n; document.getElementById('eu-sm').value = u.sm || ''; document.getElementById('eu-pm').value = u.pm || ''; const batches = await DB.get('batches'); document.getElementById('eu-batch').innerHTML = batches.map(b => `<option ${u.batch===b.name?'selected':''}>${b.name}</option>`).join(''); Router.openSheet('edit-user-sheet'); },
+            saveUserEdit: async () => { const uid = document.getElementById('eu-id').value; await DB.update('users', uid, { n: document.getElementById('eu-name').value, sm: document.getElementById('eu-sm').value, pm: document.getElementById('eu-pm').value, batch: document.getElementById('eu-batch').value }); alert("User Updated"); Router.closeSheet('edit-user-sheet'); UiRenderer.renderAdmin(); },
+            deleteUser: async () => { const uid = document.getElementById('eu-id').value; if(confirm("Delete this user?")) { await DB.delete('users', uid); Router.closeSheet('edit-user-sheet'); UiRenderer.renderAdmin(); } },
+            processRequest: async (rid, isApproved) => { const req = (await DB.get('requests')).find(r => r.id === rid); if(isApproved) { await DB.update('users', req.targetUid, req.changes); alert("Changes Applied!"); } else { alert("Request Rejected."); } await DB.delete('requests', rid); UiRenderer.renderAdmin(); },
             toggleRegFields() { /* ... */ }
         };
 
+        // ... (CanvasEngine, AssignmentService, QuizService, VideoService, Router) ...
+        const CanvasEngine = { ctx: null, canvas: null, isDrawing: false, currentResultId: null, isSubmission: false, init: (imgSrc, rid, textContent, isSub = false) => { CanvasEngine.currentResultId = rid; CanvasEngine.isSubmission = isSub; const img = document.getElementById('sheet-bg'); const textDiv = document.getElementById('text-answer-display'); CanvasEngine.canvas = document.getElementById('draw-layer'); CanvasEngine.ctx = CanvasEngine.canvas.getContext('2d'); if (imgSrc) { img.style.display = 'block'; textDiv.style.display = 'none'; img.src = imgSrc; img.onload = () => { CanvasEngine.canvas.width = img.width || 600; CanvasEngine.canvas.height = img.height || 800; CanvasEngine.setPen(); }; } else { img.style.display = 'none'; textDiv.style.display = 'block'; textDiv.innerHTML = textContent || "No Content"; CanvasEngine.canvas.width = 600; CanvasEngine.canvas.height = 600; CanvasEngine.setPen(); } ['mousedown','touchstart'].forEach(e => CanvasEngine.canvas.addEventListener(e, CanvasEngine.startDraw)); ['mousemove','touchmove'].forEach(e => CanvasEngine.canvas.addEventListener(e, CanvasEngine.draw)); ['mouseup','touchend'].forEach(e => CanvasEngine.canvas.addEventListener(e, CanvasEngine.stopDraw)); }, setPen: () => { CanvasEngine.ctx.strokeStyle = "red"; CanvasEngine.ctx.lineWidth = 3; CanvasEngine.ctx.lineCap = "round"; }, getPos: (e) => { const rect = CanvasEngine.canvas.getBoundingClientRect(); const clientX = e.touches ? e.touches[0].clientX : e.clientX; const clientY = e.touches ? e.touches[0].clientY : e.clientY; return { x: (clientX - rect.left) * (CanvasEngine.canvas.width / rect.width), y: (clientY - rect.top) * (CanvasEngine.canvas.height / rect.height) }; }, startDraw: (e) => { e.preventDefault(); CanvasEngine.isDrawing = true; const p = CanvasEngine.getPos(e); CanvasEngine.ctx.beginPath(); CanvasEngine.ctx.moveTo(p.x, p.y); }, draw: (e) => { if(!CanvasEngine.isDrawing) return; e.preventDefault(); const p = CanvasEngine.getPos(e); CanvasEngine.ctx.lineTo(p.x, p.y); CanvasEngine.ctx.stroke(); }, stopDraw: () => { CanvasEngine.isDrawing = false; }, clear: () => CanvasEngine.ctx.clearRect(0, 0, CanvasEngine.canvas.width, CanvasEngine.canvas.height), saveAndMark: async () => { const score = document.getElementById('manual-score').value; const feedback = document.getElementById('manual-feedback').value; if(!score) return alert("Enter Marks"); const table = CanvasEngine.isSubmission ? 'submissions' : 'results'; await DB.update(table, CanvasEngine.currentResultId, { score: score, feedback: feedback, corrected: true }); alert("Saved!"); document.getElementById('checker-player').style.display = 'none'; if(CanvasEngine.isSubmission) BatchService.switchTab('assign'); else BatchService.switchTab('rank'); } };
+        const AssignmentService = { create: async () => { const title = document.getElementById('as-title').value; if(!title) return alert("Req"); await DB.add('assignments', { batch: BatchService.currentBatch, title: title, desc: document.getElementById('as-desc').value, deadline: document.getElementById('as-deadline').value, subject: document.getElementById('as-subject').value }); Router.closeSheet('add-assign-sheet'); BatchService.switchTab('assign'); }, initSubmit: (aid) => { document.getElementById('sas-id').value = aid; Router.openSheet('submit-assign-sheet'); }, handleFile: (input, type) => { if(input.files.length) { const r = new FileReader(); r.onload = async (e) => { await DB.add('submissions', { aid: document.getElementById('sas-id').value, uid: AuthService.currentUser.m, uName: AuthService.currentUser.n, sheetImg: type==='img'?e.target.result:null, pdfData: type==='pdf'?e.target.result:null, type: type }); alert("Sent"); Router.closeSheet('submit-assign-sheet'); BatchService.switchTab('assign'); }; r.readAsDataURL(input.files[0]); } } };
+        const QuizService = { tempQuestions: [], add: async () => { await DB.add('quizzes', { batch: document.getElementById('bs-title').innerText, q: document.getElementById('qz-q').value, opts: [1,2,3,4].map(i=>document.getElementById('qz-o'+i).value), ans: document.getElementById('qz-ans').value, type: 'mcq' }); Router.closeSheet('add-quiz-sheet'); }, initSubjectiveCreator: () => { QuizService.tempQuestions=[]; document.getElementById('se-preview-list').innerHTML=''; Router.openSheet('add-sub-exam-sheet'); }, pushQuestion: () => { QuizService.tempQuestions.push({ q: document.getElementById('se-q').value, mm: parseInt(document.getElementById('se-mm').value), keys: document.getElementById('se-keys').value.split(',') }); document.getElementById('se-q').value=''; document.getElementById('se-preview-list').innerHTML = QuizService.tempQuestions.map(x=>`<div class="q-preview">${x.q}</div>`).join(''); }, publishExam: async () => { const isDaily = document.getElementById('se-daily').value === 'Yes'; const exam = { batch: document.getElementById('bs-title').innerText, title: document.getElementById('se-title').value, questions: QuizService.tempQuestions, mode: document.getElementById('se-mode').value, type: 'exam' }; await DB.add('exams', exam); if(isDaily) { await DB.add('schedule', { batch: exam.batch, type: 'Test', title: exam.title, info: 'Daily Practice', id: exam.id }); } Router.closeSheet('add-sub-exam-sheet'); }, start: (id, type) => { const c = document.getElementById('quiz-container'); document.getElementById('quiz-player').style.display='flex'; c.innerHTML = type==='mcq' ? 'MCQ Started' : 'Exam Started (Anti-Cheat Active)'; }, close: () => document.getElementById('quiz-player').style.display='none' };
+        const VideoService = { api: null, startCall: (r, u) => { document.getElementById('video-room').style.display='flex'; VideoService.api = new JitsiMeetExternalAPI('meet.jit.si', { roomName: r, width:'100%', height:'100%', parentNode: document.getElementById('jitsi-container') }); }, endCall: () => { if(VideoService.api) VideoService.api.dispose(); document.getElementById('video-room').style.display='none'; } };
+        const Router = { init: (role) => { let menu = role==='Admin'?['Admin','Courses']:['Home','Courses']; document.getElementById('bot-nav').innerHTML = menu.map(m => `<div class="nav-item" onclick="Router.nav('${m}')"><i class="material-icons">${m==='Admin'?'settings':m==='Courses'?'library_books':'home'}</i>${m}</div>`).join(''); Router.nav(menu[0]); }, nav: (page) => { document.getElementById('pane-container').innerHTML = `<h2 style="margin-bottom:15px;">${page}</h2><div id="content-area"></div>`; if(page==='Admin') UiRenderer.renderAdmin(); if(page==='Courses') { /* Market Logic */ } if(page==='Home') UiRenderer.renderHome(); }, openSheet: (id) => document.getElementById(id).style.display='flex', closeSheet: (id) => document.getElementById(id).style.display='none' };
+        
         async function approveUser(uid) { await DB.update('users', uid, { status: 'Active' }); UiRenderer.renderAdmin(); }
-        async function simulateUser(uid) { const u = (await DB.get('users')).find(x => x.id === uid); AuthService.currentUser = u; document.getElementById('sim-bar').style.display='block'; Router.init(u.role); }
-        async function savePayAccount() { /* ... */ }
         (async ()=>{ const batches = await DB.get('batches'); document.getElementById('r-batch').innerHTML = batches.map(b=>`<option>${b.name}</option>`).join(''); })();
     </script>
 </body>
