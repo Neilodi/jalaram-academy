@@ -6687,7 +6687,175 @@ PIRACY SAVER
         wm.style.top = randomTop + '%';
         wm.style.left = randomLeft + '%';
     }, 10000);
-</script>
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jalaram Academy - Enterprise ERP v350</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-card {
+            background: #1e293b;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid #334155;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .logo-container {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #38bdf8;
+            margin: 0 0 5px 0;
+        }
+        .subtitle {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #0f172a;
+            color: #f8fafc;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        select:focus, input:focus {
+            border-color: #38bdf8;
+        }
+        .btn-primary {
+            width: 100%;
+            background-color: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #0369a1;
+        }
+        .btn-secondary {
+            width: 100%;
+            background-color: transparent;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: background-color 0.2s;
+        }
+        .btn-secondary:hover {
+            background-color: #334155;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo-container">🎓</div>
+        <h1>Jalaram Academy</h1>
+        <div class="subtitle">Enterprise ERP v350 | Titan Build</div>
+
+        <div class="form-group">
+            <label for="role_select">Select Role</label>
+            <select id="role_select">
+                <option value="student">Student / Parent</option>
+                <option value="teacher">Teacher</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="user_id">User ID / Mobile</label>
+            <input type="text" id="user_id" placeholder="e.g. ADM-001 or 9998887776">
+        </div>
+
+        <button type="button" class="btn-primary" id="login_btn">
+            🔒 Secure Login
+        </button>
+
+        <button type="button" class="btn-secondary" id="register_btn">
+            Register New Account
+        </button>
+    </div>
+
+    <script>
+        // Proper event listener attachment to ensure click functionality never fails
+        document.getElementById('login_btn').addEventListener('click', function() {
+            const role = document.getElementById('role_select').value;
+            const id = document.getElementById('user_id').value.trim();
+            
+            if(!id) {
+                alert('⚠️ Please enter your User ID or Mobile number first.');
+                return;
+            }
+            
+            alert(`✅ Success! Authenticating ${role.toUpperCase()} session for ID: ${id}`);
+        });
+
+        document.getElementById('register_btn').addEventListener('click', function() {
+            alert('📝 Registration portal modal initialized.');
+        });
+    </script>
 
 </body>
 </html>
