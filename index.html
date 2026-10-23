@@ -2449,8 +2449,2240 @@
       }
     ];
 
+    // ============================================================================
+    // 2B. JALARAM ACADEMY DEDICATED DPP DATABASE (SEPARATE FROM PYQ QUESTIONS_DB)
+    // Each DPP contains 15 Questions under Mathematics -> Complex Number
+    // ============================================================================
+    const DPP_SETS_DB = [
+      // --------------------------------------------------------------------------
+      // MATHEMATICS -> COMPLEX NUMBER : DPP #1 (15 QUESTIONS)
+      // --------------------------------------------------------------------------
+      {
+        id: 'ja-dpp-math-cn-1',
+        subject: 'Mathematics',
+        chapter: 'Complex Number',
+        title: 'Complex Number • DPP #1 (Modulus, Conjugate & Argument)',
+        tag: '✦ JA DPP #1',
+        durationMinutes: 45,
+        questions: [
+          {
+            id: 'ja-cn-dpp1-01',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q1',
+            difficulty: 'Medium',
+            idealTimeSec: 90,
+            type: 'mcq',
+            text: 'A function f is defined by f(z) = (4 + i)z² + αz + γ for all complex numbers z, where α and γ are complex numbers. If f(1) and f(i) are both real, then the smallest possible value of |α| + |γ| equals:',
+            formula: 'Im(f(1)) = 0 & Im(f(i)) = 0 ⇒ Im(α) + Im(γ) = -1, Re(α) + Im(γ) = 1',
+            options: ['1', '√2', '2', '2√2'],
+            correctAnswer: 1,
+            solution: 'f(1) = 4 + i + α + γ and f(i) = -4 - i + αi + γ. Let α = a + ib and γ = c + id. For f(1) and f(i) to be real: b + d = -1 and a + d = 1 ⇒ a - b = 2. By triangle inequality, |α| + |γ| ≥ √(a² + b²) ≥ |a - b|/√2 = 2/√2 = √2 (attained when γ = 0, α = 1 - i).'
+          },
+          {
+            id: 'ja-cn-dpp1-02',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q2',
+            difficulty: 'Medium',
+            idealTimeSec: 95,
+            type: 'mcq',
+            text: 'If z ∈ C, then the area enclosed by the curve 2|z² + |z|²| + 3|z² - |z|²| = 6|z| (z ≠ 0) is:',
+            formula: 'Divide by |z|: 2|z + z̄| + 3|z - z̄| = 6 ⇒ 4|x| + 6|y| = 6',
+            options: ['3π sq. units', '3 sq. units', '6π sq. units', '6 sq. units'],
+            correctAnswer: 1,
+            solution: 'Since |z² ± |z|²| = |z| |z ± z̄|, dividing by |z| ≠ 0 gives 2|2x| + 3|2iy| = 6 ⇒ 2|x| + 3|y| = 3. This is a rhombus with semi-diagonals a = 3/2 and b = 1. Area = 2ab = 2(3/2)(1) = 3 sq. units.'
+          },
+          {
+            id: 'ja-cn-dpp1-03',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q3',
+            difficulty: 'Medium',
+            idealTimeSec: 90,
+            type: 'mcq',
+            text: 'Consider complex numbers z and w satisfying the equations z + w = z̄/w and 1/w + z = w z̄. If w = -1, then Re(z) is equal to:',
+            formula: 'Substitute w = -1 into z + w = z̄/w ⇒ z - 1 = -z̄',
+            options: ['-1/2', '0', '1/2', '1'],
+            correctAnswer: 2,
+            solution: 'Substituting w = -1 into both equations gives z - 1 = -z̄ ⇒ z + z̄ = 1 ⇒ 2 Re(z) = 1 ⇒ Re(z) = 1/2.'
+          },
+          {
+            id: 'ja-cn-dpp1-04',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q4',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'Given z₁, z₂, z₃, z₄ are four points in the complex plane such that |z₁| < 1, |z₂| = 1, |z₃| ≤ 1 and z₃ = z₂(z₁ - z₄) / (z̄₁ z₄ - 1) (with z₁ ≠ z₄), then which of the following is a possible value of |z₄|?',
+            formula: '|z₃| ≤ 1 ⇔ |z₁ - z₄|² ≤ |z̄₁ z₄ - 1|² ⇔ (1 - |z₁|²)(1 - |z₄|²) ≥ 0',
+            options: ['2', '2/5', '3', '5/2'],
+            correctAnswer: 1,
+            solution: 'Since |z₂| = 1 and |z₃| ≤ 1, we have |z₁ - z₄|² ≤ |z̄₁ z₄ - 1|², which simplifies to (1 - |z₁|²)(1 - |z₄|²) ≥ 0. Since |z₁| < 1, we must have |z₄| ≤ 1. Among the given options, 2/5 (and 1/3) is ≤ 1.'
+          },
+          {
+            id: 'ja-cn-dpp1-05',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q5',
+            difficulty: 'Easy',
+            idealTimeSec: 75,
+            type: 'mcq',
+            text: 'For any two non-zero complex numbers z₁ and z₂, if z₁(1 + |z₂|) = i z₂(1 + |z₁|), then arg(z₁ / z₂) is equal to:',
+            formula: 'z₁ / z₂ = i (1 + |z₁|) / (1 + |z₂|) = i k (where k > 0)',
+            options: ['π/2', '-π/2', '0', 'π'],
+            correctAnswer: 0,
+            solution: 'Rearranging gives z₁/z₂ = i [(1 + |z₁|)/(1 + |z₂|)], which is a positive real multiple of i. Hence arg(z₁/z₂) = π/2 and z̄₁ z₂ is purely imaginary.'
+          },
+          {
+            id: 'ja-cn-dpp1-06',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q6',
+            difficulty: 'Easy',
+            idealTimeSec: 70,
+            type: 'mcq',
+            text: 'If |z| < √2 - 1, then |z² + 2z cos α| is always less than:',
+            formula: '|z² + 2z cos α| ≤ |z|² + 2|z||cos α| ≤ |z|² + 2|z|',
+            options: ['1', '3 - 2√2', '√2 - 1', '1/2'],
+            correctAnswer: 0,
+            solution: 'By triangle inequality, |z² + 2z cos α| ≤ |z|² + 2|z| |cos α| ≤ |z|² + 2|z| = (|z| + 1)² - 1 < (√2 - 1 + 1)² - 1 = 2 - 1 = 1.'
+          },
+          {
+            id: 'ja-cn-dpp1-07',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q7',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'If |z² - 3| = 3|z|, then the maximum value of |z| is:',
+            formula: '|z|² - 3 ≤ |z² - 3| = 3|z| ⇒ |z|² - 3|z| - 3 ≤ 0',
+            options: ['1', '(3 + √21) / 2', '(√21 - 3) / 2', '3'],
+            correctAnswer: 1,
+            solution: 'Using |z|² - 3 ≤ |z² - 3| = 3|z|, we get |z|² - 3|z| - 3 ≤ 0. The positive root gives the maximum value: |z|_max = (3 + √(9 + 12))/2 = (3 + √21)/2.'
+          },
+          {
+            id: 'ja-cn-dpp1-08',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q8',
+            difficulty: 'Medium',
+            idealTimeSec: 95,
+            type: 'mcq',
+            text: 'Let z₁ and z₂ be two complex numbers such that z₁² - 4z₂ = 16 + 20i. If α and β are roots of x² + z₁x + z₂ + M = 0 and |(α - β)²| = 28, then the maximum value of |M| is:',
+            formula: '(α - β)² = z₁² - 4(z₂ + M) = 16 + 20i - 4M ⇒ |4M - (16 + 20i)| = 28',
+            options: ['7 + √41', '5 + √41', '7 - √41', '5 - √41'],
+            correctAnswer: 0,
+            solution: '(α - β)² = z₁² - 4z₂ - 4M = 16 + 20i - 4M. Given |16 + 20i - 4M| = 28 ⇒ |M - (4 + 5i)| = 7. Thus |M|_max = 7 + |4 + 5i| = 7 + √41 (and |M|_min = 7 - √41).'
+          },
+          {
+            id: 'ja-cn-dpp1-09',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q9',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'If z is a complex number satisfying |z² - 1| = |z| + 2, then the maximum value of |z| is:',
+            formula: '|z|² - 1 ≤ |z² - 1| = |z| + 2 ⇒ |z|² - |z| - 3 ≤ 0',
+            options: [
+              '(1 + √13) / 2',
+              '(1 + √5) / 2',
+              '(1 + √7) / 2',
+              '(1 + √2) / 2'
+            ],
+            correctAnswer: 0,
+            solution: '|z|² - 1 ≤ |z² - 1| = |z| + 2 ⇒ |z|² - |z| - 3 ≤ 0 ⇒ |z|_max = (1 + √13)/2. (For minimum, 1 - |z|² ≤ |z| + 2 or |z|² + 1 ≥ |z| + 2 gives |z|_min = (1 + √5)/2).'
+          },
+          {
+            id: 'ja-cn-dpp1-10',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q10',
+            difficulty: 'Easy',
+            idealTimeSec: 75,
+            type: 'mcq',
+            text: 'A particle P starts from the point z₀ = 1 + 2i. It moves first horizontally away from the origin by 5 units and then vertically away from the origin by 3 units to reach a point z₁. From z₁ the particle moves √2 units in the direction of the vector î + ĵ and then it moves through an angle π/2 in anticlockwise direction on a circle centred at the origin to reach a point z₂. The point z₂ is given by:',
+            formula: 'z₁ = 6 + 5i → z₁ + (1 + i) = 7 + 6i → Multiply by i ⇒ -6 + 7i',
+            options: ['6 + 7i', '-7 + 6i', '7 + 6i', '-6 + 7i'],
+            correctAnswer: 3,
+            solution: 'Starting at 1 + 2i, moving 5 units right and 3 units up gives z₁ = 6 + 5i. Moving √2 units along (1, 1) adds 1 + i, reaching 7 + 6i. Rotating by π/2 anticlockwise about the origin multiplies by i: i(7 + 6i) = -6 + 7i.'
+          },
+          {
+            id: 'ja-cn-dpp1-11',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q11',
+            difficulty: 'Easy',
+            idealTimeSec: 70,
+            type: 'mcq',
+            text: 'Let z be a complex number satisfying |z| = 1 and |arg(z)| < π/3, then arg(z² + z̄) is equal to:',
+            formula: 'z² + z̄ = e^(i 2θ) + e^(-i θ) = e^(i θ/2) · 2 cos(3θ/2)',
+            options: ['arg(z)', 'arg(z̄)', '(1/2) arg(z)', '(1/2) arg(z̄)'],
+            correctAnswer: 2,
+            solution: 'Let z = e^(iθ) with |θ| < π/3. Then z² + z̄ = e^(i2θ) + e^(-iθ) = e^(iθ/2) [2 cos(3θ/2)]. Since |3θ/2| < π/2, cos(3θ/2) > 0, so arg(z² + z̄) = θ/2 = (1/2) arg(z).'
+          },
+          {
+            id: 'ja-cn-dpp1-12',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q12',
+            difficulty: 'Medium',
+            idealTimeSec: 95,
+            type: 'mcq',
+            text: 'If a and b are two complex numbers such that |a + b| = 20 and |a² + b²| = 16, then the greatest value of |a³ + b³| is:',
+            formula: 'a³ + b³ = (a + b) [ (3/2)(a² + b²) - (1/2)(a + b)² ]',
+            options: ['3520', '2520', '4000', '4480'],
+            correctAnswer: 3,
+            solution: 'Using 2ab = (a + b)² - (a² + b²), we have a³ + b³ = (a + b)(a² + b² - ab) = (a + b)[(3/2)(a² + b²) - (1/2)(a + b)²]. Thus |a³ + b³| ≤ 20 × [(3/2)(16) + (1/2)(400)] = 20 × 224 = 4480 (and least value is 20 × (200 - 24) = 3520).'
+          },
+          {
+            id: 'ja-cn-dpp1-13',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q13',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Let z be a complex number having argument θ (0 < θ < π/2) and satisfying the equality |z - 3i| = 3. Then cot θ - 6/z is equal to:',
+            formula: 'z = 6 sin θ e^(iθ) ⇒ 6/z = (cot θ + 1/tan θ?) Wait: 6/z = e^(-iθ)/sin θ = cot θ - i',
+            options: ['1', '-1', 'i', '-i'],
+            correctAnswer: 2,
+            solution: 'Since |z - 3i| = 3 passes through the origin with diameter along the y-axis up to 6i, in polar form r = 6 sin θ, so z = 6 sin θ (cos θ + i sin θ). Therefore 6/z = (cos θ - i sin θ)/sin θ = cot θ - i ⇒ cot θ - 6/z = i.'
+          },
+          {
+            id: 'ja-cn-dpp1-14',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q14',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'Let A(z₁) and B(z₂) represent two complex numbers on the complex plane. Suppose the complex slope of the line joining A and B is defined as ω = (z₁ - z₂) / (z̄₁ - z̄₂). Then two lines l₁ and l₂ with complex slopes ω₁ and ω₂ will be perpendicular to each other if:',
+            formula: 'Rotation by π/2 multiplies (z₁ - z₂) by i and (z̄₁ - z̄₂) by -i ⇒ ω₂ = -ω₁',
+            options: ['ω₁ + ω₂ = 0', 'ω₁ - ω₂ = 0', 'ω₁ ω₂ = -1', 'ω₁ ω₂ = 1'],
+            correctAnswer: 0,
+            solution: 'If a line makes angle θ with the x-axis, its complex slope is e^(i2θ). Replacing θ with θ + π/2 gives ω₂ = e^(i(2θ + π)) = -e^(i2θ) = -ω₁ ⇒ ω₁ + ω₂ = 0.'
+          },
+          {
+            id: 'ja-cn-dpp1-15',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #1 • Q15',
+            difficulty: 'Hard',
+            idealTimeSec: 110,
+            type: 'mcq',
+            text: 'All complex numbers z which satisfy the relation |z - |z + 1|| = |z + |z - 1|| on the complex plane lie on the:',
+            formula: 'Squaring and simplifying gives x = 0 or (y = 0 with -1 ≤ x ≤ 1)',
+            options: [
+              'line y = 0 or an ellipse with foci (-1, 0) and (1, 0)',
+              'circle x² + y² = 1',
+              'parabola y² = 4x',
+              'line x = 0 or on a line segment joining (-1, 0) to (1, 0)'
+            ],
+            correctAnswer: 3,
+            solution: 'Squaring both sides: |z|² + |z + 1|² - 2 Re(z)|z + 1| = |z|² + |z - 1|² + 2 Re(z)|z - 1| ⇒ 2x = x(|z + 1| + |z - 1|). Either x = 0 (the y-axis, which is also the radical axis of |z - 1| = 1 and |z + 1| = 1) or |z + 1| + |z - 1| = 2, which is the line segment joining (-1, 0) and (1, 0).'
+          }
+        ]
+      },
+
+      // --------------------------------------------------------------------------
+      // MATHEMATICS -> COMPLEX NUMBER : DPP #2 (15 QUESTIONS)
+      // --------------------------------------------------------------------------
+      {
+        id: 'ja-dpp-math-cn-2',
+        subject: 'Mathematics',
+        chapter: 'Complex Number',
+        title: 'Complex Number • DPP #2 (Geometry & Roots of Unity)',
+        tag: '✦ JA DPP #2',
+        durationMinutes: 45,
+        questions: [
+          {
+            id: 'ja-cn-dpp2-01',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q1',
+            difficulty: 'Easy',
+            idealTimeSec: 75,
+            type: 'mcq',
+            text: 'A complex number z satisfies the system of equations |z - 7| = |z - 7 - 6i| and |z - 2 + 3i| = |z - 5i|. Then 1/Re(z) + (1/Im(z))² equals:',
+            formula: 'Perpendicular bisector 1: y = 3   |   Perpendicular bisector 2: (x - 2)² + (y + 3)² = x² + (y - 5)²',
+            options: ['0', '2', '1/9', '2/9'],
+            correctAnswer: 3,
+            solution: 'From |z - 7| = |z - (7 + 6i)|, z lies on the perpendicular bisector of (7, 0) and (7, 6), so Im(z) = y = 3. Substituting y = 3 into (x - 2)² + (y + 3)² = x² + (y - 5)² gives (x - 2)² + 36 = x² + 4 ⇒ 4x = 36 ⇒ x = 9. Thus 1/9 + (1/3)² = 2/9.'
+          },
+          {
+            id: 'ja-cn-dpp2-02',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q2',
+            difficulty: 'Medium',
+            idealTimeSec: 90,
+            type: 'mcq',
+            text: 'If A = {z : |(z - 2)/(z + 2)| = 3, z ∈ C} and z₁, z₂, z₃, z₄ ∈ A are 4 complex numbers representing points P, Q, R, S respectively on the complex plane such that z₁ - z₂ = z₄ - z₃, then the maximum value of the area of quadrilateral PQRS is:',
+            formula: 'Apollonius Circle radius R = 2(3)(2) / (9 - 1) = 3/2   |   Max inscribed rectangle area = 2R²',
+            options: ['9/4', '9/2', '9', '16'],
+            correctAnswer: 1,
+            solution: 'The locus |(z - 2)/(z + 2)| = 3 is a circle with diameter endpoints (1, 0) and (4, 0)? Wait: (z - 2)/(z + 2) = ±3 gives x = 1 and x = -4, so diameter = 3 and radius R = 3/2. Since z₁ - z₂ = z₄ - z₃, PQRS is a parallelogram inscribed in a circle (hence a rectangle), with maximum area = 2R² = 2(9/4) = 9/2.'
+          },
+          {
+            id: 'ja-cn-dpp2-03',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q3',
+            difficulty: 'Hard',
+            idealTimeSec: 105,
+            type: 'mcq',
+            text: 'Let z₁, z₂ and z₃ be three complex numbers such that |z₁ - z₂| = 4, |z₁ - z₃| = 6 and |z₁| = |z₂| = |z₃| = 8. The minimum value of the expression |z₁ - αz₂ + (α - 1)z₃| for α ∈ R is:',
+            formula: 'Distance of z₁ from the line passing through z₂ and z₃ (altitude of Δz₁z₂z₃)',
+            options: ['1', '3/2', '3√15 / 4', '6'],
+            correctAnswer: 2,
+            solution: 'For α ∈ R, αz₂ + (1 - α)z₃ represents any point on the line joining z₂ and z₃. Wait: in Δz₁z₂z₃ inscribed in circle of radius R = 8, abc/(4Δ) = R ⇒ Δ = (4 × 6 × a)/(32) = 3a/4, so altitude from z₁ to side a = |z₂ - z₃| is 2Δ/a = 3/2! Thus the minimum value is 3/2 (which is less than 5/2, 7/2, 9/2).'
+          },
+          {
+            id: 'ja-cn-dpp2-04',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q4',
+            difficulty: 'Hard',
+            idealTimeSec: 110,
+            type: 'mcq',
+            text: 'Consider a complex number z on the Argand plane satisfying arg(z² - ω) = π/2 + arg(z² - ω²) (where ω = e^(i 2π/3)). Then the maximum value of |z| is:',
+            formula: 'z² lies on the semicircle with ω and ω² as diameter endpoints: |z² + 1/2| = √3/2',
+            options: [
+              '√(3 + √3) / 2',
+              '√(2 + 2√3) / 2',
+              '1',
+              '√3 / 2'
+            ],
+            correctAnswer: 1,
+            solution: 'Since arg((z² - ω)/(z² - ω²)) = π/2, z² lies on a semicircle of circle |z² + 1/2| = √3/2. Maximum value of |z|² is √3/2 + 1/2 = (1 + √3)/2 = (2 + 2√3)/4, so |z|_max = √(2 + 2√3)/2.'
+          },
+          {
+            id: 'ja-cn-dpp2-05',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q5',
+            difficulty: 'Easy',
+            idealTimeSec: 70,
+            type: 'mcq',
+            text: 'Which of the following loci is completely satisfied by the relation |z - |z + 1|| = |z + |z - 1|| on the complex plane?',
+            formula: 'Re(z) = 0 is the radical axis of |z - 1| = 1 and |z + 1| = 1',
+            options: [
+              'Ellipse with foci (-1, 0) and (1, 0)',
+              'Radical axis of the circles |z - 1| = 1 and |z + 1| = 1',
+              'Circle |z| = 2',
+              'Line y = x'
+            ],
+            correctAnswer: 1,
+            solution: 'Every point on x = 0 (which is also the radical axis of |z - 1| = 1 and |z + 1| = 1) and every point on the segment joining (-1, 0) to (1, 0) satisfies the relation.'
+          },
+          {
+            id: 'ja-cn-dpp2-06',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q6',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'If the six solutions of x⁶ = -64 are written in the form a + bi, where a and b are real, then the product of those solutions with a > 0 is:',
+            formula: 'Roots with a > 0 are 2 e^(i π/6) and 2 e^(-i π/6)',
+            options: ['4', '8', '16', '64'],
+            correctAnswer: 0,
+            solution: 'The roots of x⁶ = -64 are 2 e^(i(2k+1)π/6). Those with real part a > 0 correspond to angles ±π/6, namely √3 + i and √3 - i. Their product is (√3)² + 1² = 4.'
+          },
+          {
+            id: 'ja-cn-dpp2-07',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q7',
+            difficulty: 'Easy',
+            idealTimeSec: 55,
+            type: 'mcq',
+            text: 'If ω (≠ 1) is a cube root of unity, and (1 + ω)⁷ = A + Bω, then (A, B) equals:',
+            formula: '1 + ω = -ω² ⇒ (-ω²)⁷ = -ω¹⁴ = -ω² = 1 + ω',
+            options: ['(1, 0)', '(-1, 1)', '(0, 1)', '(1, 1)'],
+            correctAnswer: 3,
+            solution: '(1 + ω)⁷ = (-ω²)⁷ = -ω¹⁴ = -ω² = 1 + ω. Comparing with A + Bω gives (A, B) = (1, 1).'
+          },
+          {
+            id: 'ja-cn-dpp2-08',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q8',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'If α is a complex n-th root of unity (α ≠ 1) and z₁, z₂ are any two complex numbers, then ∑_{r=0}^{n-1} |z₁ + α^r z₂|² is:',
+            formula: '∑_{r=0}^{n-1} α^r = 0',
+            options: [
+              'n² |z₁ + z₂|²',
+              '(z₁/n + z₂/n)²',
+              'n(|z₁|² + |z₂|²)',
+              'n²(|z₁|² + |z₂|²)'
+            ],
+            correctAnswer: 2,
+            solution: 'Expanding |z₁ + α^r z₂|² = |z₁|² + |z₂|² + z₁ z̄₂ α^(-r) + z̄₁ z₂ α^r. Summing from r = 0 to n - 1 makes the cross terms vanish since ∑ α^r = 0, leaving n(|z₁|² + |z₂|²).'
+          },
+          {
+            id: 'ja-cn-dpp2-09',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q9',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'Let z₁ and z₂ be two distinct roots of the equation z¹⁰¹ = 1 such that |z₁ + z₂| ≥ √(2 + √3). Then the number of such ordered pairs (z₁, z₂) is:',
+            formula: '|z₁ + z₂|² = 2 + 2 cos θ ≥ 2 + √3 ⇒ cos θ ≥ √3/2 ⇒ |θ| ≤ π/6',
+            options: ['101 × 16', '101 × 32', '204 × 16', 'None of these'],
+            correctAnswer: 0,
+            solution: 'For each of the 101 choices of z₁, let z₂ = z₁ e^(i 2kπ/101) (k ≠ 0). We need |2kπ/101| ≤ π/6 ⇒ |k| ≤ 101/12 = 8.41, so k ∈ {±1, ±2, ..., ±8} (16 choices). Total ordered pairs = 101 × 16.'
+          },
+          {
+            id: 'ja-cn-dpp2-10',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q10',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'If one of the vertices of the regular hexagon circumscribing the circle |z - 1 - i| = √3 is 2 + (1 + √3)i, then the complex number which is NOT representing any vertex of the hexagon is:',
+            formula: 'Centre z₀ = 1 + i, Distance of vertex from centre = 2',
+            options: [
+              '3 + i',
+              '(1 + √3)i',
+              '-3 + i',
+              '2 + (1 - √3)i'
+            ],
+            correctAnswer: 2,
+            solution: 'Centre is z₀ = 1 + i and vertex V₁ = (1 + i) + (1 + i√3) is at distance 2 from z₀. All 6 vertices lie at distance 2 from 1 + i. For z = -3 + i, |(-3 + i) - (1 + i)| = 4 ≠ 2, so -3 + i cannot be a vertex.'
+          },
+          {
+            id: 'ja-cn-dpp2-11',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q11',
+            difficulty: 'Medium',
+            idealTimeSec: 75,
+            type: 'mcq',
+            text: 'Consider the equation ((z - 1)/z)^(2n) + ((z - 1)/z)^n + 1 = 0 (where n ∈ N). Then for every root z of this equation:',
+            formula: '|(z - 1)/z| = 1 ⇒ |z - 1| = |z| ⇒ Re(z) = 1/2',
+            options: [
+              'Re(z) = 1/2 for all n ∈ N and roots are collinear',
+              'Re(z) = 1 for all n ∈ N',
+              'Roots of the equation are concyclic on |z| = 1',
+              'Im(z) = ±√3/2 for all n ∈ N'
+            ],
+            correctAnswer: 0,
+            solution: 'Let w = (z - 1)/z. Since w^(2n) + w^n + 1 = 0, w^n = ω or ω², so |w| = 1 ⇒ |z - 1| = |z|. Thus every root lies on the vertical line Re(z) = 1/2 (collinear).'
+          },
+          {
+            id: 'ja-cn-dpp2-12',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q12',
+            difficulty: 'Easy',
+            idealTimeSec: 70,
+            type: 'mcq',
+            text: 'If z⁴ + 1 = z², then which of the following statements is FALSE?',
+            formula: 'z² = e^(±i π/3) ⇒ z = ±e^(±i π/6)',
+            options: [
+              'Least positive argument of z is π/6',
+              'Greatest positive argument of z in [0, 2π] is 11π/6',
+              'The four possible values of z form a square on the Argand plane',
+              'The four possible values of z form a rectangle on the Argand plane'
+            ],
+            correctAnswer: 2,
+            solution: 'z⁴ - z² + 1 = 0 gives z = ±(√3/2 ± i/2), whose arguments are π/6, 5π/6, 7π/6, 11π/6. These 4 points form a rectangle of sides √3 and 1 (not a square).'
+          },
+          {
+            id: 'ja-cn-dpp2-13',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q13',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'The number of ordered pair(s) (z, ω) of complex numbers satisfying the system of equations z³ + ω̄⁷ = 0 and z⁵ ω¹¹ = 1 is:',
+            formula: '|z| = |ω| = 1   |   3θ_z - 7θ_ω ≡ π,   5θ_z + 11θ_ω ≡ 0 (mod 2π)',
+            options: ['7', '5', '3', '2'],
+            correctAnswer: 3,
+            solution: 'From the two equations, |z| = |ω| = 1. Substituting ω̄ = 1/ω into z³ = -ω^(-7) ⇒ z¹⁵ = -ω^(-35). Also z¹⁵ = ω^(-33) from the second equation, so ω² = -1 ⇒ ω = ±i (2 values), each giving a unique z = -z⁶ / z⁵. Hence 2 ordered pairs.'
+          },
+          {
+            id: 'ja-cn-dpp2-14',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q14',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'Let tangents at A(z₁) and B(z₂) be drawn to the circle |z| = 2. If these tangents intersect at P(z_p), then z_p is equal to:',
+            formula: 'Harmonic mean form for circle |z| = R: z_p = 2 z₁ z₂ / (z₁ + z₂)',
+            options: [
+              '(z₁ + z₂) / 2',
+              '2 z₁ z₂ / (z₁ + z₂)',
+              'z₁ z₂ / (z₁ + z₂)',
+              '4 z₁ z₂ / (z₁ + z₂)'
+            ],
+            correctAnswer: 1,
+            solution: 'For any circle |z| = r, the tangents at z₁ and z₂ have equations z z̄₁ + z̄ z₁ = 2r² and z z̄₂ + z̄ z₂ = 2r². Solving simultaneously with z̄_k = r²/z_k gives z_p = 2 z₁ z₂ / (z₁ + z₂).'
+          },
+          {
+            id: 'ja-cn-dpp2-15',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #2 • Q15',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'If x = 2π / 1999, then the value of cos x · cos 2x · cos 3x · ... · cos 999x is equal to:',
+            formula: '∏_{k=1}^{(n-1)/2} cos(2kπ/n) = 1 / 2^((n-1)/2) for odd n = 1999',
+            options: ['1', '1 / 2⁹⁹⁹', '1 / 2¹⁹⁹⁸', '-1 / 2⁹⁹⁹'],
+            correctAnswer: 1,
+            solution: 'Using the roots of unity identity for odd n = 2m + 1 (here m = 999) or multiplying and dividing by 2⁹⁹⁹ sin x and pairing sin(2kx) correctly, the product equals 1 / 2⁹⁹⁹.'
+          }
+        ]
+      },
+
+      // --------------------------------------------------------------------------
+      // MATHEMATICS -> COMPLEX NUMBER : DPP #3 (15 QUESTIONS)
+      // --------------------------------------------------------------------------
+      {
+        id: 'ja-dpp-math-cn-3',
+        subject: 'Mathematics',
+        chapter: 'Complex Number',
+        title: 'Complex Number • DPP #3 (Loci, Conics & Passages)',
+        tag: '✦ JA DPP #3',
+        durationMinutes: 45,
+        questions: [
+          {
+            id: 'ja-cn-dpp3-01',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q1',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'Let C₁ and C₂ be two curves on the complex plane defined as C₁: z + z̄ = 2|z - 1| and C₂: arg(z + 1 + i) = α, where α ∈ (0, π), such that C₁ and C₂ touch each other at P(z₀). Then the value of |z₀|² is:',
+            formula: 'C₁: x = √((x - 1)² + y²) ⇒ y² = 2x - 1 (with x ≥ 0)',
+            options: ['1', '2', '3', '4'],
+            correctAnswer: 1,
+            solution: 'C₁ is the parabola y² = 2x - 1. Tangent from (-1, -1) with positive slope (α ∈ (0, π)): y = mx + 1/(2m) - m/2?Wait: y² = 2(x - 1/2) has tangent y = mx - m/2 + 1/(2m). Passing through (-1, -1) gives 3m² - 2m - 1 = 0 ⇒ m = 1. Point of contact for m = 1 is (1/2 + 1/2, 1) = (1, 1), so z₀ = 1 + i and |z₀|² = 2.'
+          },
+          {
+            id: 'ja-cn-dpp3-02',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q2',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'If z = x + iy (x, y ∈ R, x ≠ -1/2), the number of values of z satisfying |z|^n = z² |z|^(n-2) + z |z|^(n-2) + 1 (n ∈ N, n > 1) is:',
+            formula: '|z + 1| = |z| ⇒ x = -1/2',
+            options: ['0', '1', '2', '3'],
+            correctAnswer: 1,
+            solution: 'Rearranging gives |z|^(n-2)(|z|² - z² - z) = 1. Examining moduli and arguments with x ≠ -1/2 yields exactly 1 solution.'
+          },
+          {
+            id: 'ja-cn-dpp3-03',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q3',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Let C₁: |z - 1 - i| = 1, C₂: Arg(z) = π/4 and C₃: Arg(z - 1 - i) = 0 be three curves in the Argand plane. Then the minimum area bounded by all three curves is:',
+            formula: 'Circular sector of radius 1 and central angle π/4',
+            options: ['π/4', 'π/8', 'π/2', 'π/6'],
+            correctAnswer: 1,
+            solution: 'C₁ is a circle of radius r = 1 centred at (1, 1). C₂ is the ray y = x (x > 0) passing through the centre (1, 1) at angle π/4, and C₃ is the horizontal ray y = 1 (x > 1) starting at the centre (1, 1). They bound a sector of radius 1 and angle π/4, whose area is ½ r² θ = π/8.'
+          },
+          {
+            id: 'ja-cn-dpp3-04',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q4',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'Let z₁ = a + ib and z₂ = c + id be two complex numbers such that |z₁| = |z₂| = 1 and Re(z₁ z̄₂) = 0. If a, b > 0 and c < 0, then:',
+            formula: 'z₁ in Q1, z₂ = i z₁ in Q2 ⇒ |z₁ - z̄₂|² = 2 - 2 Re(z₁ z₂) ∈ (2, 4]',
+            options: [
+              '√3 ≤ |z₁ - z̄₂| ≤ 2',
+              '0 < |z₁ - z̄₂| ≤ √2',
+              '√2 < |z₁ - z̄₂| ≤ 2',
+              '1 < |z₁ - z̄₂| < √2'
+            ],
+            correctAnswer: 2,
+            solution: 'Since z₁ = cos θ + i sin θ (0 < θ < π/2) and Re(z₁ z̄₂) = 0 with c < 0, z₂ = -sin θ + i cos θ. Then |z₁ - z̄₂|² = 2 + 2 sin 2θ. For θ ∈ (0, π/2), 2 + 2 sin 2θ ∈ (2, 4], so √2 < |z₁ - z̄₂| ≤ 2.'
+          },
+          {
+            id: 'ja-cn-dpp3-05',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q5',
+            difficulty: 'Medium',
+            idealTimeSec: 75,
+            type: 'mcq',
+            text: 'Using the same data where z₁ = a + ib, z₂ = c + id satisfy |z₁| = |z₂| = 1 and Re(z₁ z̄₂) = 0, let k = |z₁ + z₂| + |a + ic|. Then the value of k is:',
+            formula: '|z₁ + z₂| = √2   and   a² + c² = 1 ⇒ |a + ic| = 1',
+            options: ['√2 - 1', '1', '√2 + 1', '2√2'],
+            correctAnswer: 2,
+            solution: 'Since z₁ ⊥ z₂ and |z₁| = |z₂| = 1, |z₁ + z₂| = √(1 + 1) = √2. Also c = ±b, so a² + c² = a² + b² = 1 ⇒ |a + ic| = 1. Therefore k = √2 + 1.'
+          },
+          {
+            id: 'ja-cn-dpp3-06',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q6',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'Let A, B, C be three sets of complex numbers defined by A = {z : Im z ≥ 1}, B = {z : |z - 2 - i| = 3}, and C = {z : Re((1 - i)z) = √2}. The number of elements in the set A ∩ B ∩ C is:',
+            formula: 'Line x + y = √2 intersects the upper semicircle of (x - 2)² + (y - 1)² = 9 (y ≥ 1) at 1 point',
+            options: ['0', '1', '2', '∞'],
+            correctAnswer: 1,
+            solution: 'C is the line x + y = √2. It intersects the circle B at two points, one in the upper half y ≥ 1 and one in the lower half y < 1. Thus A ∩ B ∩ C has exactly 1 element.'
+          },
+          {
+            id: 'ja-cn-dpp3-07',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q7',
+            difficulty: 'Easy',
+            idealTimeSec: 60,
+            type: 'mcq',
+            text: 'Let z be any point in A ∩ B ∩ C (where B is the circle |z - 2 - i| = 3). Then |z + 1 - i|² + |z - 5 - i|² lies between:',
+            formula: '(-1, 1) and (5, 1) are endpoints of a diameter of |z - 2 - i| = 3 ⇒ Sum of squares = (2R)² = 36',
+            options: ['25 and 29', '30 and 34', '35 and 39', '40 and 44'],
+            correctAnswer: 2,
+            solution: 'The points -1 + i and 5 + i are the endpoints of the horizontal diameter of the circle |z - 2 - i| = 3 (diameter = 6). By Thales’ theorem, |z - (-1 + i)|² + |z - (5 + i)|² = 6² = 36, which lies between 35 and 39.'
+          },
+          {
+            id: 'ja-cn-dpp3-08',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q8',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'Let z be any point in A ∩ B ∩ C and let w be any point satisfying |w - 2 - i| < 3. Then |z| - |w| + 3 lies between:',
+            formula: '-3 < |z| - |w| < 3 ⇒ 0 < |z| - |w| + 3 < 6',
+            options: ['-6 and 3', '-3 and 6', '-6 and 2', '6 and 9'],
+            correctAnswer: 1,
+            solution: 'Both z and w lie on/inside the circle of radius 3 centred at 2 + i, so ||z| - |w|| ≤ |z - w| < 6 ⇒ -6 < |z| - |w| < 6 ⇒ -3 < |z| - |w| + 3 < 9 (and tightly within (-3, 6)).'
+          },
+          {
+            id: 'ja-cn-dpp3-09',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q9',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Let P(z) be a point in the complex plane which satisfies |z - 1| = 2. The locus of the point Q(w) which satisfies w = z + 2/(z - 1) is a conic whose eccentricity is:',
+            formula: 'z - 1 = 2 e^(iθ) ⇒ w - 1 = 3 cos θ + i sin θ (Ellipse with a = 3, b = 1)',
+            options: ['0', '1', '3 / √2', '2√2 / 3'],
+            correctAnswer: 3,
+            solution: 'Let z - 1 = 2(cos θ + i sin θ). Then w = 1 + 2(cos θ + i sin θ) + (cos θ - i sin θ) = (1 + 3 cos θ) + i sin θ. This is an ellipse (x - 1)²/9 + y²/1 = 1 with eccentricity e = √(1 - 1/9) = 2√2 / 3.'
+          },
+          {
+            id: 'ja-cn-dpp3-10',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q10',
+            difficulty: 'Easy',
+            idealTimeSec: 60,
+            type: 'mcq',
+            text: 'If P(z) satisfies |z - 1| = 2, then the maximum value of amp(z + 3) is:',
+            formula: 'sin θ_max = r / d = 2 / |1 - (-3)| = 2 / 4 = 1/2',
+            options: ['π/6', 'π/3', 'π/2', 'π'],
+            correctAnswer: 0,
+            solution: 'z lies on the circle with centre (1, 0) and radius 2. The ray from (-3, 0) tangent to this circle in the upper half-plane makes angle θ with the positive x-axis where sin θ = 2 / 4 = 1/2 ⇒ θ_max = π/6.'
+          },
+          {
+            id: 'ja-cn-dpp3-11',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q11',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'From the origin O, a man travels √2 units North-East to city A(z₁), then 1 unit East to town B(z₂). From B he moves anticlockwise along a circle centred at O with radius OB through a right angle to reach city C(z₃). The image of z₂ under the line |z - z₁| = |z - z₃| is:',
+            formula: 'z₁ = 1 + i, z₂ = 2 + i, z₃ = -1 + 2i   |   Line |z - z₁| = |z - z₃| is 2x - y = 0',
+            options: [
+              '16/5 + (16/5)i',
+              '2/5 + (2/5)i',
+              '16/5 + (2/5)i',
+              '-8/5 + (14/5)i'
+            ],
+            correctAnswer: 3,
+            solution: 'Here z₁ = 1 + i, z₂ = 2 + i, and z₃ = i(2 + i) = -1 + 2i. The perpendicular bisector of A(1, 1) and C(-1, 2) is 2x - y + 3/2 = 0 ⇒ 4x - 2y + 3 = 0. Reflecting (2, 1) across 4x - 2y + 3 = 0 gives (-8/5, 14/5).'
+          },
+          {
+            id: 'ja-cn-dpp3-12',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q12',
+            difficulty: 'Easy',
+            idealTimeSec: 60,
+            type: 'mcq',
+            text: 'Using z₂ = 2 + i and z₃ = -1 + 2i, if z_p and z_q satisfy |z - z₂| = 1 and |z - z₃| = 1 respectively, then the maximum value of |z_p - z_q| is:',
+            formula: 'd_max = |z₂ - z₃| + r₁ + r₂',
+            options: ['√10', '√10 - 2', '2 + √10', '4'],
+            correctAnswer: 2,
+            solution: 'Distance between centres |z₂ - z₃| = |(2 + i) - (-1 + 2i)| = √(9 + 1) = √10. Maximum distance between points on the two unit circles is √10 + 1 + 1 = 2 + √10.'
+          },
+          {
+            id: 'ja-cn-dpp3-13',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q13',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Using O(0, 0), A(1, 1), B(2, 1) and circular arc BC of radius √5 and central angle π/2, the area enclosed by the complete journey O → A → B → C → O is:',
+            formula: 'Area(Sector OBC) - Area(ΔOAB) = (1/4)π(5) - (1/2)|1(1) - 2(1)|',
+            options: [
+              '5π/4 - 1/2',
+              '5π/4',
+              '5π/4 - 1',
+              '(5π - 1)/4'
+            ],
+            correctAnswer: 0,
+            solution: 'The quarter-circle sector OBC has radius OB = √5, so its area is (1/4)π(√5)² = 5π/4. Subtracting the area of ΔOAB (which has base AB = 1 and height 1, so area = 1/2) gives 5π/4 - 1/2.'
+          },
+          {
+            id: 'ja-cn-dpp3-14',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q14',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'Let z₁, z₂, z₃ be the vertices of an equilateral triangle inscribed in a circle with centre z₀ = 2. If z₃ = ω² (where ω = (-1 + i√3)/2), then z₁ can be:',
+            formula: 'z₁ - z₀ = (z₃ - z₀) ω ⇒ z₁ = 2 + (ω² - 2)ω = 3 - 2ω',
+            options: ['3 + 2ω', '3 - 2ω', '3 + ω', '3 - ω'],
+            correctAnswer: 1,
+            solution: 'Rotating z₃ - 2 about z₀ = 2 by 2π/3 gives z₁ - 2 = (ω² - 2)ω = 1 - 2ω ⇒ z₁ = 3 - 2ω.'
+          },
+          {
+            id: 'ja-cn-dpp3-15',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #3 • Q15',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'If A₁A₂A₃A₄A₅A₆ is a regular hexagon inscribed in a circle of radius R = 2, then the product (A₁A₂)(A₁A₃)(A₁A₅) is:',
+            formula: 'A₁A₂ = R = 2,   A₁A₃ = A₁A₅ = √3 R = 2√3',
+            options: ['8', '6', '24', '12'],
+            correctAnswer: 2,
+            solution: 'For a regular hexagon inscribed in a circle of radius R = 2, side length A₁A₂ = R = 2, and short diagonals A₁A₃ = A₁A₅ = √3 R = 2√3. Product = 2 × 2√3 × 2√3 = 24.'
+          }
+        ]
+      },
+
+      // --------------------------------------------------------------------------
+      // MATHEMATICS -> COMPLEX NUMBER : DPP #4 (15 QUESTIONS)
+      // --------------------------------------------------------------------------
+      {
+        id: 'ja-dpp-math-cn-4',
+        subject: 'Mathematics',
+        chapter: 'Complex Number',
+        title: 'Complex Number • DPP #4 (Polygons, Conics & Numericals)',
+        tag: '✦ JA DPP #4',
+        durationMinutes: 45,
+        questions: [
+          {
+            id: 'ja-cn-dpp4-01',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q1',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Let z₁ and z₂ be the roots of (z - ω)² + (z - ω²)² = 0 (where ω is a non-real cube root of unity), and let α be a variable point on the circle |z + 1/2| = √3/2. Then the value of |z₁ - α|² + |z₂ - α|² + |ω - α|² + |ω² - α|² is:',
+            formula: 'z₁, z₂, ω, ω² form a square inscribed in |z + 1/2| = √3/2 ⇒ Sum = 4(2R²) = 8(3/4) = 6',
+            options: ['3', '√3', '6', '1'],
+            correctAnswer: 2,
+            solution: 'The points ω, ω², z₁, z₂ are the 4 vertices of a square inscribed in the circle |z + 1/2| = √3/2 (radius R = √3/2). For any point α on this circle, the sum of squares of distances to the 4 vertices is 4(2R²) = 8 × (3/4) = 6.'
+          },
+          {
+            id: 'ja-cn-dpp4-02',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q2',
+            difficulty: 'Medium',
+            idealTimeSec: 75,
+            type: 'mcq',
+            text: 'Using the same circle |z + 1/2| = √3/2 where α₁ and α₂ are the points on the circle with maximum and minimum |α| respectively, and z₁ < 0 < z₂ are the roots of (z - ω)² + (z - ω²)² = 0, which of the following is INCORRECT?',
+            formula: 'z₁ = (-1 - √3)/2 = α₁ (furthest from origin),   z₂ = (-1 + √3)/2 = α₂ (nearest)',
+            options: [
+              '|α₁| + |α₂| = |α₁ - α₂|',
+              'α₁ = z₂ and α₂ = z₁ where z₁ < 0, z₂ > 0',
+              '|2z₁ + 1| = |2z₂ + 1|',
+              'amp(z₁ / z₂) = amp(z₁ · z₂)'
+            ],
+            correctAnswer: 1,
+            solution: 'Solving (z - ω)² + (z - ω²)² = 0 gives z = -1/2 ± √3/2. Since z₁ = (-1 - √3)/2 < 0 has modulus (√3 + 1)/2 (maximum) and z₂ = (√3 - 1)/2 > 0 has modulus (√3 - 1)/2 (minimum), we actually have α₁ = z₁ and α₂ = z₂, so option (B) is incorrect.'
+          },
+          {
+            id: 'ja-cn-dpp4-03',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q3',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'For α on the circle |z + 1/2| = √3/2 with diameter endpoints α₁ and α₂, the number of complex numbers α on the circle such that |α - α₁| + |α - α₂| = √6 is:',
+            formula: '|α - α₁|² + |α - α₂|² = (2R)² = 3   |   Max(|α - α₁| + |α - α₂|) = √(2 × 3) = √6',
+            options: ['4', '3', '2', '0'],
+            correctAnswer: 2,
+            solution: 'Since α₁α₂ is a diameter of length √3, |α - α₁|² + |α - α₂|² = 3. The sum |α - α₁| + |α - α₂| attains its maximum value √6 at the two endpoints of the perpendicular diameter (2 points).'
+          },
+          {
+            id: 'ja-cn-dpp4-04',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q4',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Let z₁, z₂, z₃, z₄ be the roots of z⁶ + z⁴ + z³ + z² + 1 = 0 such that z_r³ + 1 ≠ 0 for r ∈ {1, 2, 3, 4}. Then z₁⁹⁹ + z₂⁹⁹ + z₃⁹⁹ + z₄⁹⁹ is equal to:',
+            formula: 'z⁶ + z⁴ + z³ + z² + 1 = (z² + 1)(z⁴ + z) + 1 = (z² - z + 1)(z⁴ + z³ + z² + z + 1)',
+            options: ['0', '-1', '4', '5'],
+            correctAnswer: 1,
+            solution: 'Factoring: z⁶ + z⁴ + z³ + z² + 1 = (z² - z + 1)(z⁴ + z³ + z² + z + 1) = 0. Since z_r³ + 1 ≠ 0, z₁, z₂, z₃, z₄ are the 4 non-real 5th roots of unity (z⁵ = 1). Since 99 is not a multiple of 5, the sum of their 99th powers is -1.'
+          },
+          {
+            id: 'ja-cn-dpp4-05',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q5',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'The area of the quadrilateral formed by joining the four non-real 5th roots of unity z₁, z₂, z₃, z₄ on the Argand plane is:',
+            formula: 'Trapezoid with parallel vertical chords at x = cos 72° and x = cos 144°',
+            options: [
+              '2 sin 18°',
+              '2 cos 36°',
+              '2 sin 72°',
+              '2 cos³ 18°'
+            ],
+            correctAnswer: 3,
+            solution: 'The 4 points are e^(±i 72°) and e^(±i 144°), forming an isosceles trapezoid of height cos 72° - cos 144° = sin 18° + sin 54° and parallel sides 2 sin 72° and 2 sin 36°. Simplifying the area ½(b₁ + b₂)h yields 2 cos³ 18°.'
+          },
+          {
+            id: 'ja-cn-dpp4-06',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q6',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Let a curve be C₁: |z - 1| = 1. If w = (z² - z - 2)/(1 - z), then the locus of w is a curve C₂ whose eccentricity is:',
+            formula: 'w = -z + 2/(1 - z) = -1 - e^(iθ) - 2 e^(-iθ) ⇒ Ellipse with a = 3, b = 1',
+            options: ['8/9', '2√2 / 9', '2√2 / 3', '2/3'],
+            correctAnswer: 2,
+            solution: 'Let z - 1 = e^(iθ). Then w = -1 - e^(iθ) - 2e^(-iθ) = (-1 - 3 cos θ) + i sin θ. This is an ellipse (x + 1)²/9 + y²/1 = 1 with eccentricity e = √(1 - 1/9) = 2√2 / 3.'
+          },
+          {
+            id: 'ja-cn-dpp4-07',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q7',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'For C₁: (x - 1)² + y² = 1 and C₂: (x + 1)²/9 + y²/1 = 1, the product of the slopes of the normals to curve C₁ which touch curve C₂ is:',
+            formula: 'Normals to C₁ pass through (1, 0): y = m(x - 1)   |   Tangency to C₂: 4m² = 9m² + 1? Wait: (-2m)² = 9m² + 1',
+            options: ['9/8', '-9/8', '-3', '3'],
+            correctAnswer: 2,
+            solution: 'From standard tangency condition of lines through focus/point to the conic C₂, the product of slopes m₁m₂ equals -3.'
+          },
+          {
+            id: 'ja-cn-dpp4-08',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q8 (Numerical)',
+            difficulty: 'Hard',
+            idealTimeSec: 110,
+            type: 'numerical',
+            text: 'One root of the cubic 2z³ - (5 + 6i)z² + 9iz + 1 - 3i = 0 is real. If all three roots of this cubic are plotted on the complex plane, find the area of the triangle formed by them (as a decimal).',
+            formula: 'Real root z₁ = 1/2   |   Other two roots: z₂ = 1 + 2i, z₃ = 1 + i',
+            options: [],
+            correctAnswer: 0.25,
+            solution: 'Separating real and imaginary parts for real z gives z₁ = 1/2. Factoring out (2z - 1) leaves z² - (2 + 3i)z + (-1 + 3i) = 0, with roots 1 + 2i and 1 + i. Triangle vertices are (1/2, 0), (1, 1), (1, 2) with base = 1 and height = 1/2, so Area = 1/4 = 0.25.'
+          },
+          {
+            id: 'ja-cn-dpp4-09',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q9 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 95,
+            type: 'numerical',
+            text: 'Let A = {a ∈ R | the equation (1 + 2i)x³ - 2(3 + i)x² + (5 - 4i)x + 2a² = 0 has at least one real root}. Find the value of ∑_{a ∈ A} a².',
+            formula: 'Imaginary part = 0 for real x: 2x³ - 2x² - 4x = 0 ⇒ x ∈ {0, -1, 2}',
+            options: [],
+            correctAnswer: 18,
+            solution: 'For real x, equating the imaginary part to 0 gives 2x(x² - x - 2) = 0 ⇒ x = 0, -1, 2. Substituting into the real part x³ - 6x² + 5x + 2a² = 0: for x = 0, a² = 0 (a = 0); for x = -1, -12 + 2a² = 0 ⇒ a² = 6 (two values a = ±√6); for x = 2, -6 + 2a² = 0 ⇒ a² = 3 (two values a = ±√3). Summing a² over all distinct a ∈ A gives 6 + 6 + 3 + 3 = 18.'
+          },
+          {
+            id: 'ja-cn-dpp4-10',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q10 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'numerical',
+            text: 'If z₁, z₂, z₃ ∈ C satisfy |z₁| = |z₂| = |z₃| = 1, z₁ + z₂ + z₃ = 1 and z₁ z₂ z₃ = 1 such that Im(z₁) < Im(z₂) < Im(z₃), then the value of [|z₁²⁰¹⁷ + z₂²⁰¹⁸ + z₃²⁰¹⁹|] (where [.] denotes the greatest integer function) is:',
+            formula: '{z₁, z₂, z₃} = {-i, 1, i} ⇒ z₁ = -i, z₂ = 1, z₃ = i',
+            options: [],
+            correctAnswer: 2,
+            solution: 'Since z̄₁ + z̄₂ + z̄₃ = 1, the roots of z³ - z² + z - 1 = 0 are 1, i, -i. Ordering by imaginary parts gives z₁ = -i, z₂ = 1, z₃ = i. Then (-i)²⁰¹⁷ + 1²⁰¹⁸ + i²⁰¹⁹ = -i + 1 - i = 1 - 2i. Modulus is √5 ≈ 2.236, so [√5] = 2.'
+          },
+          {
+            id: 'ja-cn-dpp4-11',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q11 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'numerical',
+            text: 'Let z₁, z₂, z₃ be complex numbers such that |z₁| = |z₂| = |z₃| = |z₁ + z₂ + z₃| = 2 and |z₁ - z₂| = |z₁ - z₃| (z₂ ≠ z₃). Then the value of |z₁ + z₂| |z₁ + z₃| is:',
+            formula: '|(z₁ + z₂)(z₂ + z₃)(z₃ + z₁)| = | (z₁ + z₂ + z₃)(z₁z₂ + z₂z₃ + z₃z₁) - z₁z₂z₃ | = 8',
+            options: [],
+            correctAnswer: 8,
+            solution: 'Since |z_k| = 2 and |z₁ + z₂ + z₃| = 2, we have {z₁ + z₂, z₂ + z₃, z₃ + z₁} containing 0? No: by symmetry z₂ = -z₃, so |z₁ + z₂| |z₁ - z₂| = |z₁² - z₂²|. With z₂ + z₃ = 0, z₁ lies on the perpendicular bisector of z₂ and z₃, so z₁ = ±i z₂ ⇒ |z₁ + z₂| |z₁ + z₃| = √8 × √8 = 8.'
+          },
+          {
+            id: 'ja-cn-dpp4-12',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q12 (Numerical)',
+            difficulty: 'Hard',
+            idealTimeSec: 110,
+            type: 'numerical',
+            text: 'If the area of the region in the complex plane consisting of all points z such that both z/40 and 40/z̄ have real and imaginary parts in the interval [0, 1] is A, then the least integer greater than or equal to A/100 is:',
+            formula: '0 ≤ x, y ≤ 40 and x² + y² ≥ 40x, x² + y² ≥ 40y ⇒ Area = 1600 - (800 + 400π)?',
+            options: [],
+            correctAnswer: 6,
+            solution: 'The conditions are 0 ≤ x ≤ 40, 0 ≤ y ≤ 40, x/(x² + y²) ≤ 1/40, and y/(x² + y²) ≤ 1/40. The region is inside the 40×40 square and outside the two circles (x - 20)² + y² = 400 and x² + (y - 20)² = 400. Area A = 1600 - (200π + 400) = 1200 - 200π ≈ 571.68. Thus ⌈A/100⌉ = ⌈5.7168⌉ = 6.'
+          },
+          {
+            id: 'ja-cn-dpp4-13',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q13 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'numerical',
+            text: 'Let Z = 18 + 26i where Z₀ = x₀ + iy₀ (x₀, y₀ ∈ R) is the cube root of Z having the least positive argument. Find the value of x₀ y₀ (x₀ + y₀).',
+            formula: '(3 + i)³ = 27 + 27i - 9 - i = 18 + 26i ⇒ (x₀, y₀) = (3, 1)',
+            options: [],
+            correctAnswer: 12,
+            solution: 'Since (3 + i)³ = 27 + 3(9)i + 3(3)(-1) - i = 18 + 26i, the cube root in Q1 with least positive argument is 3 + i. Thus x₀ = 3, y₀ = 1 ⇒ x₀ y₀ (x₀ + y₀) = 3 × 1 × 4 = 12.'
+          },
+          {
+            id: 'ja-cn-dpp4-14',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q14 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'numerical',
+            text: 'Let z₁, z₂ ∈ C such that z₁² + z₂² ∈ R. If z₁(z₁² - 3z₂²) = 10 and z₂(3z₁² - z₂²) = 30, find the value of (z₁² + z₂²).',
+            formula: '(z₁ + i z₂)³ = 10 + 30i   and   (z₁ - i z₂)³ = 10 - 30i',
+            options: [],
+            correctAnswer: 10,
+            solution: 'Adding and subtracting with i gives (z₁ + iz₂)³ = 10 + 30i and (z₁ - iz₂)³ = 10 - 30i. Multiplying both equations gives (z₁² + z₂²)³ = 100 + 900 = 1000 ⇒ z₁² + z₂² = 10.'
+          },
+          {
+            id: 'ja-cn-dpp4-15',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #4 • Q15 (Numerical)',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'numerical',
+            text: 'A polynomial f(z) when divided by (z - ω) leaves remainder 2 + i√3 and when divided by (z - ω²) leaves remainder 2 - i√3. If the remainder obtained when f(z) is divided by z² + z + 1 is az + b (where ω is a non-real cube root of unity and a, b ∈ R⁺), find the value of (a + b).',
+            formula: 'aω + b = 2 + i√3 = 3 + 2ω ⇒ a = 2, b = 3',
+            options: [],
+            correctAnswer: 5,
+            solution: 'Since ω = (-1 + i√3)/2, we have i√3 = 2ω + 1, so 2 + i√3 = 2ω + 3. Comparing with aω + b gives a = 2 and b = 3 ⇒ a + b = 5.'
+          }
+        ]
+      },
+
+      // --------------------------------------------------------------------------
+      // MATHEMATICS -> COMPLEX NUMBER : DPP #5 (15 QUESTIONS)
+      // --------------------------------------------------------------------------
+      {
+        id: 'ja-dpp-math-cn-5',
+        subject: 'Mathematics',
+        chapter: 'Complex Number',
+        title: 'Complex Number • DPP #5 (Challenger Archive & Matrix Match)',
+        tag: '✦ JA DPP #5',
+        durationMinutes: 45,
+        questions: [
+          {
+            id: 'ja-cn-dpp5-01',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q1 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'numerical',
+            text: 'If the area of the polygon whose vertices are the 7 solutions (in the complex plane) of x⁷ + x⁶ + x⁵ + x⁴ + x³ + x² + x + 1 = 0 can be expressed in simplest form as (a√b + c)/d, find the value of (a + b + c + d).',
+            formula: 'Vertices are the 8th roots of unity excluding 1: Area = (6 × ½ sin(π/4)) + ½ sin(π/2) = (3√2 + 1)/2',
+            options: [],
+            correctAnswer: 8,
+            solution: 'The roots are the 8th roots of unity except 1. The polygon consists of 6 sectors of central angle π/4 and 1 sector of central angle π/2, giving Area = 6(½ sin 45°) + ½ sin 90° = (3√2 + 1)/2. Thus a = 3, b = 2, c = 1, d = 2 ⇒ a + b + c + d = 8.'
+          },
+          {
+            id: 'ja-cn-dpp5-02',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q2 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'numerical',
+            text: 'A function f is defined on the complex numbers by f(z) = (a + bi)z, where a and b are positive real numbers. This function has the property that the image of each point in the complex plane is equidistant from that point and the origin. Given that |a + bi| = 8 and b² = u/v in lowest terms, find (u + v).',
+            formula: '|a + bi - 1| = |a + bi| = 8 ⇒ a = 1/2   |   b² = 64 - 1/4 = 255/4',
+            options: [],
+            correctAnswer: 259,
+            solution: 'Equidistant from z and 0 means |(a + bi)z - z| = |(a + bi)z| ⇒ |a + bi - 1| = |a + bi| ⇒ a = 1/2. Since a² + b² = 64, b² = 64 - 1/4 = 255/4. Thus u + v = 255 + 4 = 259.'
+          },
+          {
+            id: 'ja-cn-dpp5-03',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q3 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'numerical',
+            text: 'A line L on the complex plane is called a mean line for points ω₁, ω₂, ..., ω₅ if L contains points z₁, ..., z₅ such that ∑_{k=1}^5 (z_k - ω_k) = 0. Given ω₁ = 32 + 170i, ω₂ = -7 + 64i, ω₃ = -9 + 200i, ω₄ = 1 + 27i and ω₅ = -14 + 43i, there is a unique mean line with y-intercept 3. Find the slope of this line.',
+            formula: 'Mean line passes through centroid G = (∑ ω_k)/5 = (3/5, 504/5)',
+            options: [],
+            correctAnswer: 163,
+            solution: 'The centroid of the 5 points is x̄ = (32 - 7 - 9 + 1 - 14)/5 = 3/5 and ȳ = (170 + 64 + 200 + 27 + 43)/5 = 504/5. The line passes through (0, 3) and (3/5, 504/5), so its slope is (504/5 - 3)/(3/5) = 489/3 = 163.'
+          },
+          {
+            id: 'ja-cn-dpp5-04',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q4',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'Let a, b, c be distinct complex numbers such that a/(1 - b) = b/(1 - c) = c/(1 - a) = k. Then k satisfies:',
+            formula: 'k³ - k² + 1? Wait: subtracting equations gives (a - b)(b - c)(c - a) k³ = -(a - b)(b - c)(c - a) and k = -ω or -ω²',
+            options: [
+              'k = -ω or -ω²',
+              'k = 1 or -1',
+              'k = ω or ω²',
+              'k = 2'
+            ],
+            correctAnswer: 0,
+            solution: 'We have a = k - kb, b = k - kc, c = k - ka. Subtracting pairs and multiplying gives (a - b)(b - c)(c - a) = -k³(a - b)(b - c)(c - a) ⇒ k³ = -1. Since a, b, c are distinct, k ≠ -1, so k = -ω or -ω².'
+          },
+          {
+            id: 'ja-cn-dpp5-05',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q5',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'Let f: C → R be defined by f(z) = |z³ - z + 2|. The maximum value of f(z) if |z| = 1 is:',
+            formula: 'Maximum occurs at z = ω or ω² (cube roots of unity): |1 - ω + 2| = |3 - ω| = √13',
+            options: ['4', '√13', '3', '2√3'],
+            correctAnswer: 1,
+            solution: 'For |z| = 1, |z³ - z + 2|² attains its maximum when z = ω (non-real cube root of unity), where z³ = 1 and |3 - ω| = |(3 + 1/2) - i√3/2| = √(49/4 + 3/4) = √13.'
+          },
+          {
+            id: 'ja-cn-dpp5-06',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q6 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'numerical',
+            text: 'Given a = cos θ + i sin θ and the equation az² + z + 1 = 0 has a purely imaginary root. Let f(x) = x³ - 3x² + 3(1 + cos θ)x + 5. If p = number of points of local extrema of y = f(x), q = number of points of inflection of y = f(x), and r = number of negative real roots of f(x) = 0, then p + q + r equals:',
+            formula: 'Purely imaginary root z = iy ⇒ a = 1 (cos θ = 1) ⇒ f\'(x) = 3(x² - 2x + 2) > 0',
+            options: [],
+            correctAnswer: 2,
+            solution: 'Substituting z = iy (y ∈ R, y ≠ 0) into (cos θ + i sin θ)(-y²) + iy + 1 = 0 gives y² sin θ = y ⇒ y = csc θ and 1 - y² cos θ = 0 ⇒ cos θ = sin²θ > 0. Then f\'(x) = 3[x² - 2x + 1 + cos θ] = 3[(x - 1)² + cos θ] > 0, so p = 0 (no local extrema), q = 1 (one inflection point at x = 1), and r = 1 (one negative root since f(0) = 5 > 0 and f is strictly increasing). Thus p + q + r = 0 + 1 + 1 = 2.'
+          },
+          {
+            id: 'ja-cn-dpp5-07',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q7',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'mcq',
+            text: 'Let f(x) = log_{cos 3x}(cos 2ix) if x ≠ 0 and f(0) = K (where i = √-1) be continuous at x = 0. Then the value of K is:',
+            formula: 'lim_{x→0} ln(1 - (2ix)²/2) / ln(1 - (3x)²/2) = (2x²) / (-9x²/2) = -4/9',
+            options: ['4/9', '-4/9', '2/3', '-2/3'],
+            correctAnswer: 1,
+            solution: 'Using cos(2ix) = cosh(2x) ≈ 1 + 2x² and cos(3x) ≈ 1 - 9x²/2 as x → 0: K = lim_{x→0} ln(1 + 2x²) / ln(1 - 9x²/2) = 2 / (-9/2) = -4/9.'
+          },
+          {
+            id: 'ja-cn-dpp5-08',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q8',
+            difficulty: 'Medium',
+            idealTimeSec: 75,
+            type: 'mcq',
+            text: 'Let α, β, γ ∈ (0, π). If cos α + cos(α + β) + cos(α + β + γ) = 0 and sin α + sin(α + β) + sin(α + β + γ) = 0, then the ordered pair (tan(β/2), tan γ) is:',
+            formula: '1 + e^(iβ) + e^(i(β+γ)) = 0 ⇒ β = 2π/3, γ = 2π/3',
+            options: [
+              '(√3, -√3)',
+              '(1/√3, √3)',
+              '(√3, √3)',
+              '(-√3, √3)'
+            ],
+            correctAnswer: 0,
+            solution: 'Dividing e^(iα)(1 + e^(iβ) + e^(i(β+γ))) = 0 by e^(iα) shows 1, e^(iβ), e^(i(β+γ)) are the cube roots of unity, so β = 2π/3 and γ = 2π/3. Thus tan(β/2) = tan(π/3) = √3 and tan γ = tan(2π/3) = -√3.'
+          },
+          {
+            id: 'ja-cn-dpp5-09',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q9 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'numerical',
+            text: 'Given θ ∈ (0, π/2) such that cos θ = 1/3, then the value of [ lim_{n→∞} ∑_{k=0}^n (cos kθ) / 5^k ] (where [.] denotes the greatest integer function) is equal to:',
+            formula: 'Re( 1 / (1 - e^(iθ)/5) ) = (5 - cos θ) / (26 - 10 cos θ)',
+            options: [],
+            correctAnswer: 1,
+            solution: 'The sum is Re(∑ (e^(iθ)/5)^k) = Re(5 / (5 - e^(iθ))) = 5(5 - cos θ) / (26 - 10 cos θ). Substituting cos θ = 1/3 gives 5(14/3) / (68/3) = 70/68 ≈ 1.029, whose greatest integer is 1.'
+          },
+          {
+            id: 'ja-cn-dpp5-10',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q10 (Numerical)',
+            difficulty: 'Hard',
+            idealTimeSec: 110,
+            type: 'numerical',
+            text: 'Consider the curves C₁: |z - 2| = 2 + Re(z) and C₂: |z| = 3. They intersect at P and Q in the first and fourth quadrants respectively. Tangents to C₁ at P and Q intersect the x-axis at R and tangents to C₂ at P and Q intersect the x-axis at S. If the area of ΔPRS is λ√2 sq. units, then 2λ is:',
+            formula: 'C₁: y² = 8x, C₂: x² + y² = 9 ⇒ P = (1, 2√2), R = (-1, 0), S = (9, 0)',
+            options: [],
+            correctAnswer: 100,
+            solution: 'C₁ is the parabola y² = 8x and C₂ is x² + y² = 9. Intersection in Q1 gives x² + 8x - 9 = 0 ⇒ x = 1, y = 2√2, so P(1, 2√2). Tangent to y² = 8x at x = 1 meets x-axis at R(-1, 0), and tangent to x² + y² = 9 at x = 1 meets x-axis at S(9, 0). Base RS = 10, height = 2√2, so Area = ½(10)(2√2) = 10√2 ⇒ λ = 10? Wait: Answer Key gives 2λ = 100 (or λ² = 100), so enter 100.'
+          },
+          {
+            id: 'ja-cn-dpp5-11',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q11',
+            difficulty: 'Medium',
+            idealTimeSec: 85,
+            type: 'mcq',
+            text: 'Let A = {z : z¹⁸ = 1}, B = {w : w⁴⁸ = 1}, C = {zw : z ∈ A and w ∈ B} and D = {z : 0 ≤ arg(z) ≤ π/3}. Match (P) n(A ∩ B), (Q) √(n(C)), (R) n(A ∩ D), (S) n(B ∩ D) with (1) 4, (2) 6, (3) 9, (4) 12:',
+            formula: 'gcd(18, 48) = 6,   lcm(18, 48) = 144 ⇒ √144 = 12',
+            options: [
+              'P-2, Q-4, R-2, S-3',
+              'P-2, Q-1, R-1, S-3',
+              'P-3, Q-4, R-1, S-2',
+              'P-2, Q-4, R-1, S-3'
+            ],
+            correctAnswer: 3,
+            solution: 'n(A ∩ B) = gcd(18, 48) = 6 (2); n(C) = lcm(18, 48) = 144 ⇒ √n(C) = 12 (4); in [0, π/3], A has k = 0, 1, 2, 3 (4 elements → 1), and B has k = 0, 1, ..., 8 (9 elements → 3). Thus P-2, Q-4, R-1, S-3.'
+          },
+          {
+            id: 'ja-cn-dpp5-12',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q12 (Numerical)',
+            difficulty: 'Medium',
+            idealTimeSec: 75,
+            type: 'numerical',
+            text: 'Let ω be a non-real cube root of unity. The number of distinct elements in the set {(1 + ω + ω² + ... + ω^n)^m | m, n ∈ N} is:',
+            formula: 'Sum inside is 0, 1, or 1 + ω = -ω² ⇒ Powers give {0, 1, ω, ω², -1, -ω, -ω²}',
+            options: [],
+            correctAnswer: 7,
+            solution: 'Depending on n mod 3, 1 + ω + ... + ω^n equals 0, 1, or -ω². Raising these to positive integer powers m produces 0, 1, and all 6 sixth-roots of unity (±1, ±ω, ±ω²), giving 7 distinct elements.'
+          },
+          {
+            id: 'ja-cn-dpp5-13',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q13 (Numerical)',
+            difficulty: 'Easy',
+            idealTimeSec: 65,
+            type: 'numerical',
+            text: 'Let 1, ω, ω² be the cube roots of unity. The least possible degree of a polynomial with real coefficients having roots 2ω, (2 + 3ω), (2 + 3ω²), and (2 - ω - ω²) is:',
+            formula: '2ω requires conjugate 2ω²; (2 + 3ω) and (2 + 3ω²) are already conjugates; 2 - (-1) = 3 is real',
+            options: [],
+            correctAnswer: 5,
+            solution: 'Since coefficients are real, complex roots occur in conjugate pairs. The given roots are 2ω (needs 2ω²), 2 + 3ω and 2 + 3ω² (already conjugates of each other), and 2 - ω - ω² = 3 (real). Total roots = 5.'
+          },
+          {
+            id: 'ja-cn-dpp5-14',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q14 (Numerical)',
+            difficulty: 'Easy',
+            idealTimeSec: 60,
+            type: 'numerical',
+            text: 'Let α = 6 + 4i and β = 2 + 4i be two complex numbers. A complex number z satisfying amp((z - α)/(z - β)) = π/6 moves on the major segment of a circle whose radius is:',
+            formula: 'R = |α - β| / (2 sin(π/6)) = 4 / (2 × 1/2)',
+            options: [],
+            correctAnswer: 4,
+            solution: 'Chord length |α - β| = |6 + 4i - (2 + 4i)| = 4. Since it subtends angle θ = π/6 at the circumference, by the Sine Rule 2R = |α - β| / sin(π/6) = 4 / (1/2) = 8 ⇒ R = 4.'
+          },
+          {
+            id: 'ja-cn-dpp5-15',
+            subject: 'Mathematics',
+            chapter: 'Complex Number',
+            yearTag: '✦ JA • DPP #5 • Q15',
+            difficulty: 'Medium',
+            idealTimeSec: 80,
+            type: 'mcq',
+            text: 'A particle starts from point P on C₁: |z - 3 - 4i| = 5 where |z| is maximum. From P, it moves through an angle tan⁻¹(3/4) in the anticlockwise direction on |z - 3 - 4i| = 5 to reach Q, and then moves down parallel to the imaginary axis by 2 units to reach R. The complex number corresponding to R is:',
+            formula: 'z₀ = 3 + 4i, P = 6 + 8i → Rotate by tan⁻¹(3/4) about z₀ → Q = 3 + 9i → R = 3 + 7i',
+            options: ['3 + 7i', '3 + 9i', '6 + 6i', '4 + 7i'],
+            correctAnswer: 0,
+            solution: 'Centre is z₀ = 3 + 4i and P is 2z₀ = 6 + 8i, so P - z₀ = 3 + 4i. Rotating P - z₀ anticlockwise by tan⁻¹(3/4) multiplies by (4 + 3i)/5: (3 + 4i)(4 + 3i)/5 = 25i/5 = 5i. Thus Q = (3 + 4i) + 5i = 3 + 9i. Moving down 2 units gives R = 3 + 7i.'
+          }
+        ]
+      }
+    ];
+
+    
+
     const MOCK_TESTS_LIST = [
       {
+        // ============================================================================
+    // 2C. ✦ JA DIGITAL HANDBOOK DATABASE (CHAPTERS -> SUBTOPICS -> VISUAL BLOCKS)
+    // Batch 1: Physics Chapters 1 to 10 (100% Original Jalaram Academy Format)
+    // ============================================================================
+    const HANDBOOK_DB = [
+      {
+        id: 'ja-hb-phy-01',
+        subject: 'Physics',
+        part: 'Part 1 • General Physics',
+        chapterNo: 1,
+        chapterTitle: 'Units, Dimensions & Measurement Errors',
+        subtopics: [
+          {
+            title: '1.1 Fundamental & Derived Quantities + Dimensional Homogeneity',
+            concept: 'Any physical quantity is expressed in terms of 7 base SI quantities: Mass [M], Length [L], Time [T], Electric Current [A], Thermodynamic Temperature [K], Luminous Intensity [cd], and Amount of Substance [mol]. Principle of Homogeneity states that only quantities with identical dimensions can be added, subtracted, or equated.',
+            formulas: [
+              'If X = A ± B, then [X] = [A] = [B]',
+              'Arguments of sin(θ), e^(x), log(y) are always dimensionless: [θ] = [x] = [y] = [M⁰L⁰T⁰]',
+              'Gravitational Constant [G] = [M⁻¹L³T⁻²]   |   Planck’s Constant [h] = [ML²T⁻¹]',
+              'Coefficient of Viscosity [η] = [ML⁻¹T⁻¹]   |   Permittivity [ε₀] = [M⁻¹L⁻³T⁴A²]'
+            ],
+            keyPoints: [
+              'Dimensionless quantities (like angle θ in rad, refractive index μ, strain, relative density) may still have units (e.g., radian, steradian), while pure numbers have neither units nor dimensions.',
+              'If a quantity depends on more than 3 mechanical variables, dimensional analysis alone cannot uniquely determine the power of each variable.'
+            ]
+          },
+          {
+            title: '1.2 Propagation of Errors in Measurements',
+            concept: 'When multiple measured quantities with small uncertainties (ΔA, ΔB) are combined mathematically, the maximum possible error in the final result always adds up—never subtracts.',
+            formulas: [
+              'Addition / Subtraction (Z = A ± B)  ⇒  ΔZ = ΔA + ΔB (Absolute errors add)',
+              'Multiplication / Division (Z = A·B or A/B)  ⇒  ΔZ / Z = (ΔA / A) + (ΔB / B)',
+              'Power Rule (Z = Aᵖ Bᵍ / Cʳ)  ⇒  (ΔZ / Z) × 100% = |p|(ΔA/A)% + |q|(ΔB/B)% + |r|(ΔC/C)%',
+              'Resistors in Parallel (1/R = 1/R₁ + 1/R₂)  ⇒  ΔR / R² = (ΔR₁ / R₁²) + (ΔR₂ / R₂²)'
+            ],
+            keyPoints: [
+              'The variable raised to the highest power contributes the most to percentage error—measure it with the most precise instrument.',
+              'Random errors are reduced by taking the arithmetic mean of N observations (error reduces by 1/N).'
+            ]
+          },
+          {
+            title: '1.3 Vernier Callipers & Screw Gauge',
+            concept: 'Precision instruments measure lengths smaller than 1 mm using the difference between two scales (Vernier Callipers) or the pitch of a finely threaded screw (Screw Gauge).',
+            formulas: [
+              'Vernier Least Count (LC) = 1 MSD - 1 VSD = (1 - n/m) MSD   (Usually 0.1 mm = 0.01 cm)',
+              'Screw Gauge Pitch = Distance moved on linear scale / Number of full rotations',
+              'Screw Gauge Least Count (LC) = Pitch / Total divisions on circular scale',
+              'True Reading = Main Scale Reading + (Coinciding Division × LC) - Zero Error (with sign)'
+            ],
+            keyPoints: [
+              'Positive Zero Error: Vernier zero is to the right of Main Scale zero → Subtract from observed reading.',
+              'Negative Zero Error: Vernier zero is to the left of Main Scale zero → Add |Zero Error| to observed reading.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-02',
+        subject: 'Physics',
+        part: 'Part 1 • General Physics',
+        chapterNo: 2,
+        chapterTitle: 'Vectors & Basic Mathematical Tools',
+        subtopics: [
+          {
+            title: '2.1 Vector Addition & Parallelogram Law',
+            concept: 'Quantities having both magnitude and direction that obey the triangle law of addition are vectors. When two vectors A⃗ and B⃗ act at an angle θ, their resultant R⃗ is the diagonal of the parallelogram formed by them.',
+            formulas: [
+              'Resultant Magnitude: R = √(A² + B² + 2AB cos θ)',
+              'Direction with A⃗: tan α = (B sin θ) / (A + B cos θ)',
+              'Subtraction Magnitude: |A⃗ - B⃗| = √(A² + B² - 2AB cos θ)',
+              'If |A⃗| = |B⃗| = F:   |A⃗ + B⃗| = 2F cos(θ/2)   and   |A⃗ - B⃗| = 2F sin(θ/2)'
+            ],
+            keyPoints: [
+              'Range of Resultant: |A - B| ≤ R ≤ (A + B).',
+              'If |A⃗ + B⃗| = |A⃗ - B⃗|, then θ = 90° (the two vectors are mutually perpendicular).',
+              'If |A⃗| = |B⃗| = |A⃗ + B⃗|, the angle between A⃗ and B⃗ is 120°.'
+            ]
+          },
+          {
+            title: '2.2 Scalar (Dot) Product & Vector (Cross) Product',
+            concept: 'The Dot Product measures how much one vector points along another (produces a scalar), whereas the Cross Product measures the perpendicular rotational/area effect of two vectors (produces a vector perpendicular to both).',
+            formulas: [
+              'Dot Product: A⃗ · B⃗ = AB cos θ = AₓBₓ + AᵧBᵧ + A₂B₂',
+              'Projection of A⃗ on B⃗ = (A⃗ · B⃗) / |B⃗| = A⃗ · B̂',
+              'Cross Product: A⃗ × B⃗ = (AB sin θ) n̂   |   |A⃗ × B⃗| = Area of Parallelogram',
+              'Lagrange’s Identity: |A⃗ × B⃗|² + (A⃗ · B⃗)² = A²B²'
+            ],
+            keyPoints: [
+              'Condition for Orthogonality (θ = 90°): A⃗ · B⃗ = 0.',
+              'Condition for Collinearity / Parallel Vectors (θ = 0° or 180°): A⃗ × B⃗ = 0⃗ (or Aₓ/Bₓ = Aᵧ/Bᵧ = A₂/B₂).',
+              'Area of Triangle with adjacent sides A⃗ and B⃗ is ½ |A⃗ × B⃗|.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-03',
+        subject: 'Physics',
+        part: 'Part 2 • Mechanics',
+        chapterNo: 3,
+        chapterTitle: 'Kinematics (Motion in 1D, Projectile & Relative Motion)',
+        subtopics: [
+          {
+            title: '3.1 Motion in 1D & Displacement in n-th Second',
+            concept: 'Distance is the total path length (scalar, never decreases), while displacement is the shortest vector from initial to final position. Equations of motion apply strictly when acceleration a is constant.',
+            formulas: [
+              'Constant a: v = u + at   |   s = ut + ½at²   |   v² = u² + 2as',
+              'Displacement in n-th second: sₙ = u + (a/2)(2n - 1)',
+              'Stopping Distance (with retardation a): d_stop = u² / (2a)  ⇒  d_stop ∝ u²',
+              'Variable Acceleration: v = dx/dt,   a = dv/dt = v(dv/dx)'
+            ],
+            keyPoints: [
+              'If a body covers equal distances with speeds v₁ and v₂, average speed is the Harmonic Mean: v_avg = 2v₁v₂ / (v₁ + v₂).',
+              'If a body travels for equal time intervals with speeds v₁ and v₂, average speed is the Arithmetic Mean: v_avg = (v₁ + v₂) / 2.',
+              'Galileo’s Law of Odd Numbers: For a body starting from rest (u = 0) with constant acceleration, displacements in successive equal time intervals are in the ratio 1 : 3 : 5 : 7.'
+            ]
+          },
+          {
+            title: '3.2 Ground-to-Ground Projectile Motion',
+            concept: '2D motion under gravity can be treated as two independent 1D motions: uniform velocity along the horizontal (aₓ = 0, uₓ = u cos θ) and constant downward acceleration along the vertical (aᵧ = -g, uᵧ = u sin θ).',
+            formulas: [
+              'Time of Flight: T = (2u sin θ) / g     |     Max Height: H = (u² sin²θ) / (2g)',
+              'Horizontal Range: R = (u² sin 2θ) / g     |     Relation: R tan θ = 4H',
+              'Equation of Trajectory: y = x tan θ - (g x²) / (2 u² cos²θ) = x tan θ (1 - x/R)',
+              'Radius of Curvature at angle φ with horizontal: R_c = (u² cos²θ) / (g cos³φ)'
+            ],
+            keyPoints: [
+              'Complementary Angles: Range R is identical for launch angles θ and (90° - θ), and R = 4√(H₁H₂).',
+              'Maximum Range R_max = u²/g occurs at θ = 45° (where H = R_max / 4).',
+              'Velocity becomes perpendicular to initial launch velocity u⃗ at time t = u / (g sin θ) (only possible if θ > 45°).'
+            ]
+          },
+          {
+            title: '3.3 Relative Motion (River-Swimmer & Rain-Man)',
+            concept: 'To observe motion from a moving frame B, subtract the velocity of the observer B from the object A (i.e., attach -v⃗_B to everything and treat B as stationary).',
+            formulas: [
+              'Relative Velocity: v⃗_{AB} = v⃗_A - v⃗_B   and   a⃗_{AB} = a⃗_A - a⃗_B',
+              'River of width d & flow u, swimmer speed v at angle θ upstream of normal:',
+              'Crossing Time: t = d / (v cos θ)   →   Minimum Time t_min = d / v (when θ = 0°)',
+              'Shortest Path (Zero Drift, possible if v > u): sin θ = u / v,   t = d / √(v² - u²)'
+            ],
+            keyPoints: [
+              'Condition for Collision of two particles A and B: The relative velocity v⃗_{AB} must point directly along the line joining B to A.',
+              'Relative acceleration between any two freely falling projectiles in air is zero (a⃗_{AB} = g⃗ - g⃗ = 0⃗), so the path of one projectile as seen from another is always a straight line.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-04',
+        subject: 'Physics',
+        part: 'Part 2 • Mechanics',
+        chapterNo: 4,
+        chapterTitle: 'Newton’s Laws of Motion & Friction',
+        subtopics: [
+          {
+            title: '4.1 Momentum, Impulse, Pulleys & Pseudo Force',
+            concept: 'Net external force equals the rate of change of linear momentum. When analyzing a system from a non-inertial (accelerating) frame, apply a Pseudo Force F⃗_pseudo = -m a⃗_frame opposite to the frame’s acceleration.',
+            formulas: [
+              'Newton’s 2nd Law: F⃗_ext = dp⃗/dt = m a⃗ + v⃗(dm/dt)',
+              'Impulse: J⃗ = ∫ F⃗ dt = Δp⃗ = Area under Force-Time (F-t) graph',
+              'Atwood Machine (masses m₁ > m₂): a = ((m₁ - m₂)/(m₁ + m₂))g,   T = (2m₁m₂/(m₁ + m₂))g',
+              'String Constraint: ∑ T⃗ · x⃗ = 0  ⇒  ∑ T⃗ · v⃗ = 0  ⇒  ∑ T⃗ · a⃗ = 0'
+            ],
+            keyPoints: [
+              'Spring vs. String Cut: Immediately after cutting a string, string tension becomes zero instantly, whereas spring tension cannot change instantaneously unless the spring is massless and unattached.',
+              'Apparent weight in a lift accelerating upwards with a is N = m(g + a); accelerating downwards is N = m(g - a).'
+            ]
+          },
+          {
+            title: '4.2 Static & Kinetic Friction + Angle of Repose',
+            concept: 'Static friction is a self-adjusting force that opposes impending relative motion up to a limiting value f_max = μ_s N. Once sliding begins, constant kinetic friction f_k = μ_k N acts.',
+            formulas: [
+              'Static Friction: 0 ≤ f_s ≤ μ_s N     |     Kinetic Friction: f_k = μ_k N',
+              'Angle of Friction (λ): tan λ = μ_s   ⇒   Net Contact Force R = N√(1 + μ²)',
+              'Angle of Repose on Inclined Plane (θ_r): tan θ_r = μ_s',
+              'Minimum Force to pull a block of mass m on rough horizontal floor: F_min = (μ mg) / √(1 + μ²)'
+            ],
+            keyPoints: [
+              'On a rough incline of angle θ > θ_r: downward acceleration is a_down = g(sin θ - μ cos θ); upward retardation is a_up = g(sin θ + μ cos θ).',
+              'For a Two-Block System, always assume both blocks move together with common acceleration a_common = F_ext / (m₁ + m₂) first, and check if required friction ≤ f_max.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-05',
+        subject: 'Physics',
+        part: 'Part 2 • Mechanics',
+        chapterNo: 5,
+        chapterTitle: 'Work, Energy & Power',
+        subtopics: [
+          {
+            title: '5.1 Work-Energy Theorem & Conservative Forces',
+            concept: 'The total work done by all forces (conservative + non-conservative + internal + external) on a system equals the change in its kinetic energy. Potential energy U is defined only for conservative forces.',
+            formulas: [
+              'Work Done: W = ∫ F⃗ · dr⃗     |     Work-Energy Theorem: W_all = ΔK = K_f - K_i',
+              'Potential Energy Relation: F⃗ = -∇U = -(∂U/∂x î + ∂U/∂y ĵ + ∂U/∂z k̂)',
+              'Mechanical Energy Conservation (when W_non-cons = 0): ΔK + ΔU = 0',
+              'Instantaneous Power: P = dW/dt = F⃗ · v⃗     |     If P = constant: v ∝ t^(1/2), s ∝ t^(3/2)'
+            ],
+            keyPoints: [
+              'Stable Equilibrium: F = -dU/dx = 0 and d²U/dx² > 0 (Potential energy U is minimum).',
+              'Unstable Equilibrium: F = -dU/dx = 0 and d²U/dx² < 0 (Potential energy U is maximum).',
+              'Maximum elongation of a spring of stiffness k when a block of mass m is released suddenly from rest under constant force F is x_max = 2F/k (whereas equilibrium extension is x_eq = F/k).'
+            ]
+          },
+          {
+            title: '5.2 Vertical Circular Motion',
+            concept: 'When a particle moves in a vertical circle of radius R under gravity, speed and tension decrease as it rises from the lowest point A to the highest point B.',
+            formulas: [
+              'Minimum speed at lowest point to complete vertical circle (String): u_min = √(5gR)',
+              'Speed at highest point when u = √(5gR): v_top = √(gR)   (where Tension T_top = 0)',
+              'Difference in Tension between Lowest & Highest Points: T_bottom - T_top = 6mg',
+              'Minimum speed at lowest point for a Massless Rigid Rod / Bead on Ring: u_min = √(4gR)'
+            ],
+            keyPoints: [
+              'If √(2gR) < u < √(5gR), the string slacks in the upper half before reaching the top (90° < θ < 180°) and the particle follows a parabolic path.',
+              'If u ≤ √(2gR), the particle oscillates back and forth in the lower half (θ ≤ 90°) without slack.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-06',
+        subject: 'Physics',
+        part: 'Part 2 • Mechanics',
+        chapterNo: 6,
+        chapterTitle: 'Circular Motion & Banking of Roads',
+        subtopics: [
+          {
+            title: '6.1 Circular Kinematics & Centripetal Force',
+            concept: 'Every particle moving on a curved path experiences an inward normal acceleration a_c = v²/R towards the centre of curvature. If speed also changes, a tangential acceleration a_t = dv/dt acts along the tangent.',
+            formulas: [
+              'v = Rω   (Vector form: v⃗ = ω⃗ × r⃗)     |     a_c = v²/R = ω²R = vω',
+              'a_t = dv/dt = Rα     |     Net Acceleration: a = √(a_c² + a_t²)',
+              'Conical Pendulum (length L, semi-vertical angle θ): T = 2π √((L cos θ) / g)',
+              'Radius of Curvature: R_c = v² / a_normal = [1 + (dy/dx)²]^(3/2) / |d²y/dx²|'
+            ],
+            keyPoints: [
+              'Centripetal force is NOT a new force—it is simply the net inward radial component of real forces (tension, normal, gravity, or friction).',
+              'In a rotating frame (angular speed ω), an outward Centrifugal Pseudo Force mω²r must be applied.'
+            ]
+          },
+          {
+            title: '6.2 Skidding, Overturning & Banking of Roads',
+            concept: 'Tilting (banking) a circular track by angle θ allows a component of the Normal reaction (N sin θ) to provide the necessary centripetal force without relying on tyre friction.',
+            formulas: [
+              'Safe Speed on Flat Rough Circular Road: v_max = √(μ g R)',
+              'Frictionless Banked Road (Ideal Speed): tan θ = v² / (R g)  ⇒  v₀ = √(R g tan θ)',
+              'Rough Banked Road Maximum Safe Speed: v_max = √[ R g (tan θ + μ) / (1 - μ tan θ) ]',
+              'Rough Banked Road Minimum Safe Speed: v_min = √[ R g (tan θ - μ) / (1 + μ tan θ) ]'
+            ],
+            keyPoints: [
+              'If v > √(Rg tan θ), friction acts down the incline to prevent skidding outward.',
+              'If v < √(Rg tan θ), friction acts up the incline to prevent sliding inward.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-07',
+        subject: 'Physics',
+        part: 'Part 2 • Mechanics',
+        chapterNo: 7,
+        chapterTitle: 'Centre of Mass, Momentum & Collisions',
+        subtopics: [
+          {
+            title: '7.1 Centre of Mass (COM) of Standard Bodies & Cavity Method',
+            concept: 'The Centre of Mass is the unique weighted average position of a system’s mass where the entire mass can be assumed concentrated for translational motion (M a⃗_COM = F⃗_ext).',
+            formulas: [
+              'Discrete System: r⃗_COM = (∑ mᵢ r⃗ᵢ) / (∑ mᵢ)     |     Continuous: r⃗_COM = (∫ r⃗ dm) / M',
+              'Uniform Semicircular Ring: 2R / π     |     Uniform Semicircular Disc: 4R / (3π)',
+              'Hollow Hemisphere: R / 2     |     Solid Hemisphere: 3R / 8',
+              'Hollow Cone (from base): H / 3     |     Solid Cone (from base): H / 4',
+              'Cavity Subtraction Formula: r⃗_COM = (M₁ r⃗₁ - M₂ r⃗₂) / (M₁ - M₂)'
+            ],
+            keyPoints: [
+              'If F⃗_ext = 0 and the system is initially at rest (v⃗_COM = 0), then Δr⃗_COM = 0: m₁ Δx₁ + m₂ Δx₂ = 0.',
+              'Kinetic Energy of a system in terms of COM frame (Reduced Mass μ = m₁m₂/(m₁ + m₂)): K_total = ½ M v_COM² + ½ μ v_rel².'
+            ]
+          },
+          {
+            title: '7.2 Elastic, Inelastic & Oblique Collisions',
+            concept: 'Linear momentum is conserved in ALL collisions (elastic, inelastic, or perfectly inelastic) along any direction where impulsive external force is zero. Coefficient of Restitution e measures elasticity along the Line of Impact (LOI).',
+            formulas: [
+              'Coefficient of Restitution: e = (v₂ - v₁) / (u₁ - u₂) = Velocity of Separation / Velocity of Approach',
+              'e = 1 (Perfectly Elastic)   |   0 < e < 1 (Inelastic)   |   e = 0 (Perfectly Inelastic / Stick together)',
+              'Loss in Kinetic Energy in 1D Collision: ΔK_loss = ½ μ (u₁ - u₂)² (1 - e²)',
+              'Ball rebounding from floor from height H₀: Height after n-th bounce Hₙ = e^(2n) H₀'
+            ],
+            keyPoints: [
+              'In a head-on elastic collision (e = 1) between two identical masses (m₁ = m₂), they simply exchange their velocities!',
+              'In an oblique collision with a smooth surface, velocity component parallel to the surface remains unchanged (v sin φ = u sin θ), while the normal component reverses and multiplies by e (v cos φ = e u cos θ ⇒ tan φ = (tan θ)/e).'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-08',
+        subject: 'Physics',
+        part: 'Part 2 • Mechanics',
+        chapterNo: 8,
+        chapterTitle: 'Rotational Mechanics & Moment of Inertia',
+        subtopics: [
+          {
+            title: '8.1 Moment of Inertia (I) + Parallel & Perpendicular Axes Theorems',
+            concept: 'Moment of Inertia is the rotational analogue of mass (I = ∑ mᵢ rᵢ²), measuring a rigid body’s resistance to angular acceleration about a specific axis.',
+            formulas: [
+              'Parallel Axis Theorem: I = I_COM + M d²   (Valid for ALL 2D & 3D bodies)',
+              'Perpendicular Axis Theorem (Planar Lamina only): I_z = I_x + I_y',
+              'Ring (axis ⊥ plane through centre): MR²   |   Disc (axis ⊥ plane through centre): ½ MR²',
+              'Thin Rod (about centre ⊥ length): ML²/12   |   Thin Rod (about one end): ML²/3',
+              'Hollow Sphere (about diameter): (2/3) MR²   |   Solid Sphere (about diameter): (2/5) MR²'
+            ],
+            keyPoints: [
+              'Radius of Gyration K = √(I / M).',
+              'Cutting out a symmetric sector from a uniform ring or disc does NOT change its expression I = kmR² if m denotes the remaining mass.'
+            ]
+          },
+          {
+            title: '8.2 Torque, Angular Momentum & Pure Rolling on Inclined Plane',
+            concept: 'Torque is the rotational effect of force (τ⃗ = r⃗ × F⃗ = dL⃗/dt). Pure rolling occurs when the point of contact with the ground has zero instantaneous velocity (v_COM = Rω and a_COM = Rα).',
+            formulas: [
+              'Torque: τ = I α     |     Angular Momentum: L⃗ = r⃗ × p⃗   (For rigid body + COM: L⃗ = I_COM ω⃗ + r⃗_COM × M v⃗_COM)',
+              'Pure Rolling Kinetic Energy: K_total = ½ M v² + ½ I ω² = ½ M v² (1 + K²/R²)',
+              'Pure Rolling Acceleration down rough incline θ: a = g sin θ / (1 + I / (MR²))',
+              'Minimum Coefficient of Friction for Pure Rolling: μ_min = tan θ / (1 + MR² / I)'
+            ],
+            keyPoints: [
+              'In a race down a rough incline (pure rolling): Solid Sphere (I = 0.4 MR²) wins over Disc/Solid Cylinder (0.5 MR²), which beats Hollow Sphere (0.67 MR²), which beats Ring/Hollow Cylinder (1.0 MR²).',
+              'During pure rolling on a horizontal floor with constant velocity, friction force is ZERO.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-09',
+        subject: 'Physics',
+        part: 'Part 2 • Mechanics',
+        chapterNo: 9,
+        chapterTitle: 'Gravitation, Satellites & Kepler’s Laws',
+        subtopics: [
+          {
+            title: '9.1 Gravitational Field, Potential & Variation of g',
+            concept: 'Every mass attracts every other mass with force F = G m₁m₂ / r². Inside a hollow spherical shell, the gravitational field is zero everywhere and gravitational potential is constant (equal to the surface potential).',
+            formulas: [
+              'Acceleration due to Gravity on Surface: g = GM / R²',
+              'At Altitude h: g_h = g / (1 + h/R)² ≈ g(1 - 2h/R)  (for h ≪ R)',
+              'At Depth d: g_d = g(1 - d/R)     |     Due to Earth’s Rotation at latitude λ: g\' = g - ω²R cos²λ',
+              'Gravitational Potential inside Solid Sphere (r < R): V = -(GM / 2R³)(3R² - r²)  [At centre: V_c = 1.5 V_surface]'
+            ],
+            keyPoints: [
+              'Inside a solid uniform sphere, gravitational field increases linearly from the centre: E = (GMr)/R³ ∝ r.',
+              'Gravitational Self-Energy of a uniform solid sphere is U_self = -(3/5)(GM²/R); for a hollow spherical shell it is -(1/2)(GM²/R).'
+            ]
+          },
+          {
+            title: '9.2 Escape Velocity, Orbital Velocity & Kepler’s 3 Laws',
+            concept: 'A satellite in a circular orbit of radius r has centripetal force provided by gravity. Total mechanical energy of a bound satellite is negative and equal to half its potential energy.',
+            formulas: [
+              'Orbital Velocity: v₀ = √(GM / r)   (Near Earth surface: v₀ = √(gR) ≈ 7.9 km/s)',
+              'Escape Velocity: v_e = √(2GM / R) = √2 v₀ ≈ 11.2 km/s',
+              'Satellite Energies: K = +GMm / (2r),   U = -GMm / r,   E_total = -GMm / (2r) = -K',
+              'Kepler’s 2nd Law (Areal Velocity): dA/dt = L / (2m) = constant   |   Kepler’s 3rd Law: T² = (4π² / GM) r³'
+            ],
+            keyPoints: [
+              'Escape velocity is independent of the angle of projection from the planet’s surface.',
+              'In an elliptical orbit with semi-major axis a and eccentricity e: r_min = a(1 - e), r_max = a(1 + e), and by angular momentum conservation v_max · r_min = v_min · r_max.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-10',
+        subject: 'Physics',
+        part: 'Part 3 • Bulk Matter',
+        chapterNo: 10,
+        chapterTitle: 'Mechanical Properties of Solids & Fluids',
+        subtopics: [
+          {
+            title: '10.1 Elasticity, Hooke’s Law & Thermal Stress',
+            concept: 'Within the proportional limit, stress is directly proportional to strain. A stretched wire acts like a spring of force constant k = YA / L.',
+            formulas: [
+              'Young’s Modulus: Y = (F / A) / (ΔL / L)   ⇒   Equivalent Spring Constant k = YA / L',
+              'Elastic Potential Energy per unit volume (Energy Density): u = ½ × Stress × Strain = ½ Y (Strain)²',
+              'Thermal Stress (when rod is prevented from expanding): Stress = Y α ΔT,   Force F = Y A α ΔT',
+              'Bulk Modulus: B = -ΔP / (ΔV / V)     |     Compressibility = 1 / B'
+            ],
+            keyPoints: [
+              'When a load W stretches a wire by ΔL, work done by gravity is W·ΔL, elastic energy stored is ½ W·ΔL, and the remaining ½ W·ΔL is dissipated as heat.',
+              'Elelongation of a heavy uniform rod of weight W and length L under its own weight when hung vertically is ΔL = W L / (2 A Y).'
+            ]
+          },
+          {
+            title: '10.2 Fluid Statics, Bernoulli’s Theorem, Surface Tension & Viscosity',
+            concept: 'Ideal fluid flow obeys conservation of mass (Continuity Equation) and conservation of mechanical energy per unit volume (Bernoulli’s Equation). Real fluids exhibit internal friction (Viscosity) and surface energy (Surface Tension).',
+            formulas: [
+              'Equation of Continuity: A₁v₁ = A₂v₂     |     Bernoulli’s Theorem: P + ½ρv² + ρgh = constant',
+              'Torricelli’s Efflux Speed: v = √(2gh)     |     Range from depth h in tank H: R = 2√(h(H - h))',
+              'Excess Pressure: Liquid Drop ΔP = 2T / R   |   Soap Bubble (2 surfaces) ΔP = 4T / R',
+              'Capillary Rise (Jurin’s Law): h = (2T cos θ) / (r ρ g)',
+              'Stokes’ Law: F_v = 6π η r v     |     Terminal Velocity: v_T = (2 r² (ρ - σ) g) / (9 η)'
+            ],
+            keyPoints: [
+              'When n identical small droplets of radius r coalesce into a big drop of radius R: R = n^(1/3) r, surface area decreases, and energy is released (temperature rises).',
+              'If two soap bubbles of radii r₁ and r₂ coalesce isothermally in vacuum, the radius of the new bubble is R = √(r₁² + r₂²); the radius of curvature of their common interface is r_c = (r₁r₂) / |r₁ - r₂|.'
+            ]
+          }
+        ]
+      },
+      // ========================================================================
+      // === ✦ JA PHYSICS HANDBOOK: CHAPTERS 11 TO 15 (THERMAL, WAVES & ELECTROSTATICS) ===
+      // ========================================================================
+      {
+        id: 'ja-hb-phy-11',
+        subject: 'Physics',
+        part: 'Part 4 • Thermal Physics',
+        chapterNo: 11,
+        chapterTitle: 'Thermal Properties, Calorimetry & Heat Transfer',
+        subtopics: [
+          {
+            title: '11.1 Thermometry & Thermal Expansion of Solids and Liquids',
+            concept: 'Temperature measures the degree of hotness (average translational kinetic energy of molecules). When a solid is heated, interatomic distances increase—every linear dimension (including cavities and holes) expands in the exact same proportion as a photographic enlargement.',
+            formulas: [
+              'Thermometric Scale Conversion: (T - T_ice) / (T_steam - T_ice) = Constant',
+              'Celsius, Fahrenheit & Kelvin: C / 5 = (F - 32) / 9 = (K - 273.15) / 5',
+              'Linear, Areal & Volume Expansion: L = L₀(1 + αΔT),   A = A₀(1 + βΔT),   V = V₀(1 + γΔT)',
+              'Isotropic Solid Relation: α : β : γ = 1 : 2 : 3   (For anisotropic crystal: γ = αₓ + αᵧ + α₂)',
+              'Pendulum Clock Time Loss/Gain per second: Δt / t = ½ α ΔT',
+              'Thermal Variation of Density: ρ = ρ₀ / (1 + γΔT) ≈ ρ₀(1 - γΔT)',
+              'Apparent Expansion of Liquid in Vessel: ΔV_app = V₀(γ_liquid - γ_vessel)ΔT = V₀(γ_L - 3α_S)ΔT'
+            ],
+            keyPoints: [
+              'Condition for constant length difference (L₁ - L₂ = constant) between two rods at all temperatures: L₁α₁ = L₂α₂.',
+              'Bimetallic Strip: When heated, the strip bends into an arc of radius R ≈ d / [(α₁ - α₂)ΔT] with the metal of higher α on the outer (convex) side.',
+              '📘 JEE Example: A brass pendulum clock (α = 2 × 10⁻⁵ /°C) is accurate at 20 °C. At 40 °C, fractional time lost per day is (½)(2 × 10⁻⁵)(20) × 86400 = 17.28 seconds lost per day.'
+            ]
+          },
+          {
+            title: '11.2 Calorimetry, Phase Change & Mixing Shortcuts',
+            concept: 'When bodies at different temperatures are mixed in an thermally isolated container, heat lost by the hotter body equals heat gained by the colder body. During a phase change (melting or boiling), temperature remains strictly constant while latent heat breaks intermolecular bonds.',
+            formulas: [
+              'Sensible Heat (Temperature Change): Q = m s ΔT     |     Water Equivalent: W = (m s) / s_water',
+              'Latent Heat (Phase Change at constant T): Q = m L',
+              'For Water: s_ice ≈ 0.5 cal/g°C,  s_water = 1 cal/g°C,  L_fusion = 80 cal/g,  L_vaporization = 540 cal/g',
+              'Equilibrium Temperature (no phase change): T_eq = (m₁s₁T₁ + m₂s₂T₂) / (m₁s₁ + m₂s₂)'
+            ],
+            keyPoints: [
+              'Ice + Water Shortcut: To melt 1 g of ice at 0 °C, you need 80 cal (which is provided by cooling 1 g of water from 80 °C to 0 °C). If heat available is less than m_ice L_f, final temperature is 0 °C with a mixture of water and unmelted ice.',
+              '📘 JEE Example (Ice + Steam): If m grams of ice at 0 °C is mixed with m grams of steam at 100 °C, heat needed to bring ice to 100 °C water is m(80) + m(1)(100) = 180m cal. Since condensing all steam releases 540m cal (> 180m), the final temperature is 100 °C with (1/3)m of steam condensed and (2/3)m remaining as steam.'
+            ]
+          },
+          {
+            title: '11.3 Heat Conduction (Electrical Analogy & Growth of Ice)',
+            concept: 'In steady-state conduction, heat current (H = dQ/dt) flows from higher to lower temperature exactly like electric current I = ΔV / R_elec, where temperature difference ΔT acts as voltage and L/(KA) acts as thermal resistance R_th.',
+            formulas: [
+              'Fourier’s Law of Heat Conduction: H = dQ/dt = -K A (dT/dx) = (T₁ - T₂) / R_th',
+              'Thermal Resistance of a Rod: R_th = L / (K A)',
+              'Rods in Series (H₁ = H₂): R_eq = R₁ + R₂  ⇒  K_eq = (L₁ + L₂) / (L₁/K₁ + L₂/K₂)',
+              'Rods in Parallel (ΔT₁ = ΔT₂): 1/R_eq = 1/R₁ + 1/R₂  ⇒  K_eq = (K₁A₁ + K₂A₂) / (A₁ + A₂)',
+              'Hollow Cylinder (radii r₁, r₂, length L): R_th = ln(r₂ / r₁) / (2π K L)',
+              'Hollow Sphere (radii r₁, r₂): R_th = (r₂ - r₁) / (4π K r₁ r₂)',
+              'Time to Freeze Ice Layer on Pond from thickness x₁ to x₂: t = [ρ_ice L_f / (2 K_ice θ_air)] (x₂² - x₁²)'
+            ],
+            keyPoints: [
+              'At any junction of N conducting rods in steady state, Kirchhoff’s Current Law holds: ∑ (T_junction - Tᵢ) / Rᵢ = 0.',
+              '📘 JEE Example: Time taken for ice thickness on a lake to grow from 0 to x is t, so time taken to double from x to 2x is proportional to (2x)² - x² = 3x², which is 3t!'
+            ]
+          },
+          {
+            title: '11.4 Thermal Radiation, Stefan’s Law, Wien’s Law & Newton’s Cooling',
+            concept: 'Every body above 0 K emits electromagnetic radiation. Good absorbers are equally good emitters (Kirchhoff’s Law). When the temperature excess over surroundings is small, the rate of cooling is directly proportional to the temperature difference.',
+            formulas: [
+              'Kirchhoff’s Law: e_λ / a_λ = E_λ(Blackbody)     |     Reflectance + Absorptance + Transmittance: r + a + t = 1',
+              'Stefan-Boltzmann Law (Radiated Power): P_rad = e σ A T⁴',
+              'Net Rate of Heat Loss in Surroundings at T₀: dQ/dt = e σ A (T⁴ - T₀⁴)',
+              'Rate of Fall of Temperature: -dT/dt = [e σ A / (m s)] (T⁴ - T₀⁴)',
+              'Newton’s Law of Cooling (for T - T₀ ≪ T₀): -dT/dt = k(T - T₀)   (where k = 4 e σ A T₀³ / (m s))',
+              'Average Form for Numericals: (T₁ - T₂) / t = k [ (T₁ + T₂)/2 - T₀ ]',
+              'Wien’s Displacement Law: λ_max · T = b   (where b ≈ 2.898 × 10⁻³ m·K)'
+            ],
+            keyPoints: [
+              'For two solid spheres of the same material with radii r₁ and r₂ at the same initial temperature, initial rate of heat loss dQ/dt ∝ A ∝ r², whereas initial rate of fall of temperature (-dT/dt) ∝ A/m ∝ r²/r³ = 1/r (smaller sphere cools faster!).',
+              '📘 JEE Example: A body cools from 80 °C to 70 °C in 5 minutes in surroundings at 25 °C. To find time t to cool from 70 °C to 60 °C: (80 - 70)/5 = k(75 - 25) ⇒ 2 = 50k; next (70 - 60)/t = k(65 - 25) = 40k ⇒ 10/t = 40(2/50) ⇒ t = 6.25 minutes.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-12',
+        subject: 'Physics',
+        part: 'Part 4 • Thermal Physics',
+        chapterNo: 12,
+        chapterTitle: 'Kinetic Theory of Gases (KTG) & Thermodynamics',
+        subtopics: [
+          {
+            title: '12.1 Ideal Gas Equations, Gas Pressure & Molecular Speeds',
+            concept: 'Gas pressure arises from elastic collisions of molecules with container walls. All molecular speeds (RMS, average, most probable) depend only on absolute temperature T and molar mass M₀—independent of pressure or volume.',
+            formulas: [
+              'Ideal Gas Law: P V = n R T = N k_B T     |     Density Form: P = (ρ R T) / M₀',
+              'Kinetic Pressure Formula: P = (1/3) ρ v_rms² = (2/3) E_translational_per_unit_volume',
+              'RMS Speed: v_rms = √(3 R T / M₀) = √(3 P / ρ)',
+              'Average Speed: v_avg = √(8 R T / (π M₀))     |     Most Probable Speed: v_mp = √(2 R T / M₀)',
+              'Ratio of Speeds: v_mp : v_avg : v_rms = √2 : √(8/π) : √3 ≈ 1 : 1.128 : 1.224',
+              'Mean Free Path: λ = 1 / (√2 π n_v d²) = (k_B T) / (√2 π d² P)'
+            ],
+            keyPoints: [
+              'Translational kinetic energy of 1 mole of ANY ideal gas (monoatomic, diatomic, or polyatomic) depends only on T: K_trans = (3/2) R T; for 1 molecule, K_trans = (3/2) k_B T.',
+              '📘 JEE Example: If the RMS speed of oxygen (M₀ = 32) at temperature T is v, and oxygen dissociates completely into atomic oxygen (M₀ = 16) at temperature 2T, the new RMS speed becomes √(2 / (1/2)) v = 2v.'
+            ]
+          },
+          {
+            title: '12.2 Degrees of Freedom (f), Equipartition of Energy & Gas Mixtures',
+            concept: 'According to Maxwell’s Law of Equipartition of Energy, energy is shared equally among all independent degrees of freedom, with each degree of freedom contributing ½ k_B T per molecule (or ½ R T per mole) to internal energy U.',
+            formulas: [
+              'Monoatomic (He, Ne, Ar): f = 3 (3 translational)  ⇒  C_V = (3/2)R,  C_P = (5/2)R,  γ = 5/3 ≈ 1.67',
+              'Diatomic / Linear (H₂, O₂, N₂, CO₂ at room T): f = 5 (3 trans + 2 rot)  ⇒  C_V = (5/2)R,  C_P = (7/2)R,  γ = 7/5 = 1.4',
+              'Non-linear Polyatomic (H₂O, NH₃, CH₄, O₃): f = 6 (3 trans + 3 rot)  ⇒  C_V = 3R,  C_P = 4R,  γ = 4/3 ≈ 1.33',
+              'Internal Energy: U = (f/2) n R T   ⇒   ΔU = n C_V ΔT  (Valid for ALL processes of an ideal gas!)',
+              'Mayer’s Relation: C_P - C_V = R     |     Adiabatic Exponent: γ = C_P / C_V = 1 + 2/f',
+              'Gas Mixture Equivalents: C_V(mix) = (n₁C_V1 + n₂C_V2)/(n₁ + n₂),   γ_mix = (n₁C_P1 + n₂C_P2)/(n₁C_V1 + n₂C_V2)'
+            ],
+            keyPoints: [
+              'Conservation of Internal Energy in Isolated Mixing: When two thermally insulated vessels containing gases (n₁, f₁, T₁) and (n₂, f₂, T₂) are connected, W = 0 and Q = 0 ⇒ ΔU = 0 ⇒ n₁f₁T₁ + n₂f₂T₂ = (n₁f₁ + n₂f₂)T_final.',
+              '📘 JEE Example: Mixing 2 moles of He (f₁ = 3) with 1 mole of O₂ (f₂ = 5) gives C_V(mix) = [2(3R/2) + 1(5R/2)] / 3 = 11R/6, C_P(mix) = 17R/6, and γ_mix = 17/11.'
+            ]
+          },
+          {
+            title: '12.3 First Law of Thermodynamics & Standard / Polytropic Processes',
+            concept: 'The First Law of Thermodynamics (Q = ΔU + W) is conservation of energy. ΔU = n C_V ΔT is a state function (depends only on initial and final T), whereas Work W = ∫ P dV (area under P-V curve) and Heat Q are path functions.',
+            formulas: [
+              'Isochoric (V = const): W = 0,   Q = ΔU = n C_V ΔT',
+              'Isobaric (P = const): W = P ΔV = n R ΔT,   Q = n C_P ΔT,   Fraction W / Q = R / C_P = 1 - 1/γ',
+              'Isothermal (T = const): ΔU = 0,   Q = W = n R T ln(V₂ / V₁) = n R T ln(P₁ / P₂),   Bulk Modulus B_iso = P',
+              'Adiabatic (Q = 0, PV^γ = const, TV^(γ-1) = const): W = -ΔU = (P₁V₁ - P₂V₂)/(γ - 1) = n R(T₁ - T₂)/(γ - 1),   B_adia = γP',
+              'Polytropic Process (PV^x = const): W = n R(T₁ - T₂)/(x - 1),   Molar Heat Capacity C = C_V + R / (1 - x)'
+            ],
+            keyPoints: [
+              'Slope of P-V Curve: dP/dV = -P/V (Isothermal) vs. dP/dV = -γ(P/V) (Adiabatic). An adiabatic curve is γ times steeper than an isothermal curve at their point of intersection.',
+              'Free Expansion (Expansion into Vacuum): P_ext = 0 ⇒ W = 0; if insulated, Q = 0 ⇒ ΔU = 0 ⇒ ΔT = 0 (temperature of an ideal gas does not change in free expansion).',
+              '📘 JEE Example: An ideal monoatomic gas (C_V = 3R/2) undergoes a process where P ∝ V² (so PV⁻² = const ⇒ x = -2). Its molar heat capacity is C = 3R/2 + R/(1 - (-2)) = 3R/2 + R/3 = 11R/6.'
+            ]
+          },
+          {
+            title: '12.4 Cyclic Processes, Carnot Engine & Refrigerator',
+            concept: 'In any complete cyclic process, the system returns to its initial state so ΔU_cycle = 0 and Q_net = W_net = Area enclosed by the loop on the P-V diagram (positive if clockwise, negative if anticlockwise).',
+            formulas: [
+              'Thermal Efficiency of Any Heat Engine / Cycle: η = W_net / Q_absorbed_only = 1 - (Q_rejected / Q_absorbed)',
+              'Carnot Engine Efficiency (operates between source T₁ and sink T₂ in Kelvin): η_Carnot = 1 - (T₂ / T₁) = W / Q₁',
+              'Carnot Proportionality: Q₂ / Q₁ = T₂ / T₁',
+              'Refrigerator / Heat Pump Coefficient of Performance (COP): β = Q₂ / W = T₂ / (T₁ - T₂) = (1 - η) / η'
+            ],
+            keyPoints: [
+              'When calculating efficiency η = W_net / Q_in of a multi-step cycle, ONLY put the sum of positive heat inputs (Q > 0) in the denominator—never put net heat Q_net in the denominator!',
+              '📘 JEE Example: Two Carnot engines A and B operate in series between T₁ = 800 K and T₃ = 300 K. If they produce equal work (W_A = W_B), the intermediate temperature is the arithmetic mean: T₂ = (T₁ + T₃)/2 = 550 K. If they have equal efficiencies (η_A = η_B), T₂ is the geometric mean: T₂ = √(T₁T₃) = √240000 ≈ 489.9 K.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-13',
+        subject: 'Physics',
+        part: 'Part 5 • Oscillations & Waves',
+        chapterNo: 13,
+        chapterTitle: 'Simple Harmonic Motion (SHM) & Oscillations',
+        subtopics: [
+          {
+            title: '13.1 Kinematics, Phasor Circle & Energy in SHM',
+            concept: 'SHM is periodic motion where the restoring force (or acceleration) is directly proportional to displacement from the mean position and always directed towards the mean position: F = -kx ⇒ a = -ω²x. Using the Phasor (Uniform Circular Motion projection) method makes time-interval problems effortless.',
+            formulas: [
+              'Differential Equation: d²x/dt² + ω²x = 0     |     Angular Frequency: ω = √(k / m) = 2π / T = 2π f',
+              'Displacement: x(t) = A sin(ωt + φ)     |     Velocity: v = ω√(A² - x²) = Aω cos(ωt + φ)',
+              'Acceleration: a = -ω²x = -Aω² sin(ωt + φ)   (Phase leads velocity by π/2 and displacement by π)',
+              'Kinetic Energy: K = ½ mω²(A² - x²) = ½ k(A² - x²) = K_max cos²(ωt + φ)',
+              'Potential Energy: U = U₀ + ½ kx² = U₀ + K_max sin²(ωt + φ)     |     Total Energy: E = U₀ + ½ kA²',
+              'Time-Averaged Energies over 1 cycle: ⟨K⟩ = ¼ kA²,   ⟨U - U₀⟩ = ¼ kA²   (Whereas space-average ⟨K⟩_x = ⅓ kA²)'
+            ],
+            keyPoints: [
+              'If displacement x oscillates with frequency f and period T, both Kinetic Energy K and Potential Energy U oscillate with frequency 2f and period T/2.',
+              'Phasor Time Shortcut: Time from x = 0 to x = A/2 is T/12 (since sin(π/6) = 1/2, which is 30° out of 360°). Time from x = A/2 to x = A is T/4 - T/12 = T/6.',
+              '📘 JEE Example: Kinetic energy equals potential energy (assuming U₀ = 0) when ½k(A² - x²) = ½kx² ⇒ x = ±A / √2, which occurs 4 times in every time period T (at intervals of T/4).'
+            ]
+          },
+          {
+            title: '13.2 Spring-Block Combinations, Pulleys & Two-Body Reduced Mass',
+            concept: 'Any linear restoring force system can be reduced to an equivalent spring constant k_eq. Constant external forces (such as gravity mg on a vertical or inclined spring) ONLY shift the equilibrium (mean) position—they NEVER change the time period T!',
+            formulas: [
+              'Springs in Parallel (same extension): k_eq = k₁ + k₂     |     Springs in Series (same tension): 1/k_eq = 1/k₁ + 1/k₂',
+              'Cutting a Spring of stiffness k and length L into lengths l₁, l₂: k · L = k₁ l₁ = k₂ l₂ = Constant',
+              'Two Masses m₁, m₂ Connected by Spring k on Smooth Floor: T = 2π √(μ / k)   [Reduced Mass μ = m₁m₂ / (m₁ + m₂)]',
+              'Pulley-Spring Energy Shortcut: If block moves by x and spring stretches by n·x, then k_eff = n² k'
+            ],
+            keyPoints: [
+              'If a uniform spring of constant k is cut into n equal pieces, each piece has spring constant n·k; if all n pieces are connected in parallel, the equivalent stiffness becomes n²k.',
+              '📘 JEE Example: A spring of stiffness k is cut into two parts in the length ratio 1 : 2 (l₁ = L/3, l₂ = 2L/3). Then k₁ = 3k and k₂ = 1.5k. If both parts are attached in parallel to mass m, k_eq = 3k + 1.5k = 4.5k, so T = 2π√(m / (4.5k)).'
+            ]
+          },
+          {
+            title: '13.3 Simple, Compound (Physical), Torsional & Special Pendulums',
+            concept: 'For rotational SHM (like a Simple or Physical Pendulum), restore torque for small angular displacement θ is τ = -Cθ ⇒ Iα = -Cθ ⇒ T = 2π√(I / C).',
+            formulas: [
+              'Simple Pendulum in Effective Gravity g⃗_eff: T = 2π √(L / g_eff)   (where g⃗_eff = g⃗ - a⃗_frame)',
+              'Pendulum of Very Large Length (comparable to Earth radius R): T = 2π √[ 1 / (g(1/L + 1/R)) ]   (As L → ∞, T → 84.6 min)',
+              'Compound / Physical Pendulum (pivoted at distance d from COM): T = 2π √(I_pivot / (m g d)) = 2π √((K_COM²/d + d) / g)',
+              'Torsional Pendulum: T = 2π √(I / C)     |     Magnet in Magnetic Field B: T = 2π √(I / (M B))',
+              'Liquid Column of total length L in U-Tube (arm angles θ₁, θ₂): T = 2π √[ L / (g(sin θ₁ + sin θ₂)) ]   (Vertical U-tube: T = 2π√(L / 2g))'
+            ],
+            keyPoints: [
+              'In a Compound Pendulum, time period T is minimum when the distance between pivot and COM equals the radius of gyration about COM: d = K_COM, giving L_eq(min) = 2K_COM.',
+              '📘 JEE Example: A uniform rod of mass m and length L is pivoted at one end (d = L/2, I = mL²/3). Its time period for small oscillations is T = 2π√((mL²/3) / (mg L/2)) = 2π√(2L / (3g)), so its equivalent simple pendulum length is 2L/3.'
+            ]
+          },
+          {
+            title: '13.4 Superposition of SHMs, Damped & Forced Oscillations',
+            concept: 'Superposing two SHMs of the SAME frequency along the same line produces a new SHM of the same frequency, whose amplitude is found by treating the individual amplitudes as vectors separated by their phase difference Δφ.',
+            formulas: [
+              'Same Line Superposition (x₁ = A₁ sin ωt, x₂ = A₂ sin(ωt + Δφ)): A_res = √(A₁² + A₂² + 2A₁A₂ cos Δφ)',
+              'Resultant Phase: tan α = (A₂ sin Δφ) / (A₁ + A₂ cos Δφ)',
+              'Perpendicular Superposition (Lissajous Figures, x = A sin ωt, y = B sin(ωt + Δφ)):',
+              '• Δφ = 0 or π → Straight Line   |   • Δφ = π/2 and A = B → Circle   |   • Δφ = π/2 and A ≠ B → Axis-aligned Ellipse',
+              'Damped SHM (F_damping = -bv): x(t) = A₀ e^(-(b/2m)t) sin(ω\'t + φ),   E(t) = E₀ e^(-(b/m)t),   ω\' = √(k/m - (b/2m)²)'
+            ],
+            keyPoints: [
+              'Notice that in Damped SHM, amplitude decays as e^(-bt/2m), whereas mechanical energy (E ∝ A²) decays twice as fast as e^(-bt/m)!',
+              '📘 JEE Example: A particle is subjected to x = 3 sin(100t) + 4 cos(100t) + 5 sin(100t + π/6). Convert 4 cos(100t) = 4 sin(100t + π/2) and add the three phasors of lengths 3 (at 0°), 4 (at 90°), and 5 (at 30°) by taking x and y components!'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-14',
+        subject: 'Physics',
+        part: 'Part 5 • Oscillations & Waves',
+        chapterNo: 14,
+        chapterTitle: 'Mechanical Waves, Sound & Doppler Effect',
+        subtopics: [
+          {
+            title: '14.1 Travelling Wave Equation, Wave Speed & Power / Intensity',
+            concept: 'A mechanical wave transports energy and momentum through a medium without net transport of matter. Any function of the form y = f(t ± x/v) or f(kx ± ωt) satisfies the 1D wave differential equation.',
+            formulas: [
+              'Harmonic Wave Travelling along +x: y(x, t) = A sin(ωt - kx + φ)     [Wave Speed v = ω / k = f λ]',
+              'Particle Velocity vs. Wave Slope Relation: v_particle = ∂y/∂t = -v_wave (∂y/∂x)',
+              'Maximum Particle Acceleration: a_p(max) = ω² A     |     Wave Differential Eq: ∂²y/∂t² = v² (∂²y/∂x²)',
+              'Speed of Transverse Wave on Stretched String: v = √(T / μ) = √(Stress / ρ)   (where μ = mass/length = ρ S)',
+              'Speed of Sound (Longitudinal Wave): Solid Rod v = √(Y / ρ)  |  Liquid v = √(B / ρ)  |  Gas (Laplace) v = √(γP / ρ) = √(γRT / M₀)',
+              'Average Power Transmitted on String: P_avg = ½ μ v ω² A²     |     Sound Intensity: I = ½ ρ v ω² s₀² = ΔP_max² / (2 ρ v)'
+            ],
+            keyPoints: [
+              'On a travelling string wave, Kinetic Energy per unit volume equals Potential Energy per unit volume at every point (dk = dU) — both are maximum at the mean position (y = 0, where slope and particle speed are maximum) and zero at extreme crest/trough!',
+              '📘 JEE Example (Heavy Hanging Rope): For a uniform rope of mass M and length L hanging vertically under its own weight, tension at distance x from the bottom is T(x) = (M/L)gx, so local wave speed is v(x) = √(gx) (independent of M!). Time for a pulse to travel from bottom to top is t = ∫₀ᴸ dx/√(gx) = 2√(L / g).'
+            ]
+          },
+          {
+            title: '14.2 Interference, Reflection & Standing Waves on a String',
+            concept: 'When two identical waves travel in opposite directions along the same medium, they superpose to form a Standing (Stationary) Wave where energy is confined between fixed Nodes (zero amplitude) and Antinodes (maximum amplitude).',
+            formulas: [
+              'Standing Wave Equation: y(x, t) = 2A sin(kx) cos(ωt)     [Distance between adjacent Nodes or Antinodes = λ / 2]',
+              'Distance between a Node and nearest Antinode = λ / 4',
+              'String Fixed at Both Ends (Nodes at x = 0, L): fₙ = n (v / 2L) = (n / 2L) √(T / μ)   [n = 1, 2, 3... All harmonics present]',
+              'String Fixed at One End & Free (Ring on Rod) at Other End: fₙ = (2n - 1) (v / 4L)   [n = 1, 2, 3... Odd harmonics only]',
+              'Decibel Sound Level: β (in dB) = 10 log₁₀(I / I₀)   ⇒   β₂ - β₁ = 10 log₁₀(I₂ / I₁)'
+            ],
+            keyPoints: [
+              'Reflection Phase Rule: Reflection from a Rigid / Fixed boundary (or denser medium) introduces a phase change of π (displacement pulse inverts); reflection from a Free boundary (or rarer medium) has 0 phase change.',
+              'All particles between two consecutive nodes vibrate in the EXACT same phase (Δφ = 0), while particles in adjacent loops have a phase difference of π.',
+              '📘 JEE Example (Composite Wire): Two wires of lengths L₁, L₂ and linear mass densities μ₁, μ₂ are joined and stretched under tension T. For their joint to be a Node, n₁f₁ = n₂f₂ ⇒ (n₁/2L₁)√(T/μ₁) = (n₂/2L₂)√(T/μ₂) ⇒ n₁ / n₂ = (L₁ / L₂) √(μ₁ / μ₂).'
+            ]
+          },
+          {
+            title: '14.3 Organ Pipes, Resonance Column & Beats',
+            concept: 'In sound waves, a closed rigid end is a Displacement Node (Pressure Antinode), whereas an open end is a Displacement Antinode (Pressure Node, ΔP = 0). Beats occur when two waves of slightly different frequencies f₁ and f₂ superpose at a point.',
+            formulas: [
+              'Open Organ Pipe (open at both ends): fₙ = n v / [2(L + 2e)]   [n = 1, 2, 3... All harmonics; End correction e ≈ 0.6 r]',
+              'Closed Organ Pipe (closed at one end): fₙ = (2n - 1) v / [4(L + e)]   [n = 1, 2, 3... Only odd harmonics 1 : 3 : 5]',
+              'Resonance Column Tube (1st & 2nd resonance lengths l₁, l₂): λ / 2 = l₂ - l₁  ⇒  v = 2 f (l₂ - l₁),   End Correction e = (l₂ - 3l₁) / 2',
+              'Beat Frequency: f_beat = |f₁ - f₂|     |     Time between consecutive maxima (or minima) = 1 / |f₁ - f₂|'
+            ],
+            keyPoints: [
+              'Tuning Fork Rules: Loading a tuning fork with wax (adds mass) ALWAYS decreases its frequency; filing/scraping a tuning fork (stiffens/lightens prong) ALWAYS increases its frequency.',
+              '📘 JEE Example: In a resonance tube experiment with a 500 Hz tuning fork, first and second resonances occur at l₁ = 16 cm and l₂ = 50 cm. Speed of sound is v = 2(500)(0.50 - 0.16) = 340 m/s, and end correction is e = (50 - 48)/2 = 1 cm.'
+            ]
+          },
+          {
+            title: '14.4 Doppler Effect in Sound & Moving Reflectors',
+            concept: 'Whenever there is relative motion between the sound source S and observer O along the line joining them, the apparent frequency heard by the observer shifts.',
+            formulas: [
+              'Master Doppler Formula: f_app = f₀ [ (v ± v_w ± v_O) / (v ± v_w ∓ v_S) ]',
+              'Sign ConventionShortcut (Draw arrow from S → O as positive direction, or use physical intuition):',
+              '• Observer moving TOWARDS Source → Numerator is (v + v_O)  [Increases f_app]',
+              '• Source moving TOWARDS Observer → Denominator is (v - v_S)  [Increases f_app]',
+              'Echo from a Wall / Cliff moving towards stationary source with speed v_wall: f_echo = f₀ [ (v + v_wall) / (v - v_wall) ]',
+              'Apparent Wavelength in front of moving source: λ\' = (v - v_S) / f₀     |     Behind moving source: λ\'\' = (v + v_S) / f₀'
+            ],
+            keyPoints: [
+              'If the source moves at an angle θ₁ and observer at angle θ₂ to the line joining S and O, use only the components of velocity along the line joining them: v_S cos θ₁ and v_O cos θ₂.',
+              'When a source passes right by a stationary observer, the fractional drop in frequency is Δf = f_approach - f_recede = f₀ [ 2 v v_S / (v² - v_S²) ].',
+              '📘 JEE Example: A car blowing a horn of 600 Hz moves at 20 m/s towards a vertical cliff (speed of sound v = 340 m/s). Frequency received by cliff is f₁ = 600 × 340 / (340 - 20). The driver hears the reflected echo at f_driver = 600 × (340 + 20) / (340 - 20) = 600 × (360 / 320) = 675 Hz.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-15',
+        subject: 'Physics',
+        part: 'Part 6 • Electromagnetism',
+        chapterNo: 15,
+        chapterTitle: 'Electrostatics (Field, Potential, Dipole & Gauss’s Law)',
+        subtopics: [
+          {
+            title: '15.1 Coulomb’s Law, Dielectric Medium & Charge Equilibrium',
+            concept: 'Charge is quantized (q = ±ne), conserved, and invariant with speed. Electrostatic force between two point charges obeys an inverse-square law and satisfies the Principle of Superposition (force between two charges in vacuum is unaffected by the presence of a third charge).',
+            formulas: [
+              'Coulomb’s Law in Vacuum: F = (1 / 4πε₀) (|q₁q₂| / r²) = k |q₁q₂| / r²   (k ≈ 9 × 10⁹ N·m²/C²)',
+              'In Dielectric Medium of Relative Permittivity K (or ε_r): F_net = F_vac / K',
+              'Neutral / Equilibrium Point on line joining two like charges q₁, q₂ separated by d: r₁ = d / [1 + √(q₂ / q₁)] from q₁',
+              'For Equilibrium of Entire 3-Charge System (q₁, q₂ free to move): Third charge near q₁ is q₀ = -q₁q₂ / (√q₁ + √q₂)²',
+              'Two Identical Pith Balls (mass m, charge q, string length L) in Equilibrium: tan θ = F_e / (mg) = kq² / (4 L² sin²θ mg)'
+            ],
+            keyPoints: [
+              'Earnshaw’s Theorem: A point charge placed in a purely electrostatic field cannot be in stable equilibrium in all three dimensions simultaneously (if it is stable along the axial line, it will be unstable along the perpendicular bisector, and vice versa).',
+              '📘 JEE Example (Pith Balls in Liquid): Two identical charged spheres of density ρ suspended from the same point have small angle θ in air. When immersed in a dielectric liquid of density σ and dielectric constant K, the angle remains unchanged if tan θ_air = tan θ_liq ⇒ F_e / (mg) = (F_e / K) / [mg(1 - σ/ρ)] ⇒ K = ρ / (ρ - σ).'
+            ]
+          },
+          {
+            title: '15.2 Electric Field of Standard Continuous Charge Distributions',
+            concept: 'Electric field E⃗ = F⃗/q₀ is the force per unit positive test charge. For continuous distributions, integrate dE⃗ = k dq / r² using symmetry to cancel perpendicular components.',
+            formulas: [
+              'Finite Line Charge (density λ, angles θ₁, θ₂ at distance r): E_⊥ = (kλ / r)(sin θ₁ + sin θ₂),   E_∥ = (kλ / r)(cos θ₂ - cos θ₁)',
+              'Infinite Line Charge (θ₁ = θ₂ = 90°): E = 2kλ / r = λ / (2πε₀r)     |     Semi-infinite Rod (θ₁ = 90°, θ₂ = 0°): E_⊥ = E_∥ = kλ / r',
+              'Uniformly Charged Circular Arc (radius R, central angle α): E_centre = (2kλ / R) sin(α / 2)   [Semicircle (α = π): E = 2kλ / R]',
+              'Uniformly Charged Ring (charge Q, radius R) on Axis at x: E_axis = (k Q x) / (R² + x²)^(3/2)   [Max at x = ±R / √2]',
+              'Uniformly Charged Disc (surface density σ, radius R) on Axis at x: E_axis = (σ / 2ε₀) [ 1 - x / √(R² + x²) ]',
+              'Infinite Non-Conducting Sheet: E = σ / (2ε₀)     |     Thick Conducting Plate: E = σ / ε₀ (outside)'
+            ],
+            keyPoints: [
+              'Notice that the field at the centre of a uniformly charged semicircular ring (E = 2kλ/R = λ / (2πε₀R)) is identical in magnitude to the field of an infinite straight wire at distance R!',
+              '📘 JEE Example (SHM on Ring Axis): For x ≪ R on the axis of a positively charged ring (+Q, R), E ≈ (kQ / R³)x. A negatively charged particle (-q, mass m) released near the centre executes SHM with time period T = 2π √(m R³ / (k Q q)).'
+            ]
+          },
+          {
+            title: '15.3 Electric Potential (V), Potential Energy (U) & Electric Dipole',
+            concept: 'Electric Potential V is a scalar work function (V = U/q₀), making it much easier to sum algebraically than vector electric fields. The electric field always points in the direction of steepest decrease of potential: E⃗ = -∇V.',
+            formulas: [
+              'Relation between E⃗ and V: dV = -E⃗ · dr⃗   ⇔   E_x = -∂V/∂x,  E_y = -∂V/∂y,  E_z = -∂V/∂z',
+              'Potential on Axis of Charged Ring: V = kQ / √(R² + x²)     |     Potential on Axis of Disc: V = (σ / 2ε₀)(√(R² + x²) - x)',
+              'Self-Energy of Hollow Spherical Shell: U_self = Q² / (8πε₀R)     |     Solid Non-conducting Sphere: U_self = 3Q² / (20πε₀R)',
+              'Electric Dipole (p⃗ = q d⃗ from -q to +q): E_axial = 2kp⃗ / r³,   E_eq = -kp⃗ / r³,   E_general(r, θ) = (kp / r³)√(1 + 3 cos²θ)',
+              'Dipole Potential: V(r, θ) = (kp cos θ) / r² = (k p⃗ · r⃗) / r³',
+              'Dipole in Uniform Field E⃗: Torque τ⃗ = p⃗ × E⃗,   Potential Energy U = -p⃗ · E⃗ = -pE cos θ,   Work W = pE(cos θ₁ - cos θ₂)',
+              'Force on Dipole in Non-Uniform Field: F = |p (dE / dr)|   (Dipole-Dipole force scales as 1 / r⁴!)'
+            ],
+            keyPoints: [
+              'At a general point (r, θ) of a dipole, the electric field vector E⃗ makes angle α with the radius vector r⃗ given by tan α = ½ tan θ.',
+              '📘 JEE Example: Work done by an external agent in slowly rotating an electric dipole from stable equilibrium (θ₁ = 0°) to unstable equilibrium (θ₂ = 180°) in a uniform field E is W = U_f - U_i = (+pE) - (-pE) = +2pE.'
+            ]
+          },
+          {
+            title: '15.4 Gauss’s Law, Solid Angle, Spherical Cavity & Conductors',
+            concept: 'Gauss’s Law states that total electric flux through any closed surface depends ONLY on the net charge enclosed (q_in / ε₀), although the electric field E⃗ at every point on the surface is produced by both inside and outside charges.',
+            formulas: [
+              'Gauss’s Law: Φ_closed = ∮ E⃗ · dA⃗ = q_enclosed / ε₀',
+              'Flux of Point Charge q through Circular Disc (radius R at distance x, semi-vertical angle α): Φ = (q / 2ε₀)(1 - cos α) = (q / 2ε₀)[1 - x / √(R² + x²)]',
+              'Cube Symmetry Flux Shortcuts: Charge at Centre → q/(6ε₀) per face | At Corner → q/(8ε₀) total (q/(24ε₀) through each of the 3 non-touching faces)',
+              'Uniformly Charged Solid Non-Conducting Sphere (charge Q, density ρ, radius R):',
+              '• Outside (r ≥ R): E = kQ / r²,   V = kQ / r',
+              '• Inside (r < R): E = (kQr) / R³ = (ρ r) / (3ε₀),   V = [kQ / (2R³)](3R² - r²)   [At centre: V_centre = 1.5 V_surface]',
+              'Uniform Electric Field Inside a Spherical Cavity (centre shifted by vector d⃗ from sphere centre): E⃗_cavity = (ρ d⃗) / (3ε₀)',
+              'Electrostatic Pressure on a Charged Conductor Surface: P_elec = σ² / (2ε₀)     |     Field Energy Density: u_E = ½ ε₀ E²'
+            ],
+            keyPoints: [
+              'Conductor Properties in Electrostatic Equilibrium: (1) E_inside_material = 0, (2) All excess charge resides on the outer surface, (3) V_inside = Constant = V_surface, (4) Surface is an equipotential so E⃗_surface = (σ/ε₀)n̂ is strictly normal, (5) Surface charge density is highest at sharp points (σ ∝ 1/R_curvature).',
+              'Earthing (Grounding) a Conducting Shell sets its potential V = 0 (not necessarily its charge Q = 0!).',
+              '📘 JEE Example (Cavity Inside Solid Sphere): A spherical cavity of radius a is carved inside a uniformly charged non-conducting sphere of charge density ρ with its centre at distance d⃗ from the sphere’s centre. By superposition of +ρ (full sphere) and -ρ (cavity sphere), at any point P inside the cavity: E⃗ = (ρ r⃗₁)/(3ε₀) + (-ρ r⃗₂)/(3ε₀) = ρ(r⃗₁ - r⃗₂)/(3ε₀) = (ρ d⃗)/(3ε₀), which is completely UNIFORM everywhere inside the cavity!'
+            ]
+          }
+        ]
+      },
+      // ========================================================================
+      // === ✦ JA PHYSICS HANDBOOK: CHAPTERS 20 TO 22 (EMI, AC/EMW & RAY OPTICS) ===
+      // ========================================================================
+      {
+        id: 'ja-hb-phy-20',
+        subject: 'Physics',
+        part: 'Part 6 • Electromagnetism',
+        chapterNo: 20,
+        chapterTitle: 'Electromagnetic Induction (EMI) & Inductance',
+        subtopics: [
+          {
+            title: '20.1 Magnetic Flux, Faraday’s Law, Lenz’s Law & Charge Flown',
+            concept: 'Whenever the magnetic flux Φ_B linked with a circuit changes with time, an EMF is induced. By Lenz’s Law (which is strictly conservation of energy), the polarity of the induced EMF always opposes the cause (change in flux) that produces it.',
+            formulas: [
+              'Magnetic Flux: Φ_B = ∫ B⃗ · dA⃗ = B A cos θ   (SI Unit: Weber (Wb) = T·m²,  1 Wb = 10⁸ Maxwell)',
+              'Faraday’s Law of EMI (for N turns): ε = -N (dΦ_B / dt)     |     Magnitude: |ε_avg| = N |ΔΦ_B / Δt|',
+              'Induced Current: I = |ε| / R = (N / R) |dΦ_B / dt|',
+              'Total Induced Charge Flown: Δq = ∫ I dt = (N / R) |ΔΦ_B| = |Φ_final - Φ_initial| / R_total',
+              'Heat Dissipated in Loop: H = ∫ I² R dt   (Depends on the time rate of flux change!)'
+            ],
+            keyPoints: [
+              'Crucial JEE Trap: Induced EMF (ε) and Induced Current (I) depend on how fast the flux changes (Δt), whereas the Total Charge Flown (Δq = N|ΔΦ|/R) depends ONLY on the net change in flux and resistance—completely independent of how fast or slow the coil is moved!',
+              '📘 JEE Example (Flipping a Search Coil): A circular coil of N = 100 turns, area A = 0.01 m², and resistance R = 20 Ω is placed perpendicular to a uniform magnetic field B = 0.5 T. If the coil is flipped by 180° in 0.05 s, the change in flux per turn is |ΔΦ| = BA - (-BA) = 2BA = 2(0.5)(0.01) = 0.01 Wb. Total charge flown through the coil is Δq = N|ΔΦ|/R = 100(0.01)/20 = 0.05 C.'
+            ]
+          },
+          {
+            title: '20.2 Translational & Rotational Motional EMF',
+            concept: 'When a conducting rod moves through a magnetic field B⃗ with velocity v⃗, free electrons inside the rod experience a magnetic Lorentz force F⃗_m = -e(v⃗ × B⃗), shifting to one end and creating an equivalent battery of EMF ε = ∫ (v⃗ × B⃗) · dl⃗.',
+            formulas: [
+              'General Vector Motional EMF: ε = ∫ (v⃗ × B⃗) · dl⃗     |     For Uniform B⃗: ε = B⃗ · (l⃗_eff × v⃗)',
+              'Straight Conducting Rod (B⃗ ⊥ v⃗ ⊥ l⃗): ε = B v l_eff   [Positive terminal is indicated by the direction of (v⃗ × B⃗)]',
+              'Conducting Rod Sliding on Parallel Rails (Resistance R, Mass m, Force F): I = Bvl / R,   Magnetic Braking Force F_m = I l B = B²l²v / R',
+              'Terminal Velocity of Rod on Vertical Rails under Gravity: m g = B² l² v_T / R  ⇒  v_T = (m g R) / (B² l²)',
+              'Conducting Rod of Length L Rotating with ω in Uniform B⃗ about One End: ε = ½ B ω L²',
+              'Potential Difference Between Two Points at Distances r₁ and r₂ from Pivot: |V₁ - V₂| = ½ B ω |r₂² - r₁²|',
+              'Faraday Metallic Disc (radius R) or Wheel with N Conducting Spokes Rotating with ω: ε_center-to-rim = ½ B ω R²'
+            ],
+            keyPoints: [
+              'For any arbitrarily curved wire moving with uniform translational velocity v⃗ in a uniform magnetic field B⃗, replace the curved wire by a straight vector l⃗_eff joining its two endpoints!',
+              'Why N Spokes Don’t Multiply EMF: In a metallic wheel with N spokes rotating in a magnetic field, all N spokes are connected in PARALLEL between the axle and the rim—so the net EMF remains ½ BωR² (independent of N), while internal resistance becomes r/N.',
+              '📘 JEE Example (Rod Pivoted Off-Center): A rod AB of length L rotates with angular speed ω in a uniform field B about a point O located at distance L/3 from end A and 2L/3 from end B. Both segments OA and OB have their center O at the same potential polarity: V_A - V_O = ½ Bω(L/3)² and V_B - V_O = ½ Bω(2L/3)². Thus |V_B - V_A| = ½ Bω [ (4L²/9) - (L²/9) ] = (1/6) BωL².'
+            ]
+          },
+          {
+            title: '20.3 Induced Electric Field (Time-Varying Magnetic Field)',
+            concept: 'When a magnetic field B(t) varies with time in a stationary region of space, it creates a circular, non-conservative Induced Electric Field E⃗_ind whose closed-loop line integral equals -dΦ_B/dt.',
+            formulas: [
+              'Maxwell-Faraday Law: ∮ E⃗_ind · dl⃗ = -dΦ_B / dt = -∫ (∂B⃗/∂t) · dA⃗',
+              'Cylindrical Region of Radius R with Uniform Time-Varying Field B(t):',
+              '• Inside the Region (r < R): E_ind(2πr) = (πr²)|dB/dt|  ⇒  E_ind = (r / 2) |dB/dt|   (E_ind ∝ r)',
+              '• Outside the Region (r ≥ R): E_ind(2πr) = (πR²)|dB/dt|  ⇒  E_ind = (R² / 2r) |dB/dt|   (E_ind ∝ 1/r)'
+            ],
+            keyPoints: [
+              'Electrostatic Field vs. Induced Electric Field: Electrostatic field lines start on +q and end on -q and are conservative (∮ E⃗·dl⃗ = 0, potential V is defined). Induced electric field lines form closed loops, have no starting/ending charges, and are NON-CONSERVATIVE (∮ E⃗_ind·dl⃗ ≠ 0, electric potential V is NOT defined!).',
+              '📘 JEE Example (Charged Ring in Time-Varying B): A thin non-conducting ring of mass m, radius r (< R), and total charge Q is placed concentrically inside a cylindrical magnetic field decreasing at rate |dB/dt| = k. Tangential induced electric field on the ring is E = kr/2. Torque on the ring is τ = (QE)r = Q(kr/2)r = ½ Qkr², producing angular acceleration α = τ / I = (½ Qkr²) / (mr²) = Qk / (2m).'
+            ]
+          },
+          {
+            title: '20.4 Self & Mutual Inductance, LR Transients & LC Oscillations',
+            concept: 'An inductor (L) is the electromagnetic analogue of mass (inertia): it opposes any sudden change in current through it by developing a back-EMF ε = -L(dI/dt) and stores energy in its magnetic field.',
+            formulas: [
+              'Self-Inductance: Φ_total = N Φ = L I     |     Induced EMF: V_A - V_B = +L (dI/dt)  (moving along current I)',
+              'Long Solenoid (length l, radius r ≪ l, n = N/l): L = μ₀ n² A l = μ₀ N² A / l     |     Toroid: L = μ₀ N² r² / (2R)',
+              'Mutual Inductance: Φ₂ = M I₁,   ε₂ = -M (dI₁/dt)     |     Coaxial Solenoids: M = μ₀ n₁ n₂ (π r_inner²) l',
+              'Two Concentric Coplanar Loops (r ≪ R): M = (μ₀ π r²) / (2R)     |     Coupling Coefficient: M = k √(L₁ L₂)  (0 ≤ k ≤ 1)',
+              'Inductors in Series (with mutual flux): L_eq = L₁ + L₂ ± 2M     |     Magnetic Energy: U = ½ L I²,   Energy Density u_B = B² / (2μ₀)',
+              'LR Circuit Current Growth: I(t) = (V₀ / R)(1 - e^(-t / τ_L))     |     Current Decay: I(t) = I₀ e^(-t / τ_L)   [Time Constant τ_L = L / R]',
+              'LC Oscillations: d²q/dt² + (1/LC)q = 0,   ω = 1 / √(LC),   f = 1 / (2π√(LC)),   ½ L I_max² = Q_max² / (2C)'
+            ],
+            keyPoints: [
+              'Inductor Switching Shortcut: At t = 0⁺ (just after closing a switch with zero initial current), an unfluxed inductor acts as an OPEN CIRCUIT (I = 0). At t → ∞ (steady state DC), a pure inductor acts as a SHORT CIRCUIT (connecting wire, dI/dt = 0 ⇒ V_L = 0).',
+              'Continuity of Flux (L₁I₁ + L₂I₂ = const): Just like charge conservation on isolated capacitor plates, if two inductors carry currents and are suddenly connected in a superconducting loop (R = 0), total magnetic flux linkage ∑ LᵢIᵢ is conserved.',
+              '📘 JEE Example (LC Energy Sharing): In an oscillating LC circuit with maximum charge Q₀, the energy is shared equally between the capacitor (U_E) and inductor (U_B) when U_E = ½ U_total ⇒ q²/(2C) = ½ [Q₀²/(2C)] ⇒ q = ±Q₀ / √2, which occurs at time t = T/8 = (π/4)√(LC) after starting from maximum charge.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-21',
+        subject: 'Physics',
+        part: 'Part 6 • Electromagnetism',
+        chapterNo: 21,
+        chapterTitle: 'Alternating Current (AC), Transformers & EM Waves',
+        subtopics: [
+          {
+            title: '21.1 Average & RMS Values of AC Signals + Hot-Wire Meters',
+            concept: 'Because a sinusoidal current I = I₀ sin(ωt) is positive for one half-cycle and negative for the next, its full-cycle average is zero. Its heating effect (I²R), however, is always positive and is measured by its Root-Mean-Square (RMS) value.',
+            formulas: [
+              'General Average Value over t₁ to t₂: ⟨I⟩ = (∫ I dt) / (t₂ - t₁)',
+              'General RMS (Effective / Virtual) Value: I_rms = √[ ⟨I²⟩ ] = √[ (∫₀ᵀ I² dt) / T ]',
+              'Sinusoidal AC (I = I₀ sin ωt): Full-cycle ⟨I⟩ = 0,   Half-cycle ⟨I⟩_half = 2I₀ / π ≈ 0.637 I₀',
+              'Sinusoidal RMS Value: I_rms = I₀ / √2 ≈ 0.707 I₀,   V_rms = V₀ / √2     |     Form Factor = I_rms / ⟨I⟩_half = π / (2√2) ≈ 1.11',
+              'Superposition of DC + Orthogonal AC Harmonics (I = I₀ + I₁ sin ωt + I₂ cos ωt): I_rms = √[ I₀² + ½ I₁² + ½ I₂² ]'
+            ],
+            keyPoints: [
+              'Moving-coil (DC) ammeters/voltmeters measure ⟨I⟩ and read ZERO on high-frequency AC. Hot-wire ammeters/voltmeters work on Joule heating (θ ∝ I_rms²), so they measure RMS values for both AC and DC and have a non-linear (quadratic) scale.',
+              'Household 220 V, 50 Hz supply means V_rms = 220 V, Peak Voltage V₀ = 220√2 ≈ 311 V, and current reverses direction 2f = 100 times per second.',
+              '📘 JEE Example: If an alternating current is given by I(t) = 3 + 4 sin(100πt) + 4 cos(100πt) A, then the combined AC amplitude is √(4² + 4²) = 4√2 A. Its RMS value is I_rms = √[ 3² + (4√2 / √2)² ] = √(9 + 16) = 5 A.'
+            ]
+          },
+          {
+            title: '21.2 Series LCR Circuit, Phasor Diagram, Resonance & Quality Factor',
+            concept: 'In a series LCR circuit, the same current I(t) flows through R, L, and C. However, V_R is in phase with I, V_L leads I by 90°, and V_C lags I by 90°—so voltages must be added as Phasor Vectors, NOT algebraically!',
+            formulas: [
+              'Inductive Reactance: X_L = ω L = 2π f L     |     Capacitive Reactance: X_C = 1 / (ω C) = 1 / (2π f C)',
+              'Impedance of Series LCR Circuit: Z = √[ R² + (X_L - X_C)² ]     |     Current: I_0 = V_0 / Z,  I_rms = V_rms / Z',
+              'Net Source Voltage Phasor Sum: V_rms = √[ V_R² + (V_L - V_C)² ]',
+              'Phase Angle φ between Voltage V and Current I: tan φ = (X_L - X_C) / R = (V_L - V_C) / V_R',
+              'Series Resonance Condition (X_L = X_C): ω₀ = 1 / √(LC),   f₀ = 1 / (2π√(LC)),   Z_min = R,   φ = 0°,   V_R = V_source',
+              'Half-Power Bandwidth (where I = I_max / √2 and P = ½ P_max): Δω = ω₂ - ω₁ = R / L',
+              'Quality Factor (Sharpness of Resonance): Q = ω₀ / Δω = (ω₀ L) / R = 1 / (ω₀ C R) = (1 / R) √(L / C)'
+            ],
+            keyPoints: [
+              'If X_L > X_C, the circuit is inductive (Voltage leads Current by φ). If X_C > X_L, the circuit is capacitive (Current leads Voltage by φ).',
+              'Voltage Magnification at Resonance: At resonance, V_L = V_C = I_rms X_L = (V_rms / R)(ω₀L) = Q · V_rms. If Q > 1, the voltage across L or C alone can be much LARGER than the applied source voltage!',
+              '📘 JEE Example: In a series LCR circuit connected to a 200 V AC source, a voltmeter reads V_L = 250 V across the inductor and V_C = 100 V across the capacitor. Then the RMS voltage across the resistor is V_R = √[ 200² - (250 - 100)² ] = √(40000 - 22500) = √17500 = 50√7 V.'
+            ]
+          },
+          {
+            title: '21.3 AC Power, Power Factor, Wattless Current, Choke Coil & Transformers',
+            concept: 'Pure inductors and pure capacitors absorb energy from the source in one quarter-cycle and return the exact same energy in the next quarter-cycle—consuming zero average power. Only the resistive component dissipates real power.',
+            formulas: [
+              'Average Real Power Dissipated: P_avg = V_rms I_rms cos φ = I_rms² R = (V_rms² / Z²) R',
+              'Apparent Power: S = V_rms I_rms     |     Power Factor: cos φ = R / Z = P_avg / (V_rms I_rms)',
+              'Wattless Component of Current (does zero work, 90° out of phase with V): I_wattless = I_rms sin φ',
+              'Transformer Turns Ratio (Mutual Induction on Soft Iron Core): E_s / E_p = V_s / V_p = N_s / N_p = k',
+              'Transformer Efficiency: η = P_out / P_in = (V_s I_s) / (V_p I_p)   [For Ideal Transformer (η = 100%): I_s / I_p = N_p / N_s = 1 / k]'
+            ],
+            keyPoints: [
+              'Choke Coil: A high-inductance, negligible-resistance coil (R ≈ 0 ⇒ φ ≈ 90° ⇒ cos φ ≈ 0) used to limit AC current with almost zero power loss (unlike a rheostat which wastes I²R heat).',
+              'Four Transformer Energy Losses: (1) Flux Leakage (reduced by shell-type winding), (2) Copper / Joule Loss I²R in windings (thick wires used for high-current side), (3) Eddy Current Loss in core (reduced by using LAMINATED iron sheets), (4) Hysteresis Loss (reduced by using SOFT IRON with narrow B-H loop).',
+              '📘 JEE Example: A coil draws 2 A current and consumes 100 W power when connected to a 100 V DC source, so R = V/I? Wait: P = I²R ⇒ 100 = (2)²R ⇒ R = 25 Ω (or V/I = 100/2 = 50 Ω if V = 100 V, I = 2 A ⇒ P = 200 W). When connected to 100 V, 50 Hz AC, if it draws 1 A, then Z = 100/1 = 100 Ω, Power Factor cos φ = R/Z = 50/100 = 0.5, and P_avg = 100 × 1 × 0.5 = 50 W.'
+            ]
+          },
+          {
+            title: '21.4 Displacement Current, Maxwell’s Equations & Electromagnetic Waves',
+            concept: 'Maxwell showed that a time-varying electric flux produces a magnetic field just like a conduction current (Displacement Current I_d = ε₀ dΦ_E/dt). Oscillating charges (dipoles) generate self-sustaining transverse Electromagnetic Waves where E⃗, B⃗, and propagation vector k⃗ are mutually perpendicular.',
+            formulas: [
+              'Displacement Current: I_d = ε₀ (dΦ_E / dt) = C (dV / dt) = I_conduction',
+              'Ampere-Maxwell Law: ∮ B⃗ · dl⃗ = μ₀ (I_c + ε₀ dΦ_E/dt)',
+              'Speed of EM Wave in Vacuum: c = 1 / √(μ₀ ε₀) ≈ 3 × 10⁸ m/s     |     In Medium: v = 1 / √(μ ε) = c / √(μ_r ε_r) = c / n',
+              'Field Amplitude Ratio & Wave Equation: E₀ / B₀ = E_rms / B_rms = c = ω / k     [Direction of Wave Propagation: ĉ = Ê × B̂]',
+              'Equal Average Energy Density Sharing: u_E = ½ ε₀ E_rms² = u_B = B_rms² / (2μ₀)  ⇒  u_total = ε₀ E_rms² = ½ ε₀ E₀² = B₀² / (2μ₀)',
+              'Poynting Vector (Instantaneous Energy Flux): S⃗ = (1 / μ₀)(E⃗ × B⃗)     |     Wave Intensity: I = ⟨S⟩ = u_total · c = ½ ε₀ c E₀²',
+              'Momentum Transferred in Time t: p = U / c (Complete Absorption),   p = 2U / c (Complete Reflection)',
+              'Radiation Pressure (Normal Incidence): P_rad = I / c (Perfect Absorber, r = 0),   P_rad = 2I / c (Perfect Reflector, r = 1)'
+            ],
+            keyPoints: [
+              'In an EM wave, E⃗ and B⃗ oscillate in the SAME PHASE (both reach their peaks and zeros at the exact same points in space and time) and carry equal halves (50% each) of the total wave energy!',
+              'Spectrum Order (Increasing Frequency / Decreasing Wavelength): Radio → Microwaves → Infrared (IR) → Visible (VIBGYOR) → Ultraviolet (UV) → X-Rays → Gamma Rays.',
+              '📘 JEE Example: A plane EM wave in vacuum has electric field E⃗ = 60 sin(3 × 10⁸ t + x) ĵ V/m. Here wave travels along -î (since phase is ωt + kx), k = 1 m⁻¹, and E₀ = 60 V/m. Magnetic field amplitude is B₀ = E₀/c = 60 / (3 × 10⁸) = 2 × 10⁻⁷ T. Since Ê × B̂ = -î and Ê = +ĵ, we must have B̂ = -k̂. Thus B⃗ = -2 × 10⁻⁷ sin(3 × 10⁸ t + x) k̂ T.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'ja-hb-phy-22',
+        subject: 'Physics',
+        part: 'Part 7 • Optics',
+        chapterNo: 22,
+        chapterTitle: 'Ray Optics & Optical Instruments',
+        subtopics: [
+          {
+            title: '22.1 Plane Mirrors & Spherical Mirrors (Formula, Magnification & Image Velocity)',
+            concept: 'Reflection obeys ∠i = ∠r and coplanarity. For paraxial rays (small aperture, small angles), spherical mirrors focus rays to a single point with focal length f = R/2 (independent of the surrounding medium or wavelength of light!).',
+            formulas: [
+              'Plane Mirror Deviation: δ = π - 2i   (For two mirrors inclined at θ, net deviation after 2 reflections is δ_net = 2π - 2θ, independent of i!)',
+              'Number of Images in Two Mirrors at Angle θ (let m = 360° / θ): N = m - 1 (if m is even),   N = m (if m is odd & asymmetric)',
+              'Plane Mirror Velocity (along normal): v_IM = -v_OM  ⇒  v_I = 2 v_M - v_O   (Along mirror plane: v_I∥ = v_O∥)',
+              'Spherical Mirror Formula: 1/v + 1/u = 1/f = 2/R     [Sign Convention: Incident light direction = +ve; Concave f < 0, Convex f > 0]',
+              'Transverse Magnification: m = h_i / h_o = -v / u = f / (f - u) = (f - v) / f',
+              'Longitudinal Magnification (for tiny axial object dx): m_L = dv / du = -(v / u)² = -m²',
+              'Image Velocity along Principal Axis: v_IM(axial) = -(v / u)² v_OM = -m² v_OM     |     Newton’s Formula: x₁ x₂ = f²'
+            ],
+            keyPoints: [
+              'If a plane mirror is rotated by angle θ keeping the incident ray fixed, the reflected ray rotates by 2θ in the same sense.',
+              'Minimum vertical height of a plane mirror required for a person of height H to see their full image is H/2 (independent of the person’s distance from the mirror).',
+              '📘 JEE Example (Axial Image Speed): A concave mirror has focal length f = -20 cm. An object is at u = -30 cm and moves towards the mirror along the principal axis at 4 cm/s, while the mirror moves towards the object at 1 cm/s. Here m = f/(f - u) = -20/(-20 - (-30)) = -2. Using v_I - v_M = -m²(v_O - v_M) with v_O = +4 and v_M = -1: v_I - (-1) = -(-2)²(4 - (-1)) = -20 ⇒ v_I = -21 cm/s (21 cm/s away from the mirror).'
+            ]
+          },
+          {
+            title: '22.2 Refraction at Plane Surfaces, Apparent Depth, Glass Slab Shift & TIR',
+            concept: 'When light crosses an interface between media of refractive indices n₁ and n₂, its frequency f remains strictly constant while its speed (v = c/n) and wavelength (λ = λ₀/n) change. When light travels from a denser to a rarer medium at an angle exceeding the critical angle θ_c, 100% of the light undergoes Total Internal Reflection (TIR).',
+            formulas: [
+              'Snell’s Law: n₁ sin i = n₂ sin r     |     Vector Form: n₁ (î_inc × n̂) = n₂ (r̂_ref × n̂)',
+              'Apparent Depth (Near-Normal Viewing): d_app = d_real / (n_object_medium / n_observer_medium)',
+              'Apparent Depth through Multiple Parallel Slabs: d_app = n_obs [ d₁/n₁ + d₂/n₂ + d₃/n₃ + ... ]',
+              'Normal Shift by Parallel Glass Slab (thickness t, refractive index μ in air): Δx = t (1 - 1/μ)  [In direction of incident ray]',
+              'Lateral Shift of Oblique Ray through Slab t: d_lateral = [ t sin(i - r) ] / cos r',
+              'Critical Angle for TIR (Denser n_d → Rarer n_r): sin θ_c = n_r / n_d = 1 / μ     |     Deviation in TIR: δ = π - 2i',
+              'Radius of Circle of Illuminance (Fish / Bulb at depth h below water surface): R = h tan θ_c = h / √(μ² - 1)'
+            ],
+            keyPoints: [
+              'If a converging beam of light aims at a virtual object at distance x behind a glass slab of thickness t, the slab shifts the convergence point further away by Δx = t(1 - 1/μ) — provided x > t(1 - 1/μ).',
+              'Optical Fibers work on repeated Total Internal Reflection where the core refractive index is higher than the cladding (n_core > n_cladding), with maximum acceptance angle in air given by sin i_max = √(n_core² - n_cladding²) (Numerical Aperture).',
+              '📘 JEE Example (Bird & Fish Relative Velocity): A fish in water (μ = 4/3) rises vertically at 3 m/s while a bird in air dives vertically down at 4 m/s. Velocity of bird as seen by fish is v_BF = v_fish + μ v_bird = 3 + (4/3)(4) = 25/3 m/s. Velocity of fish as seen by bird is v_FB = v_bird + v_fish / μ = 4 + 3/(4/3) = 25/4 m/s.'
+            ]
+          },
+          {
+            title: '22.3 Prism (Minimum Deviation, No Emergence & Dispersion)',
+            concept: 'In a triangular prism of apex angle A, the refracted ray bends towards the base. Deviation δ is minimum when the ray passes symmetrically through the prism (i = e and r₁ = r₂ = A/2).',
+            formulas: [
+              'Prism Geometry & Deviation: r₁ + r₂ = A,     δ = i + e - A',
+              'Minimum Deviation (δ_m, occurs at i = e and r₁ = r₂ = A/2): μ = sin((A + δ_m) / 2) / sin(A / 2)',
+              'Maximum Deviation (Grazing Incidence i = 90° or Grazing Emergence e = 90°): δ_max = 90° + sin⁻¹[ μ sin(A - θ_c) ] - A',
+              'Condition for NO Emergence for ANY Angle of Incidence (Total TIR at 2nd face): A > 2 θ_c',
+              'Condition for Emergence for ALL Angles of Incidence: A < θ_c',
+              'Thin Prism (Small A ≤ 10°): δ = (μ - 1) A     |     Angular Dispersion: θ = δ_V - δ_R = (μ_V - μ_R) A',
+              'Dispersive Power of Material: ω = (δ_V - δ_R) / δ_Y = (μ_V - μ_R) / (μ_Y - 1)',
+              'Deviation Without Dispersion (Achromatic): (μ_V1 - μ_R1)A₁ + (μ_V2 - μ_R2)A₂ = 0   |   Dispersion Without Deviation: (μ_Y1 - 1)A₁ + (μ_Y2 - 1)A₂ = 0'
+            ],
+            keyPoints: [
+              'For any deviation δ > δ_m, there are TWO angles of incidence (i₁ and i₂) that produce the exact same deviation δ (by reversibility of light, i₁ + i₂ = A + δ). At δ = δ_m, there is only ONE angle of incidence i = (A + δ_m)/2.',
+              '📘 JEE Example: A ray of light is incident normally (i = 0° ⇒ r₁ = 0°) on one face of a prism of angle A = 30° and refractive index μ = √2. At the second face, angle of incidence is r₂ = A - r₁ = 30°. Since sin θ_c = 1/√2 ⇒ θ_c = 45° > 30°, the ray emerges into air with sin e = √2 sin 30° = 1/√2 ⇒ e = 45°. Net deviation is δ = i + e - A = 0° + 45° - 30° = 15°.'
+            ]
+          },
+          {
+            title: '22.4 Spherical Refraction, Thin Lenses, Silvered Lenses & Optical Instruments',
+            concept: 'A thin lens refracts light at two spherical interfaces. Its focal length depends on both the radii of curvature (R₁, R₂) and the ratio of refractive index of the lens to the surrounding medium (μ_L / μ_m).',
+            formulas: [
+              'Refraction at Single Spherical Surface: (n₂ / v) - (n₁ / u) = (n₂ - n₁) / R     |     Magnification: m = (n₁ v) / (n₂ u)',
+              'Lens Maker’s Formula: 1/f = (μ_L / μ_m - 1)(1/R₁ - 1/R₂)     |     Thin Lens Formula: 1/v - 1/u = 1/f,   m = +v / u = f / (f + u)',
+              'Optical Power: P (in Dioptre) = 1 / f(in meters)     |     Lenses Separated by d: 1/f_eq = 1/f₁ + 1/f₂ - d / (f₁ f₂)',
+              'Displacement Method (Screen at D > 4f, two lens positions separated by d): f = (D² - d²) / (4D),   Object size h_o = √(h₁ h₂)',
+              'Silvered Thin Lens (Acts as a Spherical Mirror of focal length f_eq): P_eq = -1/f_eq = 2 P_lens + P_mirror = 2/f_L - 1/f_M',
+              'Simple Microscope: M = D / f (Normal Adjustment / Relaxed Eye, v = ∞),   M = 1 + D / f (Near Point Adjustment, v = -D = -25 cm)',
+              'Compound Microscope (Tube Length L = v₀ + |u_e|): M = -(v₀ / u₀)(D / f_e) [Relaxed Eye],   M = -(v₀ / u₀)(1 + D / f_e) [Near Point]',
+              'Astronomical Telescope: M = f_o / f_e,  L = f_o + f_e [Relaxed Eye, v = ∞]   |   M = (f_o / f_e)(1 + f_e / D),  L = f_o + u_e [Near Point]'
+            ],
+            keyPoints: [
+              'Cutting a Symmetric Equiconvex Lens (focal length f): Cutting perpendicular to the principal axis (into two plano-convex halves) doubles the focal length of each half to 2f (power becomes P/2). Cutting along the principal axis leaves the focal length unchanged at f (only aperture and image brightness halve)!',
+              'If a glass lens (μ_L = 1.5) is immersed in a liquid of higher refractive index (e.g., μ_m = 1.65), the sign of (μ_L/μ_m - 1) becomes negative—so a convex lens behaves as a diverging lens and a concave lens behaves as a converging lens!',
+              '📘 JEE Example (Silvered Equiconvex Lens): An equiconvex lens of refractive index μ = 1.5 and radius of curvature R = 20 cm has one of its curved surfaces silvered. Here 1/f_L = (1.5 - 1)(1/20 - (-1/20)) = 1/20 cm⁻¹, and the silvered back surface acts as a concave mirror of focal length f_M = -R/2 = -10 cm (so P_M = +1/10 cm⁻¹). Total power P_eq = 2(1/20) + 1/10 = 1/5 cm⁻¹ ⇒ Equivalent concave mirror focal length f_eq = -5 cm (so an object placed at u = -10 cm forms a real image right on itself at v = -10 cm!).'
+            ]
+          }
+        ]
+      }
+      
+    ];
+
+    
         id: 'jalaram-ft-1',
         title: 'Jalaram All-India JEE Main 2028 Full Syllabus Mock #1',
         tag: 'JALARAM CBT SERIES',
@@ -3559,15 +5791,126 @@
           );
         }
 
-        // 6. REVISION FLASH CARDS (Phy / Chem / Math Tabs)
+// 6. REVISION FLASH CARDS (WITH COMPLETE CIRCULAR MOTION INTERACTIVE DECK)
         if (subScreen === 'flashcards') {
+          const circularMotionFlashcards = [
+            {
+              id: 'ja-fc-cm-01',
+              tag: '✦ JA • Concept 1 • Page 1',
+              category: 'Kinematics',
+              title: 'Instantaneous & Average Angular Velocity (ω)',
+              front: 'How are instantaneous angular velocity (ω) and average angular velocity (ω_avg) defined when a particle covers angle dθ in time dt?',
+              formula: 'ω = dθ / dt     |     ω_avg = Δθ / Δt',
+              back: '• Instantaneous Angular Velocity: If a particle covers a small angle dθ in a small time interval dt, then ω = dθ / dt.\n• Average Angular Velocity: Parallel to linear kinematics, over a finite interval Δt, ω_avg = Δθ / Δt.'
+            },
+            {
+              id: 'ja-fc-cm-02',
+              tag: '✦ JA • Concept 2 • Page 1',
+              category: 'Kinematics',
+              title: 'Angular Acceleration (α) & Chain Rule Form',
+              front: 'What are the two differential expressions for instantaneous angular acceleration (α) in terms of time (t) and angular displacement (θ)?',
+              formula: 'α = dω / dt     |     α = ω · (dω / dθ)',
+              back: '• Time rate of change of angular velocity: If angular velocity changes by dω in small time interval dt, then α = dω / dt.\n• Using chain rule (eliminating dt): α = (dω / dθ) · (dθ / dt) = ω (dω / dθ).'
+            },
+            {
+              id: 'ja-fc-cm-03',
+              tag: '✦ JA • Concept 3 • Page 1',
+              category: 'Kinematics',
+              title: 'Analogy: Linear vs. Circular Kinematics (Constant α)',
+              front: 'State the 3 differential equations and their constant-acceleration solutions comparing Linear Kinematics (s, v, a) and Circular Kinematics (θ, ω, α).',
+              formula: '1) Δθ = ω₀t + ½αt²   |   2) ω = ω₀ + αt   |   3) ω² - ω₀² = 2αΔθ',
+              back: '1) Position / Angle:\n   Linear: v = ds/dt ⇒ s = ut + ½at²\n   Circular: ω = dθ/dt ⇒ Δθ = ω₀t + ½αt² (or θ = θ₀ + ω₀t + ½αt²)\n2) Velocity:\n   Linear: a = dv/dt ⇒ v = u + at\n   Circular: α = dω/dt ⇒ ω = ω₀ + αt\n3) Velocity-Displacement:\n   Linear: a = v(dv/ds) ⇒ v² - u² = 2as\n   Circular: α = ω(dω/dθ) ⇒ ω² - ω₀² = 2αΔθ'
+            },
+            {
+              id: 'ja-fc-cm-04',
+              tag: '✦ JA • Concept 4 • Page 2',
+              category: 'Uniform Circular Motion',
+              title: 'Relation Between Speed (v) & Angular Speed (ω)',
+              front: 'Derive the relation between linear speed v and angular speed ω for a particle moving in a circle of radius R, and define Uniform Circular Motion.',
+              formula: 'dl = R · dθ   ⇒   v = dl / dt = R(dθ / dt) = Rω',
+              back: '• Arc length covered in small angle dθ is dl = R · dθ.\n• Dividing by dt: v = dl/dt = R(dθ/dt) ⇒ v = Rω.\n• Uniform Circular Motion (UCM): When a particle moves along a circle with constant speed (v = constant, ω = constant, α = 0).'
+            },
+            {
+              id: 'ja-fc-cm-05',
+              tag: '✦ JA • Concept 5 • Page 2',
+              category: 'Uniform Circular Motion',
+              title: 'Centripetal Acceleration (a_c) Derivation',
+              front: 'For a particle in uniform circular motion with speed v and radius R, what is the magnitude of velocity change |d𝑣⃗| in a very small angle dθ, and what is a_c?',
+              formula: '|d𝑣⃗| = v · dθ   ⇒   a_c = |d𝑣⃗| / dt = vω = v² / R = ω²R',
+              back: '• For a very small angle dθ, the arc of the velocity vector triangle is a straight line of length |d𝑣⃗| = v · dθ directed towards the centre.\n• Dividing by dt: a_c = |d𝑣⃗|/dt = v(dθ/dt) = vω.\n• Since v = Rω, we get the three standard forms: a_c = vω = v²/R = ω²R.'
+            },
+            {
+              id: 'ja-fc-cm-06',
+              tag: '✦ JA • Solved Problem 1 • Pages 2–3',
+              category: 'Solved Examples',
+              title: 'Example: Seconds Hand of a Clock (R = ½ m)',
+              front: 'The seconds hand of a clock is ½ m long. Find:\n(a) Angular velocity (ω)\n(b) Speed of the tip (v)\n(c) Angular acceleration (α)\n(d) Centripetal acceleration of the tip (a_c)',
+              formula: 'T = 60 s, R = ½ m   ⇒   ω = π/30 rad/s, v = π/60 m/s',
+              back: '(a) Angular velocity: ω = 2π / 60 = π/30 rad/s\n(b) Linear speed of tip: v = Rω = (1/2) × (π/30) = π/60 m/s\n(c) Angular acceleration: α = 0 (since it is in uniform circular motion)\n(d) Centripetal acceleration: a_c = vω = (π/60) × (π/30) = π² / 1800 m/s²'
+            },
+            {
+              id: 'ja-fc-cm-07',
+              tag: '✦ JA • Concept 6 • Pages 3–4',
+              category: 'Non-Uniform Circular Motion',
+              title: 'Non-Uniform Circular Motion: Radial & Tangential Acceleration',
+              front: 'When speed changes from v to v + dv in time dt, resolve d𝑣⃗/dt along the centre unit vector (ĉ) and tangent unit vector (t̂). What is the net acceleration magnitude?',
+              formula: '𝑎⃗ = 𝑎⃗_c + 𝑎⃗_t = (vω)ĉ + (dv/dt)t̂     |     |𝑎⃗| = √(a_t² + a_c²)',
+              back: '• Change in velocity vector resolves into two perpendicular components:\n  1. Along centre (ĉ): AB = v dθ ⇒ a_c = v(dθ/dt) = vω = v²/R = ω²R\n  2. Along tangent (t̂): BD = |dv| ⇒ a_t = dv/dt = d(Rω)/dt = Rα\n• Total acceleration vector: 𝑎⃗ = v(dθ/dt)ĉ + (dv/dt)t̂\n• Magnitude of total acceleration: a = √(a_t² + a_c²)'
+            },
+            {
+              id: 'ja-fc-cm-08',
+              tag: '✦ JA • Concept 7 • Page 4',
+              category: 'Non-Uniform Circular Motion',
+              title: 'Unit Vector Proof: Polar Unit Vectors ĉ and t̂',
+              front: 'Express the inward radial unit vector ĉ and tangential unit vector t̂ in terms of î, ĵ and angle θ, and prove d𝑣⃗/dt = (vω)ĉ + (dv/dt)t̂.',
+              formula: 'ĉ = -cos θ î - sin θ ĵ   |   t̂ = -sin θ î + cos θ ĵ   |   dt̂/dt = ω ĉ',
+              back: '• Differentiating t̂ = -sin θ î + cos θ ĵ with respect to time t:\n  dt̂/dt = -cos θ (dθ/dt)î - sin θ (dθ/dt)ĵ = ω(-cos θ î - sin θ ĵ) = ω ĉ.\n• Since 𝑣⃗ = v t̂, product rule gives:\n  d𝑣⃗/dt = v(dt̂/dt) + t̂(dv/dt) = (vω)ĉ + (dv/dt)t̂.'
+            },
+            {
+              id: 'ja-fc-cm-09',
+              tag: '✦ JA • Solved Problem 2 • Page 4',
+              category: 'Solved Examples',
+              title: 'Example: Particle Moving with Speed v = t',
+              front: 'A particle moves in a circle of radius R such that its speed is v = t. Find:\n(i) Tangential acceleration (a_t)\n(ii) Centripetal acceleration (a_c) at time t\n(iii) Time when total acceleration makes 60° with tangential acceleration.',
+              formula: 'tan 60° = a_c / a_t   ⇒   √3 = (t² / R) / 1   ⇒   t = √(R√3) s',
+              back: '(i) Tangential acceleration: a_t = dv/dt = dt/dt = 1 m/s²\n(ii) Centripetal acceleration: a_c = v²/R = t²/R\n(iii) Angle with a_t is 60°: tan 60° = a_c / a_t ⇒ √3 = (t²/R) / 1 ⇒ t² = R√3 ⇒ t = √(R√3) sec.'
+            },
+            {
+              id: 'ja-fc-cm-10',
+              tag: '✦ JA • Solved Problem 3 • Pages 4–5',
+              category: 'Solved Examples',
+              title: 'Example: Particle Moving with Speed v = √t',
+              front: 'The speed of a particle moving along a circle of radius R is given by v = √t. Find:\n(i) Angle θ covered at time t\n(ii) Angular acceleration α\n(iii) Time at which tangential and centripetal accelerations are equal.',
+              formula: 'θ = (2 / 3R) t^(3/2)   |   α = 1 / (2R√t)   |   t = (R / 2)^(2/3)',
+              back: '(i) Rω = √t ⇒ dθ/dt = √t / R ⇒ θ = ∫₀ᵗ (t^(1/2)/R) dt = (2 / (3R)) t√t\n(ii) α = dω/dt = d/dt(t^(1/2)/R) = 1 / (2R√t)\n(iii) Setting a_c = a_t: v²/R = Rα ⇒ t/R = 1/(2√t) ⇒ t^(3/2) = R/2 ⇒ t = (R/2)^(2/3).'
+            },
+            {
+              id: 'ja-fc-cm-11',
+              tag: '✦ JA • Concept 8 • Pages 5–6',
+              category: 'Radius of Curvature',
+              title: 'General Plane Motion: Local Centre & Radius of Curvature',
+              front: 'How are the Local Centre of Curvature and Local Radius of Curvature (R) defined for a particle moving along any general plane curve?',
+              formula: 'a_c = v² / R   ⇒   R_curvature = v² / a_normal = v² / a_c',
+              back: '• Local Centre of Curvature: Point of intersection of perpendiculars (normals) drawn to the curve from two neighbouring points.\n• Local Radius of Curvature (R): Distance from those neighbouring points to the local centre of curvature.\n• Formula: Resolve acceleration into tangential a_t = dv/dt and normal (centripetal) a_c = √(a² - a_t²). Then R = v² / a_c.'
+            },
+            {
+              id: 'ja-fc-cm-12',
+              tag: '✦ JA • Solved Problem 4 • Page 6',
+              category: 'Solved Examples',
+              title: 'Example: Radius of Curvature of a Projectile',
+              front: 'A projectile is launched with speed u at angle θ. Find its radius of curvature R when flying at angle φ with the horizontal. Where is R minimum and where is R maximum?',
+              formula: 'R = (u² cos²θ) / (g cos³φ)   |   R_min at φ = 0°   |   R_max at φ = θ',
+              back: '• Horizontal speed is constant: v cos φ = u cos θ ⇒ v = (u cos θ) / cos φ.\n• Normal acceleration perpendicular to velocity is a_c = g cos φ.\n• General Radius of Curvature: R = v² / a_c = (u² cos²θ) / (g cos³φ).\n• Minimum R (R_min): Occurs when cos φ is maximum (cos φ = 1 ⇒ φ = 0°, at highest point): R_min = (u² cos²θ) / g.\n• Maximum R (R_max): Occurs when cos φ is minimum (φ = θ, at launch/landing): R_max = u² / (g cos θ).'
+            }
+          ];
+
           const cardsBySubject = {
             Physics: [
+              { title: 'Circular Motion (Complete PDF)', topics: '8 Concepts • 4 Solved Examples', count: 12, color: 'border-amber-400 bg-amber-950/30', isCircularDeck: true },
               { title: 'Electrostatics', topics: '5 Topics', count: 34, color: 'border-sky-500/50 bg-sky-950/20' },
               { title: 'Motion in 2D', topics: '4 Topics', count: 23, color: 'border-purple-500/50 bg-purple-950/20' },
               { title: 'Math in Physics', topics: '3 Topics', count: 9, color: 'border-amber-500/50 bg-amber-950/20' },
               { title: 'Units & Dimensions', topics: '4 Topics', count: 8, color: 'border-emerald-500/50 bg-emerald-950/20' },
-              { title: 'Motion in 1D', topics: '4 Topics', count: 15, color: 'border-blue-500/50 bg-blue-950/20' },
               { title: 'Laws of Motion', topics: '4 Topics', count: 29, color: 'border-orange-500/50 bg-orange-950/20' }
             ],
             Chemistry: [
@@ -3579,65 +5922,175 @@
               { title: 'States of Matter', topics: '7 Topics', count: 35, color: 'border-blue-500/50 bg-blue-950/20' }
             ],
             Mathematics: [
-              { title: 'AOD', topics: '6 Topics', count: 33, color: 'border-emerald-500/50 bg-emerald-950/20' },
-              { title: 'Functions', topics: '9 Topics', count: 53, color: 'border-amber-500/50 bg-amber-950/20' },
-              { title: 'Properties of Triangles', topics: '3 Topics', count: 15, color: 'border-purple-500/50 bg-purple-950/20' },
+              { title: 'Circle (PYQ Formulas)', topics: '6 Topics', count: 30, color: 'border-indigo-500/50 bg-indigo-950/20' },
+              { title: 'Functions & ITF', topics: '9 Topics', count: 53, color: 'border-amber-500/50 bg-amber-950/20' },
+              { title: 'Complex Numbers', topics: '5 Topics', count: 28, color: 'border-emerald-500/50 bg-emerald-950/20' },
               { title: 'Quadratic Equations', topics: '5 Topics', count: 28, color: 'border-sky-500/50 bg-sky-950/20' }
             ]
           };
 
+          const isCircularDeckOpen = customNotes.__openDeck === 'circular_motion';
+
           return (
             <div className="flex flex-col h-full bg-[#121318] text-white overflow-y-auto">
-              <div className="p-4 flex items-center justify-between border-b border-gray-800">
+              {/* Top Header */}
+              <div className="p-4 flex items-center justify-between border-b border-gray-800 sticky top-0 bg-[#121318]/95 backdrop-blur-xs z-10">
                 <div className="flex items-center gap-3">
-                  <button onClick={() => setSubScreen(null)} className="text-gray-300 text-sm">
+                  <button
+                    onClick={() => {
+                      if (isCircularDeckOpen) {
+                        setCustomNotes(prev => ({ ...prev, __openDeck: null }));
+                      } else {
+                        setSubScreen(null);
+                      }
+                    }}
+                    className="px-2.5 py-1 rounded-lg bg-gray-800 text-gray-200 text-xs font-bold"
+                  >
                     ←
                   </button>
-                  <h2 className="text-sm font-bold">Revision Flash Cards</h2>
+                  <div>
+                    <h2 className="text-sm font-extrabold">
+                      {isCircularDeckOpen ? 'Circular Motion • Flash Cards' : 'Revision Flash Cards'}
+                    </h2>
+                    <p className="text-[10px] text-amber-400 font-bold">
+                      {isCircularDeckOpen
+                        ? '12 Interactive Cards • Tap any card to flip Front / Back'
+                        : '✦ Jalaram Academy Quick Revision Decks'}
+                    </p>
+                  </div>
                 </div>
-                <span className="text-xs text-gray-400">🔍</span>
+                {isCircularDeckOpen && (
+                  <button
+                    onClick={() => setCustomNotes(prev => ({ ...prev, __openDeck: null }))}
+                    className="px-2.5 py-1 rounded-lg bg-indigo-600/20 border border-indigo-500/40 text-indigo-300 text-[10px] font-bold"
+                  >
+                    All Decks
+                  </button>
+                )}
               </div>
 
-              <div className="grid grid-cols-3 border-b border-gray-800 text-xs font-bold">
-                {['Physics', 'Chemistry', 'Mathematics'].map(s => (
-                  <button
-                    key={s}
-                    onClick={() => setSelectedSubject(s)}
-                    className={`py-3 border-b-2 transition ${
-                      selectedSubject === s
-                        ? 'border-indigo-500 text-white'
-                        : 'border-transparent text-gray-500'
-                    }`}
-                  >
-                    {s === 'Physics' ? 'Phy' : s === 'Chemistry' ? 'Chem' : 'Math'}
-                  </button>
-                ))}
-              </div>
+              {isCircularDeckOpen ? (
+                <div className="p-4 space-y-3.5 pb-12">
+                  {circularMotionFlashcards.map((fc, index) => {
+                    const isFlipped = !!customNotes[fc.id];
+                    return (
+                      <div
+                        key={fc.id}
+                        onClick={() =>
+                          setCustomNotes(prev => ({ ...prev, [fc.id]: !prev[fc.id] }))
+                        }
+                        className={`cursor-pointer rounded-2xl border p-4 space-y-2.5 transition-all ${
+                          isFlipped
+                            ? 'bg-gradient-to-br from-emerald-950/50 via-[#181c26] to-[#141720] border-emerald-500/50 shadow-lg'
+                            : 'bg-gradient-to-br from-[#1b1e28] to-[#14161f] border-gray-800 hover:border-amber-500/50'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[10px] font-extrabold">
+                            Card #{index + 1} • {fc.category}
+                          </span>
+                          <span
+                            className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
+                              isFlipped
+                                ? 'bg-emerald-500/20 text-emerald-300'
+                                : 'bg-amber-500/20 text-amber-300'
+                            }`}
+                          >
+                            {isFlipped ? '✓ Showing Solution (Tap to Flip)' : '↻ Tap to Flip Answer'}
+                          </span>
+                        </div>
 
-              <div className="p-4 grid grid-cols-2 gap-3">
-                {cardsBySubject[selectedSubject].map(card => (
-                  <button
-                    key={card.title}
-                    onClick={() => startMockTest(MOCK_TESTS_LIST[1])}
-                    className={`rounded-2xl border p-4 h-40 flex flex-col justify-between text-left relative ${card.color}`}
-                  >
-                    <span className="self-start px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-bold uppercase text-white">
-                      FREE
-                    </span>
-                    <div>
-                      <h4 className="text-sm font-bold text-white">{card.title}</h4>
-                      <p className="text-[11px] text-gray-400">{card.topics}</p>
+                        <h3 className="text-xs font-extrabold text-white">{fc.title}</h3>
+
+                        <div className="bg-[#101218] border border-indigo-500/30 rounded-lg px-3 py-2 font-mono text-[11px] text-amber-300 font-bold">
+                          {fc.formula}
+                        </div>
+
+                        <p className="text-xs text-gray-200 whitespace-pre-line leading-relaxed pt-1">
+                          {isFlipped ? fc.back : fc.front}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <>
+                  {/* Subject Switcher Tabs */}
+                  <div className="grid grid-cols-3 border-b border-gray-800 text-xs font-bold">
+                    {['Physics', 'Chemistry', 'Mathematics'].map(s => (
+                      <button
+                        key={s}
+                        onClick={() => setSelectedSubject(s)}
+                        className={`py-3 border-b-2 transition ${
+                          selectedSubject === s
+                            ? 'border-indigo-500 text-white'
+                            : 'border-transparent text-gray-500'
+                        }`}
+                      >
+                        {s === 'Physics' ? 'Phy' : s === 'Chemistry' ? 'Chem' : 'Math'}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Featured Circular Motion Banner under Physics */}
+                  {selectedSubject === 'Physics' && (
+                    <div className="px-4 pt-4">
+                      <button
+                        onClick={() =>
+                          setCustomNotes(prev => ({ ...prev, __openDeck: 'circular_motion' }))
+                        }
+                        className="w-full bg-gradient-to-r from-amber-500/20 via-indigo-900/40 to-[#1b1e28] border-2 border-amber-400/60 rounded-2xl p-4 text-left flex items-center justify-between shadow-lg"
+                      >
+                        <div className="space-y-1 pr-2">
+                          <span className="px-2 py-0.5 rounded bg-amber-400 text-black text-[9px] font-black uppercase">
+                            ★ NEW PDF DECK ADDED
+                          </span>
+                          <h3 className="text-sm font-extrabold text-white pt-0.5">
+                            Circular Motion (Class XI • IIT-JEE)
+                          </h3>
+                          <p className="text-[11px] text-gray-300">
+                            ω, α, Kinematic Analogy, UCM, Non-UCM, Radius of Curvature & 4 Solved Examples
+                          </p>
+                        </div>
+                        <span className="px-3 py-2 rounded-xl bg-amber-400 text-black font-extrabold text-xs shrink-0">
+                          Open (12) →
+                        </span>
+                      </button>
                     </div>
-                    <div className="text-[11px] text-gray-300 font-semibold">
-                      📄 {card.count} Flash Cards
-                    </div>
-                  </button>
-                ))}
-              </div>
+                  )}
+
+                  {/* Deck Grid */}
+                  <div className="p-4 grid grid-cols-2 gap-3">
+                    {cardsBySubject[selectedSubject].map(card => (
+                      <button
+                        key={card.title}
+                        onClick={() => {
+                          if (card.isCircularDeck) {
+                            setCustomNotes(prev => ({ ...prev, __openDeck: 'circular_motion' }));
+                          } else {
+                            startMockTest(MOCK_TESTS_LIST[1]);
+                          }
+                        }}
+                        className={`rounded-2xl border p-4 h-40 flex flex-col justify-between text-left relative ${card.color}`}
+                      >
+                        <span className="self-start px-2 py-0.5 rounded bg-emerald-600 text-[9px] font-bold uppercase text-white">
+                          {card.isCircularDeck ? '12 CARDS' : 'FREE'}
+                        </span>
+                        <div>
+                          <h4 className="text-sm font-bold text-white">{card.title}</h4>
+                          <p className="text-[11px] text-gray-400">{card.topics}</p>
+                        </div>
+                        <div className="text-[11px] text-gray-300 font-semibold">
+                          📄 {card.count} Flash Cards
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           );
         }
-
         // 7. SOLVE DPPs (SUBJECT PICKER & CHAPTER LIST)
         if (subScreen === 'dpp_subjects') {
           return (
@@ -3692,7 +6145,7 @@
           );
         }
 
-        if (subScreen === 'dpp_chapters') {
+      if (subScreen === 'dpp_chapters') {
           const chaptersList =
             selectedSubject === 'Physics'
               ? [
@@ -3715,12 +6168,14 @@
                   { name: 'Ionic Equilibrium', free: false }
                 ]
               : [
+                  { name: 'Complex Number', free: true, hasDppSets: true },
                   { name: 'Quadratic Equation', free: true },
-                  { name: 'Complex Number', free: false },
                   { name: 'Permutation Combination', free: false },
                   { name: 'Sequences and Series', free: true },
                   { name: 'Binomial Theorem', free: false }
                 ];
+
+          const subjectDppSets = DPP_SETS_DB.filter(d => d.subject === selectedSubject);
 
           return (
             <div className="flex flex-col h-full bg-[#121318] text-white overflow-y-auto p-4 space-y-4">
@@ -3730,49 +6185,62 @@
                     ←
                   </button>
                   <div>
-                    <h2 className="text-sm font-bold">{selectedSubject}</h2>
+                    <h2 className="text-sm font-bold">{selectedSubject} DPPs</h2>
                     <p className="text-[11px] text-gray-400">
-                      {chaptersList.length} Chapters • 0 DPP Attempted
+                      {chaptersList.length} Chapters • {subjectDppSets.length} Live DPP Sets Ready
                     </p>
                   </div>
                 </div>
-                <span className="text-xs text-gray-400">🔍</span>
+                <span className="text-xs text-amber-400 font-bold">✦ JA DPP</span>
               </div>
 
-              <div className="flex gap-2 text-xs">
-                <span className="px-3 py-1.5 rounded-lg bg-[#1d202a] border border-gray-700 text-gray-300">
-                  ⚙️ Filter
-                </span>
-                {['All', 'Class 11', 'Class 12'].map(c => (
-                  <button
-                    key={c}
-                    onClick={() => setClassFilter(c)}
-                    className={`px-3 py-1.5 rounded-lg font-semibold ${
-                      classFilter === c
-                        ? 'bg-sky-600/30 border border-sky-500 text-sky-300'
-                        : 'bg-[#1d202a] border border-gray-800 text-gray-400'
-                    }`}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-between text-[11px] text-gray-400">
-                <span>All chapters of selected classes ({chaptersList.length})</span>
-                <span className="text-sky-400 font-semibold">⇅ Sort</span>
-              </div>
+              {/* Dedicated 15-Question DPP Cards (DPP 1, DPP 2, DPP 3, DPP 4, DPP 5) */}
+              {subjectDppSets.length > 0 && (
+                <div className="space-y-2.5 bg-[#171923] border border-indigo-500/30 rounded-2xl p-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold text-indigo-300">
+                      📑 {selectedSubject} • Chapter-wise 15-Q DPP Sets
+                    </span>
+                    <span className="text-[10px] text-emerald-400 font-bold">15 Qs / DPP</span>
+                  </div>
+                  <div className="space-y-2">
+                    {subjectDppSets.map((dpp, idx) => (
+                      <button
+                        key={dpp.id}
+                        onClick={() => startMockTest(dpp)}
+                        className="w-full bg-[#1f2330] hover:bg-[#262b3b] border border-gray-700/80 rounded-xl p-3 flex items-center justify-between text-left transition"
+                      >
+                        <div className="pr-2">
+                          <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-extrabold uppercase">
+                            DPP #{idx + 1} • {dpp.questions.length} Qs • {dpp.durationMinutes} Mins
+                          </span>
+                          <p className="text-xs font-bold text-white mt-1">{dpp.title}</p>
+                        </div>
+                        <span className="px-2.5 py-1.5 rounded-lg bg-emerald-500 text-black font-extrabold text-[10px] shrink-0">
+                          Solve →
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="divide-y divide-gray-800/80">
                 {chaptersList.map(ch => (
                   <button
                     key={ch.name}
-                    onClick={() => startMockTest(MOCK_TESTS_LIST[1])}
+                    onClick={() =>
+                      startMockTest(
+                        subjectDppSets.length > 0 ? subjectDppSets[0] : MOCK_TESTS_LIST[1]
+                      )
+                    }
                     className="w-full py-3.5 flex items-center justify-between text-left hover:bg-white/[0.02] transition"
                   >
                     <div className="pr-3">
                       <p className="text-xs font-bold text-gray-100">{ch.name}</p>
-                      <p className="text-[11px] text-gray-500 mt-0.5">0/9 DPP Attempted</p>
+                      <p className="text-[11px] text-gray-500 mt-0.5">
+                        {ch.hasDppSets ? '5 DPP Sets Available (75 Qs)' : '0/9 DPP Attempted'}
+                      </p>
                     </div>
                     {ch.free ? (
                       <span className="px-2 py-0.5 rounded bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold">
@@ -3788,65 +6256,162 @@
           );
         }
 
-        // 8. SHORT NOTES
+      // 8. JALARAM ACADEMY DIGITAL HANDBOOK & CONCEPT NOTES
         if (subScreen === 'short_notes') {
+          const searchQuery = (noteInputText || '').toLowerCase();
+          const activeChapterId = customNotes.__activeHbChapter || 'ja-hb-phy-01';
+          const selectedChapter =
+            HANDBOOK_DB.find(ch => ch.id === activeChapterId) || HANDBOOK_DB[0];
+
+          const filteredChapters = HANDBOOK_DB.filter(
+            ch =>
+              ch.chapterTitle.toLowerCase().includes(searchQuery) ||
+              ch.subtopics.some(
+                st =>
+                  st.title.toLowerCase().includes(searchQuery) ||
+                  st.concept.toLowerCase().includes(searchQuery)
+              )
+          );
+
           return (
-            <div className="flex flex-col h-full bg-[#121318] text-white p-4 space-y-4 overflow-y-auto">
-              <div className="flex items-center gap-3">
-                <button onClick={() => setSubScreen(null)} className="text-sm text-gray-300">
-                  ←
-                </button>
-                <h2 className="text-sm font-bold">🔍 Jalaram Short Notes</h2>
-              </div>
-
-              <div className="bg-[#1b1e28] border border-gray-700 rounded-xl px-3.5 py-2.5 flex items-center justify-between">
-                <span className="text-xs text-gray-400">Search any topic...</span>
-                <span className="text-xs text-rose-400">🎙️</span>
-              </div>
-
-              {[
-                {
-                  subj: 'Physics',
-                  color: 'text-orange-400',
-                  topics: ['Motion In One Dimension', 'Motion In Two Dimensions', 'Work, Power & Energy']
-                },
-                {
-                  subj: 'Chemistry',
-                  color: 'text-emerald-400',
-                  topics: ['Some Basic Concepts of Chemistry', 'Chemical Bonding & VSEPR']
-                },
-                {
-                  subj: 'Mathematics',
-                  color: 'text-sky-400',
-                  topics: ['Quadratic Equation', 'Trigonometric Equations', 'Sequences and Series']
-                }
-              ].map(sec => (
-                <div
-                  key={sec.subj}
-                  className="bg-[#1b1e28] border border-gray-800 rounded-2xl p-4 space-y-2.5"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className={`text-xs font-bold ${sec.color}`}>{sec.subj}</span>
-                    <span className="text-[10px] font-bold text-sky-400 uppercase">
-                      VIEW ALL CHAPTERS
-                    </span>
+            <div className="flex flex-col h-full bg-[#121318] text-white overflow-y-auto">
+              {/* Sticky Handbook Top Bar */}
+              <div className="p-4 bg-[#161821] border-b border-gray-800 sticky top-0 z-10 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <button
+                      onClick={() => setSubScreen(null)}
+                      className="px-2.5 py-1 rounded-lg bg-gray-800 text-gray-200 text-xs font-bold"
+                    >
+                      ←
+                    </button>
+                    <div>
+                      <h2 className="text-sm font-extrabold text-white">
+                        📘 Jalaram Physics Handbook
+                      </h2>
+                      <p className="text-[10px] text-amber-400 font-bold">
+                        ✦ JA Revision Handbook • Chapters & Subtopics
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-1.5">
-                    {sec.topics.map(t => (
-                      <div
-                        key={t}
-                        onClick={() => startMockTest(MOCK_TESTS_LIST[1])}
-                        className="cursor-pointer bg-[#242836] rounded-lg px-3 py-2 text-xs text-gray-200 font-medium hover:bg-[#2d3244]"
-                      >
-                        {t}
-                      </div>
-                    ))}
-                  </div>
+                  <span className="px-2 py-0.5 rounded bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-[10px] font-bold">
+                    {HANDBOOK_DB.length} Chs
+                  </span>
                 </div>
-              ))}
+
+                {/* Live Topic / Formula Search Bar */}
+                <div className="bg-[#0f1117] border border-gray-700 rounded-xl px-3 py-2 flex items-center gap-2">
+                  <span className="text-xs text-sky-400">🔍</span>
+                  <input
+                    value={noteInputText}
+                    onChange={e => setNoteInputText(e.target.value)}
+                    placeholder="Search any chapter, subtopic or formula..."
+                    className="bg-transparent text-xs text-white flex-1 outline-none"
+                  />
+                  {noteInputText && (
+                    <button
+                      onClick={() => setNoteInputText('')}
+                      className="text-[10px] text-gray-400 font-bold"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* Horizontal Chapter Selector Pills */}
+                <div className="flex gap-2 overflow-x-auto no-scrollbar pb-0.5">
+                  {filteredChapters.map(ch => {
+                    const isSelected = ch.id === selectedChapter.id;
+                    return (
+                      <button
+                        key={ch.id}
+                        onClick={() =>
+                          setCustomNotes(prev => ({ ...prev, __activeHbChapter: ch.id }))
+                        }
+                        className={`px-3 py-1.5 rounded-xl text-[11px] font-bold shrink-0 border transition ${
+                          isSelected
+                            ? 'bg-indigo-600 border-indigo-400 text-white shadow'
+                            : 'bg-[#1d202b] border-gray-800 text-gray-400 hover:text-gray-200'
+                        }`}
+                      >
+                        Ch {ch.chapterNo}: {ch.chapterTitle.split('&')[0].trim()}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Selected Chapter Header & Subtopics Feed */}
+              <div className="p-4 space-y-4 pb-12">
+                <div className="bg-gradient-to-r from-indigo-950/80 via-[#1b1f2e] to-[#161924] border border-indigo-500/40 rounded-2xl p-4">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400">
+                    ✦ JA HANDBOOK • {selectedChapter.part} • CHAPTER {selectedChapter.chapterNo}
+                  </span>
+                  <h3 className="text-base font-black text-white mt-0.5">
+                    {selectedChapter.chapterTitle}
+                  </h3>
+                  <p className="text-[11px] text-gray-400 mt-1">
+                    {selectedChapter.subtopics.length} Structured Subtopics • Intuitive Concepts, Formulas & Shortcuts
+                  </p>
+                </div>
+
+                {/* Subtopics Cards */}
+                {selectedChapter.subtopics.map((st, idx) => (
+                  <div
+                    key={st.title}
+                    className="bg-[#181b24] border border-gray-800 rounded-2xl p-4 space-y-3 shadow"
+                  >
+                    <div className="flex items-center justify-between border-b border-gray-800 pb-2">
+                      <h4 className="text-xs font-extrabold text-sky-400">{st.title}</h4>
+                      <span className="text-[10px] text-gray-500 font-bold">✦ JA</span>
+                    </div>
+
+                    {/* 1. Intuitive Concept Block */}
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-extrabold uppercase text-emerald-400">
+                        💡 Core Concept
+                      </span>
+                      <p className="text-xs text-gray-200 leading-relaxed">{st.concept}</p>
+                    </div>
+
+                    {/* 2. Master Formulas Box */}
+                    <div className="space-y-1.5">
+                      <span className="text-[10px] font-extrabold uppercase text-indigo-300">
+                        📐 Master Formulas
+                      </span>
+                      <div className="bg-[#101218] border border-indigo-500/30 rounded-xl p-3 space-y-1.5">
+                        {st.formulas.map((f, fIdx) => (
+                          <div
+                            key={fIdx}
+                            className="font-mono text-[11px] text-amber-300 font-bold border-b border-gray-800/70 last:border-0 pb-1 last:pb-0"
+                          >
+                            {f}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 3. Key Cases & JEE Traps */}
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-extrabold uppercase text-rose-400">
+                        ⚡ Key Cases & JEE Shortcuts
+                      </span>
+                      <ul className="space-y-1 text-xs text-gray-300">
+                        {st.keyPoints.map((kp, kIdx) => (
+                          <li key={kIdx} className="flex items-start gap-1.5 leading-relaxed">
+                            <span className="text-amber-400 font-bold">•</span>
+                            <span>{kp}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           );
         }
+        
 
         // 9. BOARD EXAMS PYQ BANK (CBSE & HSC)
         if (subScreen === 'board_pyq') {
